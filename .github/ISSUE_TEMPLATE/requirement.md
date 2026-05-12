@@ -2,7 +2,7 @@
 name: Requirement
 about: 要件定義タスク
 title: "[Requirement] "
-labels: ["type:requirement"]
+labels: ["type: requirements", "phase: 1-requirements", "ai: codex-assisted"]
 assignees: []
 ---
 
@@ -33,3 +33,4 @@ assignees: []
 - 関連機能領域: 
 - マイルストーン: 
 - 優先度: 
+- Project: RouteGarage Development
