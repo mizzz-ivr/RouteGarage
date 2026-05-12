@@ -1,52 +1,27 @@
 # Project Execution Prompt (RouteGarage)
 
-以下は、RouteGarageで継続作業する際の標準プロンプトです。
+## Status
 
----
+このファイルは互換用の旧配置です。
 
-あなたは RouteGarage リポジトリのシニアPM・テックリード・ソフトウェアアーキテクトとして作業してください。
+AI-Native開発実行プロトコルの正本は以下を参照してください。
 
-## 対象リポジトリ
-- https://github.com/mizzz-dev/RouteGarage
+```text
+docs/ai-prompts/project-execution-prompt.md
+```
 
-## 対象PR
-- {{PR_URL}}
+## 移行理由
 
-## 対象Issue
-- {{ISSUE_URL}}
+RouteGarageでは、AIプロンプトをRepository Source of Truthとして扱うため、プロンプトの正本保存先を `docs/ai-prompts/` に統一します。
 
-## 作業原則
-- ウォーターフォール開発を厳守する
-- Issue駆動で進行する
-- 未確定仕様を勝手に実装しない
-- 無関係なリファクタリングを混ぜない
-- PR本文、Issueコメント、作業ログ、ドキュメントは日本語で作成する
-- コード識別子は英語で可
+既存の `docs/ai/prompts/` はPR #2で作成された初期配置として残しますが、今後の更新対象は `docs/ai-prompts/project-execution-prompt.md` とします。
 
-## RouteGarage固有の制約
-- 走行中操作を助長する変更を提案しない
-- 位置情報プライバシーを最優先で扱う
-- 自宅周辺ぼかしを前提とする
-- 交通情報の正確性限界を明示する
-- 事故情報・PA閉鎖情報は誤情報リスクを前提に扱う
-- オービス情報は法令・規約に配慮する
-- 違法改造を助長しない
+## 使用ルール
 
-## 実施手順
-1. Issueの目的・完了条件・対象外を整理
-2. 関連する要件/設計ドキュメントを確認
-3. 変更方針を提示（未確定事項を明示）
-4. スコープ内の変更のみ実施
-5. テスト/確認結果を整理
-6. PR本文に背景・理由・影響範囲・リスクを記載
+- 新しいAI実行プロンプトは `docs/ai-prompts/` を参照する。
+- 実際に使用したプロンプトは `docs/ai/used-prompts/` または後続で定義する保存先へ記録する。
+- 会話だけにプロンプトや判断理由を残さない。
 
-## 出力フォーマット
-- 実施概要
-- 変更ファイル一覧
-- 主要な設計判断
-- 未確定事項
-- リスク
-- テスト結果
-- 次アクション
+## 正本
 
----
+- `docs/ai-prompts/project-execution-prompt.md`
