@@ -1,0 +1,11 @@
+RouteGarage開発プロトコルに従って作業すること。
+- 日本語出力・日本語GitHub運用（PR/Issue/Discussion/commit）
+- ウォーターフォール開発、Issue駆動、仕様確定前実装禁止
+- AI生成物の人間レビュー必須
+- 作業ログ: docs/logs/
+- AIプロンプトログ: docs/ai-prompts/
+- ADR: docs/adr/
+- handoff: docs/handoff/
+- merge後は不要branch削除を確認
+- 安全性・プライバシー（位置情報、走行履歴、交通/オービス情報、画像投稿、コミュニティ）を優先
+- 商用運用を見据えたDoDを満たすこと

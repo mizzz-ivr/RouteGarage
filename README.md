@@ -59,3 +59,29 @@ RouteGarage は、日本の車好き・ドライブユーザー向けに、ル�
 - 状態: **プロジェクト初期ドキュメント整備中**
 - 実装コード: なし（ドキュメント整備のみ）
 - 未確定事項: MVPスコープ詳細、技術スタック確定、データポリシー詳細
+
+## AI開発プロトコル
+
+RouteGarageでは、AIエージェントと人間が継続的に協調できるよう、
+AI-Native Development Protocol を導入しています。
+
+詳細は以下を参照してください。
+
+- docs/ai-protocol/README.md
+- docs/ai-protocol/PROMPT.md
+- docs/ai-protocol/routegarage-specific-policy.md
+
+### GitHub運用方針
+
+- PR本文は日本語
+- Issue本文・コメントは日本語
+- Discussion本文・コメントは日本語
+- commit messageは日本語
+- 作業ログはRepositoryへ保存
+- AIプロンプトログはRepositoryへ保存
+- 重要判断はADRへ保存
+
+### RouteGarage固有の重要方針
+
+RouteGarageは位置情報・走行情報・交通情報・車両情報を扱う可能性があるため、
+安全性・プライバシー・法令配慮を最優先します。
