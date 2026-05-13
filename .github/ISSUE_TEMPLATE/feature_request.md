@@ -2,7 +2,7 @@
 name: Feature Request
 about: 実装可能な機能開発タスク
 title: "[Feature] "
-labels: ["type:feature"]
+labels: ["type: frontend", "phase: 5-implementation", "ai: codex-assisted"]
 assignees: []
 ---
 
@@ -33,3 +33,4 @@ assignees: []
 - 関連Design: #
 - マイルストーン: 
 - 優先度: 
+- Project: RouteGarage Development

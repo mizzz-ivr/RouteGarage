@@ -2,7 +2,7 @@
 name: Design Task
 about: 設計タスク
 title: "[Design] "
-labels: ["type:design"]
+labels: ["type: design", "phase: 2-screen-design", "ai: codex-assisted"]
 assignees: []
 ---
 
@@ -33,3 +33,4 @@ assignees: []
 - 後続Feature: #
 - マイルストーン: 
 - 優先度: 
+- Project: RouteGarage Development
