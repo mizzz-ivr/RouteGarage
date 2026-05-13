@@ -2,7 +2,7 @@
 
 ## Version
 
-- Version: 1.0.0
+- Version: 1.1.0
 - Intended Use: RouteGarageのIssue/PR継続作業に使用する標準実行プロンプト
 - Last Updated: 2026-05-13
 
@@ -11,12 +11,38 @@
 | Version | Date | Summary |
 |---|---|---|
 | 1.0.0 | 2026-05-13 | Repository Source of Truth、ログ、ADR、AIプロンプト保存方針を含む初版 |
+| 1.1.0 | 2026-05-13 | 日本語出力ポリシー、Branch Lifecycle、PR/Commit/Security/Testing/Release/Repository Health規約を追加 |
 
 ## Known Limitations
 
 - 本プロンプトは実装を自動的に正当化しない。IssueとRepository Source of Truthの確認が必須。
 - 高リスク変更（secrets/auth/billing/infra/production config/migrations/deployment settings）は人間確認が必須。
-- 外部情報や法令・規約は最新確認が必要。
+- 外部情報、法令、規約、交通情報、オービス情報は最新確認が必要。
+
+---
+
+# 日本語出力ポリシー
+
+このプロジェクトにおける成果物、ログ、レポート、コメント、ドキュメント、Issue更新、PR更新、AI生成物は原則として日本語で出力する。
+
+対象:
+
+- 作業ログ
+- Issueコメント
+- PR説明
+- ドキュメント
+- ADR
+- レポート
+- AIプロンプト記録
+- テストレポート
+- handoff
+- incident report
+- release notes
+- root cause analysis
+- technical decision records
+- architecture explanation
+
+コード識別子、ライブラリ名、フレームワーク名、API名、型名、class/function名、protocol/standard名、commit messageは英語を許容する。
 
 ---
 
@@ -103,6 +129,8 @@ Current Status:
 | ADR | `docs/adr/` |
 | AI Prompts | `docs/ai-prompts/` |
 | Risk Register | `docs/risks/risks.md` |
+| API仕様 | `docs/api/` |
+| Runbook | `docs/runbooks/` |
 
 同一情報を複数箇所へ分散定義しない。重複する場合は正本を明記し、古い文書から誘導する。
 
@@ -177,6 +205,12 @@ Current Status:
 
 ---
 
+# Continuous Refactoring Rules
+
+機能追加時には命名改善、重複削除、責務整理、型改善、test改善、docs改善を検討する。ただしIssue範囲外の大規模変更は行わず、必要なら別Issue化する。
+
+---
+
 # AI Safety Constraints
 
 AIは以下を勝手に変更禁止。
@@ -190,6 +224,115 @@ AIは以下を勝手に変更禁止。
 - deployment settings
 
 高リスク変更は明示し、人間判断を要求する。
+
+---
+
+# PR / Commit Rules
+
+## Pull Request Rules
+
+PRには必ず以下を含める。
+
+- 背景
+- 目的
+- Issueリンク
+- 変更概要
+- 技術判断
+- 影響範囲
+- テスト結果
+- リスク
+- rollback方法
+- docs更新内容
+- ADR有無
+- breaking change有無
+- observability影響
+- security影響
+
+## Commit Rules
+
+- 小さく分割
+- 意図明確化
+- unrelated changes混在禁止
+- generated file混入注意
+- WIP commit放置禁止
+- 機械的変更と論理変更を分離
+
+commit messageは `type(scope): summary` を推奨する。
+
+---
+
+# Branch Lifecycle Rules
+
+PRがmergeされ、現在の作業branchが不要になった場合はbranch削除まで実施する。
+
+削除条件:
+
+- merge完了済み
+- rollback不要
+- 継続作業予定なし
+- 他Issueで利用予定なし
+
+削除前確認:
+
+- main/masterへの反映確認
+- CI成功確認
+- docs/logs保存確認
+- PR/Issue更新確認
+- handoff情報保存確認
+
+詳細は `docs/runbooks/branch-lifecycle.md` を参照する。
+
+---
+
+# Security / Reliability / Observability Rules
+
+変更時には以下を確認する。
+
+- secrets漏洩
+- hardcoded credentials
+- auth bypass
+- privilege escalation
+- injection risk
+- insecure logging
+- sensitive data exposure
+- unsafe dependency
+- logging / metrics / tracing / error visibility
+- retry safety / idempotency / timeout handling / graceful degradation
+
+障害調査できない実装、silent failure、障害隠蔽は禁止。
+
+---
+
+# Testing Rules
+
+テストでは以下を意識する。
+
+- critical path coverage
+- regression prevention
+- edge cases
+- failure scenarios
+- integration consistency
+- deterministic behavior
+
+happy pathだけのtestは禁止。
+
+---
+
+# Documentation / Incident / RCA Rules
+
+docsは最新状態、実装との一致、再現可能性、初見理解可能性、AI理解可能性を満たす。
+
+問題発生時は以下を記録する。
+
+- 発生時刻
+- 発生条件
+- 影響範囲
+- root cause
+- mitigation
+- permanent fix
+- 再発防止策
+
+対症療法で終わらせず、root cause、trigger、systemic issue、recurrence prevention、monitoring改善を確認する。
 
 ---
 
@@ -250,9 +393,35 @@ AIは以下を勝手に変更禁止。
 
 ---
 
+# Release / Environment / API Governance Rules
+
+release時はrelease notes、breaking changes、migration手順、rollback手順、known issues、deploy順序、config差分、monitoring、post-release verificationを整理する。
+
+環境変数追加時は `.env.example`、docs、required/optional、default behavior、security impactを更新する。
+
+API変更時はcompatibility、versioning必要性、schema impact、downstream影響、error contract、retry safety、idempotencyを整理する。
+
+---
+
+# Repository Health Rules
+
+定期的に以下を確認する。
+
+- obsolete branches
+- stale docs
+- duplicated files
+- dead dependencies
+- inconsistent naming
+- abandoned TODOs
+- broken scripts
+
+Repository腐敗を蓄積しない。
+
+---
+
 # Definition of Done
 
-以下を全て満たして初めて完了。
+以下を満たして初めて完了。
 
 - 実装または文書更新完了
 - testまたは妥当な確認完了
@@ -268,10 +437,49 @@ AIは以下を勝手に変更禁止。
 
 ---
 
+# Final Verification Checklist
+
+## Code Quality
+
+- [ ] lint成功
+- [ ] typecheck成功
+- [ ] tests成功
+- [ ] dead codeなし
+- [ ] duplicate logicなし
+
+## Documentation
+
+- [ ] docs更新済み
+- [ ] logs更新済み
+- [ ] ADR更新済みまたは不要理由明記
+- [ ] AI prompts保存済み
+
+## Git
+
+- [ ] branch整理済み、または未整理理由を明記
+- [ ] PR更新済み
+- [ ] Issue更新済み
+- [ ] 不要branch削除済み、または削除待ち理由を明記
+
+## Operational
+
+- [ ] rollback確認済み
+- [ ] monitoring考慮済み
+- [ ] observability確認済み
+- [ ] security確認済み
+
+## Handoff
+
+- [ ] 次アクション記録済み
+- [ ] blockers記録済み
+- [ ] restart手順記録済み
+- [ ] context保存済み
+
+---
+
 # Final Output Policy
 
-会話上でも結果を出力する。
-ただし、最終的な正本(Source of Truth)は必ずRepository内ドキュメントとする。
+会話上でも結果を出力する。ただし、最終的な正本(Source of Truth)は必ずRepository内ドキュメントとする。
 
 ---
 
@@ -319,5 +527,23 @@ AIは以下を勝手に変更禁止。
 ## Agent Handoff
 - 次担当向け引き継ぎ
 
+## Branch Cleanup
+- branch削除有無
+- 削除対象
+- 削除理由
+- rollback必要性確認結果
+
 ## Suggested Next Actions
 - 次にやるべき作業
+
+---
+
+# System Philosophy
+
+Repository = Shared Organizational Memory
+
+AI = Replaceable Execution Layer
+
+Human = Strategic Decision Layer
+
+全ての変更は、この思想と整合すること。
