@@ -6,9 +6,9 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
-### Issue #3: AI-Native開発プロトコルとRepository Source of Truthを整備する
+### Issue #5: AI-Native開発プロトコル完全版と日本語出力ポリシーを反映する
 
-- URL: https://github.com/mizzz-dev/RouteGarage/issues/3
+- URL: https://github.com/mizzz-dev/RouteGarage/issues/5
 - Status: In Progress
 - Phase: 0-project-setup
 - Area: project-management
@@ -17,18 +17,24 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 #### 目的
 
-PR #2 / Issue #1で追加された初期ドキュメントを踏まえ、Mystic-Aurora AI-Native Development Execution ProtocolをRepository Source of Truthとして反映する。
+Issue #3 / PR #4 で整備したAI-Native開発プロトコルに対して、完全版として提示された日本語出力ポリシー、Branch Lifecycle、PR/Commit/Security/Testing/Observability/Release/Environment/API/Logging/Monitoring/Reliability/RCA/Technical Debt/Repository Health などの運用ルールをRepositoryの正本へ反映する。
 
 #### 完了条件
 
-- Source of Truth配置ルールが明文化されている
-- `docs/current-status.md` と `docs/active-issues.md` で現在状態を把握できる
-- `docs/04_output_policy.md` に最終出力保存ルールが明記されている
-- `docs/risks/risks.md` に重大リスクが整理されている
-- ADRとして正本配置の判断が記録されている
-- Issueテンプレートのラベル名が実在ラベル体系と整合している
+- 全成果物を日本語中心で作成する方針が正本に明記されている
+- 完全版プロトコルの主要ルールが `docs/ai-prompts/project-execution-prompt.md` に反映されている
+- Branch Lifecycle Rules がRepository内に保存されている
+- Final Output Format に Branch Cleanup が含まれている
+- `docs/current-status.md` と `docs/active-issues.md` が現在状態と一致している
+- 作業ログが `docs/logs/` に保存されている
 
 ## Recently Completed
+
+### Issue #3: AI-Native開発プロトコルとRepository Source of Truthを整備する
+
+- URL: https://github.com/mizzz-dev/RouteGarage/issues/3
+- Status: Completed
+- Related PR: https://github.com/mizzz-dev/RouteGarage/pull/4
 
 ### Issue #1: プロジェクト初期ドキュメントとAI開発運用ルールを整備する
 
