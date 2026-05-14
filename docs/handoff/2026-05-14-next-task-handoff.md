@@ -1,20 +1,19 @@
 # Handoff（2026-05-14）
 
 ## 対象
-- 完了作業: Issue #12 位置情報・走行履歴データポリシー定義（要件定義）
-- 次作業候補: 基本設計接続Issue群
+- 完了作業: Issue #16 PR #15 / Issue #14マージ後のSource of Truthステータス同期
+- 次作業候補: 高リスク領域の要件詳細化Issue起票
 
 ## 引き継ぎ内容
-1. `docs/policies/location-and-drive-log-data-policy.md` を正本として、DB/API/認証の基本設計Issueに入力する。
-2. 保持期間の具体値、ぼかし閾値、本人確認フロー、監査ログ保全期間は未確定として別Issueで確定する。
-3. 利用規約/プライバシーポリシーの文言化、削除依頼SLA、問い合わせ運用の設計Issueを新規作成する。
+1. `docs/current-status.md` と `docs/active-issues.md` はIssue #14・Issue #10完了反映済みの状態へ同期済み。
+2. Active Issueは一旦空のため、次は高リスク領域（位置情報/走行履歴、交通情報/オービス、画像投稿/コミュニティ）の要件Issueを優先順で起票する。
+3. 利用規約/プライバシーポリシー、問い合わせ導線、監査ログ運用要件は商用運用前提で別Issue化して確定する。
 
 ## 注意事項
-- 技術スタック未確定のため、実装前提の記述へ拡張しない。
-- 走行中操作抑止・公開初期値保守・自宅周辺推定リスク低減を優先順位最上位のまま維持する。
+- 技術スタックは未確定のまま維持し、仕様確定前の実装は行わない。
+- 高リスク領域の新仕様は、必ずIssue起点で合意後に文書化する。
+- Source of Truth更新漏れ（Activeに完了Issueが残る状態）を再発させない。
 
-
-## 追記（Issue #14対応後）
-- Source of Truth整合修正により、位置情報・走行履歴ポリシーの正本参照先はIssue #12へ統一。
-- branch cleanup: `docs/issue-14-source-of-truth-fix` はマージ後削除対象。
-- 次担当はIssue #14の人間レビュー完了後、基本設計接続Issue（DB/API/認証は設計Issue起票のみ）へ進行。
+## branch cleanup
+- `docs/issue-14-source-of-truth-fix`: PR #15マージ済みのため削除対象。
+- `docs/issue-10-mvp-screen-design`: Issue #10完了反映済み。削除可否はGitHub上のbranch保護設定を確認して実施。
