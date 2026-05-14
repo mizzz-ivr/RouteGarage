@@ -6,7 +6,7 @@
 - 開発フェーズ: Phase 1 / Requirements Definition（画面設計含む）
 - 開発手法: ウォーターフォール
 - 主なAI支援: Codex
-- 現在の主目的: Source of Truth（`docs/current-status.md` / `docs/active-issues.md`）をIssue #14・Issue #10完了後の状態へ同期し、後続の高リスク領域要件整理へ接続する
+- 現在の主目的: Issue #18として、走行中操作を助長しないUI/UX詳細方針を定義し、後続の画面詳細設計・基本設計へ引き継ぐ
 
 ## 完了済み
 
@@ -25,7 +25,7 @@
 
 ## 進行中
 
-- 該当なし（2026-05-14時点で、Source of Truth同期後の次Issue起票待ち）
+- Issue #18: 走行中操作を助長しないUI/UX詳細方針を定義する（docs作成・整合更新）
 
 ## 未完了
 

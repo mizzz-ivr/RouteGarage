@@ -1,19 +1,23 @@
-# Handoff（2026-05-14）
+# Handoff（2026-05-14 / Issue #18反映後）
 
 ## 対象
-- 完了作業: Issue #16 PR #15 / Issue #14マージ後のSource of Truthステータス同期
-- 次作業候補: 高リスク領域の要件詳細化Issue起票
+- 完了作業: Issue #18「走行中操作を助長しないUI/UX詳細方針の定義」ドキュメント化
+- 次作業候補: 画面詳細設計・法務/規約レビュー・運用設計への分割Issue化
 
 ## 引き継ぎ内容
-1. `docs/current-status.md` と `docs/active-issues.md` はIssue #14・Issue #10完了反映済みの状態へ同期済み。
-2. Active Issueは一旦空のため、次は高リスク領域（位置情報/走行履歴、交通情報/オービス、画像投稿/コミュニティ）の要件Issueを優先順で起票する。
-3. 利用規約/プライバシーポリシー、問い合わせ導線、監査ログ運用要件は商用運用前提で別Issue化して確定する。
+1. `docs/policies/driving-safety-ui-policy.md` を新規作成し、走行中禁止操作、停車中前提導線、誤認防止表示、判定未確定時の保守的方針を定義済み。
+2. `docs/current-status.md` / `docs/active-issues.md` はIssue #18進行状態に同期済み。
+3. 作業ログとAIプロンプトログを `docs/logs/` と `docs/ai-prompts/` に保存済み。
 
 ## 注意事項
-- 技術スタックは未確定のまま維持し、仕様確定前の実装は行わない。
-- 高リスク領域の新仕様は、必ずIssue起点で合意後に文書化する。
-- Source of Truth更新漏れ（Activeに完了Issueが残る状態）を再発させない。
+- 走行中判定アルゴリズムや技術実装は未確定のため、次フェーズでも断定実装しない。
+- 高リスク領域（位置情報、画像、交通/オービス、コミュニティ）は法務・運用レビュー前提で段階確定する。
+
+## 次アクション候補
+1. 画面詳細設計Issue: 画面ごとの無効状態UI、固定注意表示位置、遷移条件を確定。
+2. 法務/規約Issue: 免責文言・オービス表示表現・利用規約整合を確定。
+3. 運用設計Issue: 問い合わせテンプレート、監査ログ項目、事故時説明責任フローを確定。
 
 ## branch cleanup
-- `docs/issue-14-source-of-truth-fix`: PR #15マージ済みのため削除対象。
-- `docs/issue-10-mvp-screen-design`: Issue #10完了反映済み。削除可否はGitHub上のbranch保護設定を確認して実施。
+- 本作業branchはPRマージ後に削除対象。
+- 既存候補（`docs/issue-14-source-of-truth-fix`、`docs/issue-10-mvp-screen-design`）の削除可否はGitHub上で再確認する。

@@ -6,7 +6,10 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
-- 2026-05-14時点でActive Issueはなし（次の高リスク領域Issueを起票待ち）。
+- Issue #18: 走行中操作を助長しないUI/UX詳細方針を定義する
+  - URL: https://github.com/mizzz-dev/RouteGarage/issues/18
+  - Status: In Progress
+  - Scope: 走行中操作の禁止操作整理、停車中前提導線、投稿/画像/公開操作制限、交通/オービス誤認防止方針の文書化
 
 ## Recently Completed
 
