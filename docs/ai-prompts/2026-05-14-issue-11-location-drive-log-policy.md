@@ -1,8 +1,8 @@
-# AI Prompt Log: Issue #11 位置情報・走行履歴ポリシー定義
+# AI Prompt Log: Issue #12 位置情報・走行履歴ポリシー定義
 
 - 日付: 2026-05-14
 - 担当: Codex
-- 対象Issue: {{ISSUE_URL}}（URL未確定）
+- 対象Issue: https://github.com/mizzz-dev/RouteGarage/issues/12
 
 ## ユーザー指示（要約）
 - `docs/ai-protocol/PROMPT.txt` を最優先で遵守。

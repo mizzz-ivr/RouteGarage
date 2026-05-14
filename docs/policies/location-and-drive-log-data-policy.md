@@ -1,7 +1,8 @@
 # 位置情報・走行履歴データポリシー（MVP要件定義）
 
 - ドキュメント種別: 要件定義フェーズの方針文書（実装仕様ではない）
-- 対象Issue: Issue #11（位置情報・走行履歴ポリシー定義、URLは要更新）
+- 対象Issue: Issue #12（位置情報・走行履歴ポリシー定義）
+- Issue URL: https://github.com/mizzz-dev/RouteGarage/issues/12
 - 関連要件: `docs/requirements/mvp-requirements.md` の NFR-PRIV-01〜03、FR-DRIVE-01〜03
 - 目的: RouteGarageで扱う位置情報・走行履歴のプライバシーリスクを最小化し、後続の基本設計（DB/API/認証/運用）へ引き継ぐ判断基準を固定する
 
