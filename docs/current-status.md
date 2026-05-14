@@ -6,9 +6,12 @@
 - 開発フェーズ: Phase 1 / Requirements Definition（画面設計含む）
 - 開発手法: ウォーターフォール
 - 主なAI支援: Codex
-- 現在の主目的: Issue #11として位置情報・走行履歴データポリシーを定義し、後続の基本設計へ接続する
+- 現在の主目的: Issue #14としてSource of Truth上のIssue番号・URL不整合を修正し、Repository正本の整合性を回復する
 
 ## 完了済み
+
+- Issue #12: 位置情報・走行履歴データポリシーを定義する
+- PR #13: 位置情報・走行履歴データポリシー関連docsを追加・更新
 
 - Issue #1: プロジェクト初期ドキュメントとAI開発運用ルールを整備する
 - PR #2: 初期開発ドキュメント・AI運用方針とIssue/PRテンプレートを追加
@@ -19,8 +22,8 @@
 
 ## 進行中
 
-- Issue #11: 位置情報・走行履歴データポリシーを定義する
-- Branch: `docs/issue-11-location-drive-log-policy`
+- Issue #14: Source of Truth上のIssue番号・URL表記を整合する
+- Branch: `docs/issue-14-source-of-truth-fix`
 
 ## 未完了
 
@@ -50,7 +53,7 @@
 
 ## 次の優先作業
 
-1. Issue #11レビュー完了とポリシー凍結
-2. 位置情報ポリシーを入力にした基本設計Issue（DB/API/認証）作成
-3. 利用規約/プライバシーポリシー文言レビューIssueの作成
-4. 削除依頼・問い合わせ・監査ログ運用設計Issueの作成
+1. Issue #14で修正した正本docsの人間レビューを完了する
+2. 位置情報ポリシー（Issue #12完了）を入力にした基本設計Issue（DB/API/認証）を起票する
+3. 利用規約/プライバシーポリシー文言レビューIssueを起票する
+4. 削除依頼・問い合わせ・監査ログ運用設計Issueを起票する
