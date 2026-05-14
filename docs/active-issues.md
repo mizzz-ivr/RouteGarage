@@ -6,58 +6,26 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
+- 2026-05-14時点でActive Issueはなし（次の高リスク領域Issueを起票待ち）。
+
+## Recently Completed
+
 ### Issue #14: Source of Truth上のIssue番号・URL表記を整合する
 
 - URL: https://github.com/mizzz-dev/RouteGarage/issues/14
-- Status: In Progress
-- Phase: 1-requirements-definition
-- Area: privacy / safety / policy
-- Priority: high
-- Assignee: mizzz-dev
-
-#### 目的
-
-PR #13で追加・更新された位置情報・走行履歴データポリシー関連docsのIssue番号・URL・現在状態の不整合を修正し、Repository Source of Truthを正しい状態へ整合する。
-
-#### 完了条件
-
-- `docs/policies/location-and-drive-log-data-policy.md` の対象Issue表記がIssue #12へ整合している
-- `docs/logs/` と `docs/ai-prompts/` のIssue番号・URL表記がIssue #12へ整合している
-- `docs/current-status.md` と `docs/active-issues.md` がIssue #12完了後 / Issue #14進行中の状態になっている
-- 未置換のIssue URLプレースホルダーが残っていない
-- branch cleanupの削除または保留理由が記録されている
+- Status: Completed
+- Related PR: https://github.com/mizzz-dev/RouteGarage/pull/15
 
 ### Issue #10: RouteGarage MVP画面一覧・画面遷移を定義する
 
 - URL: https://github.com/mizzz-dev/RouteGarage/issues/10
-- Status: In Progress
-- Phase: 1-requirements-definition
-- Area: product-design / screen-design
-- Priority: high
-- Assignee: mizzz-dev
-
-#### 目的
-
-MVP要件定義（Issue #8）を根拠として、初回リリースに必要な画面一覧、画面遷移、主要導線、画面責務を確定し、後続の基本設計Issueへ接続する。
-
-#### 完了条件
-
-- `docs/screen-design/screen-list.md` が作成されている
-- `docs/screen-design/screen-flow.md` が作成されている
-- 走行中操作を防ぐ画面方針が明記されている
-- 位置情報/走行履歴/画像投稿/コミュニティ投稿のプライバシー配慮が画面単位で整理されている
-- 交通情報/オービス情報が参考情報であることを誤認しない表示方針になっている
-- `docs/logs/` と `docs/ai-prompts/` に作業記録が保存されている
-- `docs/current-status.md` と `docs/active-issues.md` が更新されている
-
-## Recently Completed
+- Status: Completed
 
 ### Issue #12: 位置情報・走行履歴データポリシーを定義する
 
 - URL: https://github.com/mizzz-dev/RouteGarage/issues/12
 - Status: Completed
 - Related PR: https://github.com/mizzz-dev/RouteGarage/pull/13
-
 
 ### Issue #8: RouteGarage MVP要件定義を作成する
 
@@ -81,13 +49,13 @@ MVP要件定義（Issue #8）を根拠として、初回リリースに必要な
 - Status: Completed
 - Related PR: https://github.com/mizzz-dev/RouteGarage/pull/2
 
-## Upcoming Candidates
+## Upcoming Candidates（高リスク領域優先）
 
-- RouteGarage基本アーキテクチャを設計する
-- ナビ・交通情報・オービス情報の法務/規約観点レビューを行う
-- 位置情報プライバシーと自宅周辺ぼかし方針を設計する
-- 画像投稿モデレーション運用設計を行う
-- 監査ログ要件の定義を行う
+1. 位置情報・走行履歴の公開制御/保持期間/削除導線の要件詳細化
+2. 交通情報・オービス情報の正確性限界表示と法令/規約適合レビュー
+3. 画像投稿・コミュニティ機能のモデレーション/通報/権利侵害対応要件
+4. 利用規約・プライバシーポリシー・問い合わせ導線・監査ログ運用要件
+5. 基本設計接続（DB/API/認証は要件確定後に設計Issueとして分離）
 
 ## 更新ルール
 
