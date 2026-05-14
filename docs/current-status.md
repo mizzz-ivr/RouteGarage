@@ -6,16 +6,17 @@
 - 開発フェーズ: Phase 1 / Requirements Definition（画面設計含む）
 - 開発手法: ウォーターフォール
 - 主なAI支援: Codex
-- 現在の主目的: Issue #18として、走行中操作を助長しないUI/UX詳細方針を定義し、後続の画面詳細設計・基本設計へ引き継ぐ
+- 現在の主目的: Issue #20として、PR #19 / Issue #18 完了後のSource of Truthステータス整合を実施し、次の高リスク領域Issueへ安全に接続する
 
 ## 完了済み
 
+- Issue #18: 走行中操作を助長しないUI/UX詳細方針を定義する
+- PR #19: 走行安全UI/UX方針の文書化とSource of Truth更新
 - Issue #14: Source of Truth上のIssue番号・URL表記を整合する
 - PR #15: Source of Truth docsのIssue番号・URL表記不整合を修正
 - Issue #12: 位置情報・走行履歴データポリシーを定義する
 - PR #13: 位置情報・走行履歴データポリシー関連docsを追加・更新
 - Issue #10: RouteGarage MVP画面一覧・画面遷移を定義する
-
 - Issue #1: プロジェクト初期ドキュメントとAI開発運用ルールを整備する
 - PR #2: 初期開発ドキュメント・AI運用方針とIssue/PRテンプレートを追加
 - Issue #3: AI-Native開発プロトコルとRepository Source of Truthを整備する
@@ -25,7 +26,7 @@
 
 ## 進行中
 
-- Issue #18: 走行中操作を助長しないUI/UX詳細方針を定義する（docs作成・整合更新）
+- Issue #20: PR #19 / Issue #18 マージ後のSource of Truthステータス同期
 
 ## 未完了
 
@@ -55,7 +56,7 @@
 
 ## 次の優先作業
 
-1. 高リスク領域の次Issue候補を優先度順に起票する（位置情報/走行履歴、交通情報/オービス、画像投稿/コミュニティ）。
+1. 高リスク領域Issue候補を優先度順に精査し、Issue化する（位置情報/走行履歴、交通情報/オービス、画像投稿/コミュニティ）。
 2. 利用規約/プライバシーポリシー文言レビューIssueを起票する。
 3. 削除依頼・問い合わせ・監査ログ運用設計Issueを起票する。
-4. branch cleanupとして、マージ済み作業branch（`docs/issue-14-source-of-truth-fix`、`docs/issue-10-mvp-screen-design`）の削除可否を確認し記録する。
+4. branch cleanupとして、PR #19に対応する作業branchの削除可否を確認し、削除または保留理由を記録する。

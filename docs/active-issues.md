@@ -6,12 +6,18 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
-- Issue #18: 走行中操作を助長しないUI/UX詳細方針を定義する
-  - URL: https://github.com/mizzz-dev/RouteGarage/issues/18
+- Issue #20: PR #19 / Issue #18 マージ後のSource of Truthステータス同期
+  - URL: https://github.com/mizzz-dev/RouteGarage/issues/20
   - Status: In Progress
-  - Scope: 走行中操作の禁止操作整理、停車中前提導線、投稿/画像/公開操作制限、交通/オービス誤認防止方針の文書化
+  - Scope: `docs/current-status.md` / `docs/active-issues.md` の整合更新、Issue #18のRecently Completed反映、次の高リスク領域Issue候補整理、branch cleanup状態記録
 
 ## Recently Completed
+
+### Issue #18: 走行中操作を助長しないUI/UX詳細方針を定義する
+
+- URL: https://github.com/mizzz-dev/RouteGarage/issues/18
+- Status: Completed
+- Related PR: https://github.com/mizzz-dev/RouteGarage/pull/19
 
 ### Issue #14: Source of Truth上のIssue番号・URL表記を整合する
 
