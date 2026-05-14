@@ -6,31 +6,35 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
-### Issue #8: RouteGarage MVP要件定義を作成する
+### Issue #10: RouteGarage MVP画面一覧・画面遷移を定義する
 
-- URL: https://github.com/mizzz-dev/RouteGarage/issues/8
+- URL: https://github.com/mizzz-dev/RouteGarage/issues/10
 - Status: In Progress
 - Phase: 1-requirements-definition
-- Area: project-management / requirements
+- Area: product-design / screen-design
 - Priority: high
 - Assignee: mizzz-dev
 
 #### 目的
 
-初回リリースに向けて、MVPで実現する機能、対象外機能、受け入れ条件、非機能要件、主要リスクを定義し、実装前提を凍結する。
+MVP要件定義（Issue #8）を根拠として、初回リリースに必要な画面一覧、画面遷移、主要導線、画面責務を確定し、後続の基本設計Issueへ接続する。
 
 #### 完了条件
 
-- `docs/requirements/mvp-requirements.md` が作成されている
-- MVPに含める機能・含めない機能が明確である
-- 機能要件と非機能要件が分離されている
-- 安全性、位置情報プライバシー、交通情報、オービス情報、画像投稿、コミュニティに関するリスクが明記されている
-- 受け入れ条件がレビュー可能な粒度で記載されている
-- 後続Issueへ展開できる粒度になっている
+- `docs/screen-design/screen-list.md` が作成されている
+- `docs/screen-design/screen-flow.md` が作成されている
+- 走行中操作を防ぐ画面方針が明記されている
+- 位置情報/走行履歴/画像投稿/コミュニティ投稿のプライバシー配慮が画面単位で整理されている
+- 交通情報/オービス情報が参考情報であることを誤認しない表示方針になっている
+- `docs/logs/` と `docs/ai-prompts/` に作業記録が保存されている
 - `docs/current-status.md` と `docs/active-issues.md` が更新されている
-- 作業ログが `docs/logs/` に保存されている
 
 ## Recently Completed
+
+### Issue #8: RouteGarage MVP要件定義を作成する
+
+- URL: https://github.com/mizzz-dev/RouteGarage/issues/8
+- Status: Completed
 
 ### Issue #5: AI-Native開発プロトコル完全版と日本語出力ポリシーを反映する
 
@@ -51,11 +55,11 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Upcoming Candidates
 
-- RouteGarage画面一覧・画面遷移を定義する
 - RouteGarage基本アーキテクチャを設計する
 - ナビ・交通情報・オービス情報の法務/規約観点レビューを行う
 - 位置情報プライバシーと自宅周辺ぼかし方針を設計する
 - 画像投稿モデレーション運用設計を行う
+- 監査ログ要件の定義を行う
 
 ## 更新ルール
 
