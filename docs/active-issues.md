@@ -6,6 +6,28 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
+### Issue #11: 位置情報・走行履歴データポリシーを定義する
+
+- URL: {{ISSUE_URL}}
+- Status: In Progress
+- Phase: 1-requirements-definition
+- Area: privacy / safety / policy
+- Priority: high
+- Assignee: mizzz-dev
+
+#### 目的
+
+RouteGarageで扱う位置情報・走行履歴について、取得目的、保存範囲、保持期間、公開範囲、削除方針、自宅周辺ぼかし方針を定義し、後続の基本設計Issueへ引き継ぐ。
+
+#### 完了条件
+
+- `docs/policies/location-and-drive-log-data-policy.md` が作成されている
+- 保存する情報/保存しない情報が明記されている
+- 公開範囲の初期値と変更時方針が明記されている
+- 自宅周辺ぼかし方針が定義されている
+- 削除依頼・問い合わせ・商用運用論点が整理されている
+- `docs/logs/` と `docs/ai-prompts/` に作業記録が保存されている
+
 ### Issue #10: RouteGarage MVP画面一覧・画面遷移を定義する
 
 - URL: https://github.com/mizzz-dev/RouteGarage/issues/10
