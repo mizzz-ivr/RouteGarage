@@ -6,10 +6,12 @@
 - 開発フェーズ: Phase 1 / Requirements Definition（画面設計含む）
 - 開発手法: ウォーターフォール
 - 主なAI支援: Codex
-- 現在の主目的: Issue #26として、PR #25 / Issue #24 完了後のSource of Truthステータス整合を実施し、次の高リスク領域Issueへ安全に接続する
+- 現在の主目的: Issue #28として、PR #27 / Issue #26 完了後のSource of Truthステータス整合を実施し、次の高リスク領域Issueへ安全に接続する
 
 ## 完了済み
 
+- Issue #26: PR #25 / Issue #24 マージ後のSource of Truthステータス同期
+- PR #27: Source of Truthステータス同期（Issue #26対応）
 - Issue #24: PR #23 / Issue #22 マージ後のSource of Truthステータス同期
 - PR #25: Source of Truthステータス同期（Issue #24対応）
 - Issue #22: PR #21 / Issue #20 マージ後のSource of Truthステータス同期
@@ -32,7 +34,7 @@
 
 ## 進行中
 
-- Issue #26: PR #25 / Issue #24 マージ後のSource of Truthステータス同期
+- Issue #28: PR #27 / Issue #26 マージ後のSource of Truthステータス同期
 
 ## 未完了
 
@@ -65,4 +67,4 @@
 1. 高リスク領域Issue候補を優先度順に精査し、Issue化する（位置情報/走行履歴、交通情報/オービス、画像投稿/コミュニティ）。
 2. 利用規約/プライバシーポリシー文言レビューIssueを起票する。
 3. 削除依頼・問い合わせ・監査ログ運用設計Issueを起票する。
-4. branch cleanupとして、PR #25に対応する作業branchの削除可否を確認し、削除または保留理由を記録する（ローカル実行環境では`git branch -a`が`work`のみ表示のため、GitHub上の実残存確認が別途必要）。
+4. branch cleanupとして、PR #27に対応する作業branchの削除可否を確認し、削除または保留理由を記録する（ローカル実行環境では`git branch -a`が`work`のみ表示のため、GitHub上の実残存確認が別途必要）。
