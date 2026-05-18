@@ -11,6 +11,12 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
   - Status: In Progress
   - Scope: `docs/current-status.md` / `docs/active-issues.md` の整合更新、Issue #50のRecently Completed反映、次の高リスク領域Issue候補整理、branch cleanup状態記録
 
+- Issue #154（外部指定）: canonical方針不整合解消タスクの着手可否確認（保留）
+  - URL: https://github.com/mizzz-dev/NTE-Build-Score-Calculator/issues/154
+  - Status: Blocked（リポジトリ不一致）
+  - Scope: 対象実装は `NTE-Build-Score-Calculator` 側に存在。`RouteGarage` では変更不可
+
+
 ## Recently Completed
 
 ### Issue #50: PR #49 / Issue #48 マージ後のSource of Truthステータス同期
