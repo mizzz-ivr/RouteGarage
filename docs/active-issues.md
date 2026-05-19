@@ -6,12 +6,18 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
-- Issue #65: PR #64 / Issue #63 マージ後のSource of Truthステータス同期
-  - URL: https://github.com/mizzz-dev/RouteGarage/issues/65
+- Issue #67: PR #66 / Issue #65 マージ後のSource of Truthステータス同期
+  - URL: https://github.com/mizzz-dev/RouteGarage/issues/67
   - Status: In Progress
-  - Scope: `docs/current-status.md` / `docs/active-issues.md` の整合更新、Issue #63のRecently Completed反映、次の高リスク領域Issue候補整理、branch cleanup状態記録
+  - Scope: `docs/current-status.md` / `docs/active-issues.md` の整合更新、Issue #65のRecently Completed反映、次の高リスク領域Issue候補整理、branch cleanup状態記録
 
 ## Recently Completed
+
+### Issue #65: PR #64 / Issue #63 マージ後のSource of Truthステータス同期
+
+- URL: https://github.com/mizzz-dev/RouteGarage/issues/65
+- Status: Completed
+- Related PR: https://github.com/mizzz-dev/RouteGarage/pull/66
 
 ### Issue #63: PR #62 / Issue #61 マージ後のSource of Truthステータス同期
 
