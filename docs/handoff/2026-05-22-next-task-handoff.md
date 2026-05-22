@@ -1,12 +1,12 @@
-# Handoff（2026-05-22 / Issue #83反映後）
+# Handoff（2026-05-22 / Issue #85反映後）
 
 ## 対象
-- 完了作業: Issue #83「PR #82 / Issue #81 マージ後のSource of Truthステータス同期」
+- 完了作業: Issue #85「PR #82 / Issue #81 マージ後のSource of Truthステータス最終整合」
 - 次作業候補: 高リスク領域Issueの優先起票、branch cleanup最終確認、Issue #81完了コメント追加
 
 ## 引き継ぎ内容
-1. `docs/current-status.md` をIssue #81完了後状態へ更新し、PR #82 / Issue #81を完了済みに反映。
-2. `docs/active-issues.md` のActiveをIssue #83へ更新し、Issue #81をRecently Completedへ移動。
+1. `docs/current-status.md` をIssue #81完了後状態へ再更新し、Issue #83までを完了済みに反映。
+2. `docs/active-issues.md` のActiveをIssue #85へ更新し、Issue #83をRecently Completedへ移動。
 3. 高リスク領域の次Issue候補（位置情報/走行履歴、交通/オービス、画像投稿/コミュニティ、規約/運用）を継続管理。
 4. Issue #81への完了コメント未追加を確認事項として記録。
 5. 作業ログとAIプロンプトログを `docs/logs/` と `docs/ai-prompts/` に保存済み。
