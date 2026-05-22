@@ -6,10 +6,12 @@
 - 開発フェーズ: Phase 1 / Requirements Definition（画面設計含む）
 - 開発手法: ウォーターフォール
 - 主なAI支援: Codex
-- 現在の主目的: Issue #79として、PR #78 / Issue #77 マージ後のSource of Truthステータス整合を実施し、次の高リスク領域Issueへ安全に接続する
+- 現在の主目的: Issue #81として、PR #80 / Issue #79 マージ後のSource of Truthステータス整合を実施し、次の高リスク領域Issueへ安全に接続する
 
 ## 完了済み
 
+- Issue #79: PR #78 / Issue #77 マージ後のSource of Truthステータス同期
+- PR #80: Source of Truthステータス同期（Issue #79対応）
 - Issue #77: PR #76 / Issue #75 マージ後のSource of Truthステータス同期
 - PR #78: Source of Truthステータス同期（Issue #77対応）
 - Issue #75: PR #74 / Issue #73 マージ後のSource of Truthステータス同期
@@ -76,7 +78,7 @@
 
 ## 進行中
 
-- Issue #79: PR #78 / Issue #77 マージ後のSource of Truthステータス同期
+- Issue #81: PR #80 / Issue #79 マージ後のSource of Truthステータス同期
 
 ## 未完了
 
@@ -109,4 +111,5 @@
 1. 高リスク領域Issue候補を優先度順に精査し、Issue化する（位置情報/走行履歴、交通情報/オービス、画像投稿/コミュニティ）。
 2. 利用規約/プライバシーポリシー文言レビューIssueを起票する。
 3. 削除依頼・問い合わせ・監査ログ運用設計Issueを起票する。
-4. branch cleanupとして、PR #78に対応する作業branchの削除可否を確認し、削除または保留理由を記録する（2026-05-21 時点でローカル実行環境の`git branch -a`は`work`のみ表示のため、GitHub上の実残存確認が別途必要）。
+4. branch cleanupとして、PR #80に対応する作業branchの削除可否を確認し、削除または保留理由を記録する（2026-05-22 時点でローカル実行環境の`git branch -a`は`work`のみ表示のため、GitHub上の実残存確認が別途必要）。
+5. Issue #79に完了コメントが未追加である点を確認し、運用上のチェック項目として記録する。
