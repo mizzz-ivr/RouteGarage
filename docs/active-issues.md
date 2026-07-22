@@ -6,12 +6,19 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
-- Issue #89: 交通情報・オービス情報の正確性限界表示と法令・規約適合要件を定義する
-  - URL: https://github.com/mizzz-dev/RouteGarage/issues/89
+- Issue #91: PR #90レビュー指摘に基づき交通情報の由来・更新時刻要件を修正する
+  - URL: https://github.com/mizzz-dev/RouteGarage/issues/91
   - Status: In Progress
-  - Scope: 情報区分、鮮度・未検証・停止状態表示、オービス情報の禁止表現、情報提供元規約確認、縮退運用、問い合わせ・監査要件の定義
+  - Scope: 上流データ由来と調達経路の分離、提供元更新時刻欠落時の保守的状態判定、PR #90レビュー指摘の反映
 
 ## Recently Completed
+
+### Issue #89: 交通情報・オービス情報の正確性限界表示と法令・規約適合要件を定義する
+
+- URL: https://github.com/mizzz-dev/RouteGarage/issues/89
+- Status: Completed
+- Related PR: https://github.com/mizzz-dev/RouteGarage/pull/90
+- Note: 基本方針を定義済み。PR #90マージ後のレビュー指摘2件はIssue #91で修正する。
 
 ### Issue #87: PR #86後のドキュメント状態を更新する
 
@@ -25,28 +32,24 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 - URL: https://github.com/mizzz-dev/RouteGarage/issues/85
 - Status: Completed
 - Related PR: https://github.com/mizzz-dev/RouteGarage/pull/86
-- Note: PR #86でSource of Truthの最終整合、作業ログ、AIプロンプトログ、handoff更新を完了。Issue #87でPR #86後の状態を反映する。
 
 ### Issue #83: PR #82 / Issue #81 マージ後のSource of Truthステータス同期
 
 - URL: https://github.com/mizzz-dev/RouteGarage/issues/83
 - Status: Completed
 - Related PR: https://github.com/mizzz-dev/RouteGarage/pull/84
-- Note: PR #82マージ後の初回同期を完了。Issue #85で最終整合を再確認。
 
 ### Issue #81: PR #80 / Issue #79 マージ後のSource of Truthステータス同期
 
 - URL: https://github.com/mizzz-dev/RouteGarage/issues/81
 - Status: Completed
 - Related PR: https://github.com/mizzz-dev/RouteGarage/pull/82
-- Note: 2026-05-22 時点で Issue #81 への完了コメント未追加（運用確認事項として記録）
 
 ### Issue #79: PR #78 / Issue #77 マージ後のSource of Truthステータス同期
 
 - URL: https://github.com/mizzz-dev/RouteGarage/issues/79
 - Status: Completed
 - Related PR: https://github.com/mizzz-dev/RouteGarage/pull/80
-- Note: 2026-05-22 時点で Issue #79 への完了コメント未追加（運用確認事項として記録）
 
 ### Issue #77: PR #76 / Issue #75 マージ後のSource of Truthステータス同期
 
@@ -234,16 +237,16 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 - Status: Completed
 - Related PR: https://github.com/mizzz-dev/RouteGarage/pull/15
 
-### Issue #10: RouteGarage MVP画面一覧・画面遷移を定義する
-
-- URL: https://github.com/mizzz-dev/RouteGarage/issues/10
-- Status: Completed
-
 ### Issue #12: 位置情報・走行履歴データポリシーを定義する
 
 - URL: https://github.com/mizzz-dev/RouteGarage/issues/12
 - Status: Completed
 - Related PR: https://github.com/mizzz-dev/RouteGarage/pull/13
+
+### Issue #10: RouteGarage MVP画面一覧・画面遷移を定義する
+
+- URL: https://github.com/mizzz-dev/RouteGarage/issues/10
+- Status: Completed
 
 ### Issue #8: RouteGarage MVP要件定義を作成する
 
@@ -269,11 +272,12 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Upcoming Candidates（高リスク領域優先）
 
-1. 位置情報・走行履歴の公開制御/保持期間/削除導線の要件詳細化
-2. 画像投稿・コミュニティ機能のモデレーション/通報/権利侵害対応要件
-3. 利用規約・プライバシーポリシー・問い合わせ導線・監査ログ運用要件
-4. 交通情報/オービス情報の画面詳細設計（Issue #89の法務・運用レビュー後）
-5. 基本設計接続（DB/API/認証は要件確定後に設計Issueとして分離）
+1. 交通情報・オービス情報の法務・運用レビュー
+2. データ提供元候補の利用条件・上流由来・再提供経路比較
+3. 位置情報・走行履歴の公開制御/保持期間/削除導線の要件詳細化
+4. 画像投稿・コミュニティ機能のモデレーション/通報/権利侵害対応要件
+5. 利用規約・プライバシーポリシー・問い合わせ導線・監査ログ運用要件
+6. 交通情報/オービス情報の画面詳細設計（レビュー完了後）
 
 ## 更新ルール
 
