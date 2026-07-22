@@ -6,12 +6,14 @@
 - Issue #91はclosed / completed。
 - Issue #91へ完了コメントを追加済み。
 - 次の高リスク作業としてIssue #93を作成。
-- 交通情報・オービス情報の法務・運用レビューを実施中。
+- 交通情報・オービス情報の法務・運用レビューを実施し、PR #96を作成。
+- 現在のゲートはCodexレビューと人間レビュー。
 - 実装コード・技術選定変更なし。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #93: https://github.com/mizzz-dev/RouteGarage/issues/93
+- PR #96: https://github.com/mizzz-dev/RouteGarage/pull/96
 - Title: 交通情報・オービス情報の法務・運用レビューを実施する
 - Branch: `docs/issue-93-traffic-orbis-legal-operations-review`
 - Phase: Phase 1 / Requirements Definition
@@ -25,8 +27,11 @@
 - main基点の作業branchを作成。
 - 公的機関・公式提供元の一次資料を確認。
 - `docs/reviews/traffic-orbis-legal-operations-review.md` を追加。
-- Issue #93の作業ログを追加。
+- Issue #93の作業ログを追加・更新。
 - Issue #93のAIプロンプトログを追加。
+- Source of TruthをIssue #91完了、Issue #93進行中へ更新。
+- PR #96を作成。
+- Codexレビューを依頼。
 
 ## Review Findings
 
@@ -74,26 +79,39 @@
 
 - 公的資料の確認結果を法務承認と誤認すること。
 - JARTICの一般ウェブ規約と個別データ提供条件を混同すること。
-- 地域別運用差を全国一律と断定すること。
+- 地域別運用差を全国一律仕様として扱うこと。
 - 安全運転目的の文言でも、正確地点・通知が取締り回避や画面注視を助長すること。
 - ユーザー投稿の位置・時刻・識別子から移動履歴を推測できること。
 - 提供停止・訂正・通報・監査の責任者が未確定のまま実装へ進むこと。
 
+## Execution Notes
+
+- Issue #94、Issue #95はbranch操作中の誤操作で作成された空Issue。
+- 両Issueは直ちに作業対象外へ変更し、`not_planned`でクローズ済み。
+- 正式な作業対象はIssue #93のみ。
+
+## Validation
+
+- PR作成前のmain比較: 7 commits / 6 files / behind 0
+- 変更: docsのみ
+- Source of Truth: 整合済み
+- 新規Markdown: 非空
+- 実装・技術選定変更: なし
+
 ## Remaining Tasks
 
-1. `docs/current-status.md` をIssue #91完了・Issue #93進行中へ更新する。
-2. `docs/active-issues.md` をIssue #93 Activeへ更新する。
-3. docs検証を実行する。
-4. PRを作成する。
-5. Codexレビューと人間レビューを受ける。
-6. マージ後にIssue #93を完了する。
-7. merged branchのcleanupを確認する。
+1. PR #96のCodexレビューを確認する。
+2. 指摘があれば最小差分で修正する。
+3. 人間レビューを受ける。
+4. マージ後にIssue #93を完了する。
+5. branch cleanupを確認する。
+6. 次の候補であるデータ提供元比較Issueへ進む。
 
 ## Suggested Next Actions
 
-- Issue #93のレビュー文書とSource of Truthを人間レビュー可能なPRにする。
-- 次の候補はデータ提供元候補の利用条件・上流由来・再提供経路比較。
+- PR #96のレビューを最優先とする。
 - 交通情報・オービス情報の実装IssueはGo / No-Goゲート完了まで作成しない。
+- PR #96マージ後は、データ提供元候補の利用条件・上流由来・再提供経路比較へ進む。
 
 ## Branch Cleanup
 
