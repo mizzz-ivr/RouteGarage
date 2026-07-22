@@ -6,12 +6,19 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
-- Issue #85: PR #82 / Issue #81 マージ後のSource of Truthステータス最終整合
-  - URL: https://github.com/mizzz-dev/RouteGarage/issues/85
+- Issue #87: PR #86後のドキュメント状態を更新する
+  - URL: https://github.com/mizzz-dev/RouteGarage/issues/87
   - Status: In Progress
-  - Scope: `docs/current-status.md` / `docs/active-issues.md` の最終整合、Issue #81のCompleted反映確認、高リスク領域Issue候補整理、branch cleanup状態記録
+  - Scope: `docs/current-status.md` / `docs/active-issues.md` の同期、Issue #85のCompleted反映、作業ログ・AIプロンプトログ・handoff更新、branch cleanup状態記録
 
 ## Recently Completed
+
+### Issue #85: PR #82 / Issue #81 マージ後のSource of Truthステータス最終整合
+
+- URL: https://github.com/mizzz-dev/RouteGarage/issues/85
+- Status: Completed
+- Related PR: https://github.com/mizzz-dev/RouteGarage/pull/86
+- Note: PR #86でSource of Truthの最終整合、作業ログ、AIプロンプトログ、handoff更新を完了。Issue #87でPR #86後の状態を反映する。
 
 ### Issue #83: PR #82 / Issue #81 マージ後のSource of Truthステータス同期
 
@@ -255,8 +262,8 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Upcoming Candidates（高リスク領域優先）
 
-1. 位置情報・走行履歴の公開制御/保持期間/削除導線の要件詳細化
-2. 交通情報・オービス情報の正確性限界表示と法令/規約適合レビュー
+1. 交通情報・オービス情報の正確性限界表示と法令/規約適合レビュー
+2. 位置情報・走行履歴の公開制御/保持期間/削除導線の要件詳細化
 3. 画像投稿・コミュニティ機能のモデレーション/通報/権利侵害対応要件
 4. 利用規約・プライバシーポリシー・問い合わせ導線・監査ログ運用要件
 5. 基本設計接続（DB/API/認証は要件確定後に設計Issueとして分離）
