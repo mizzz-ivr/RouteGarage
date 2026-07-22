@@ -6,12 +6,19 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
-- Issue #87: PR #86後のドキュメント状態を更新する
-  - URL: https://github.com/mizzz-dev/RouteGarage/issues/87
+- Issue #89: 交通情報・オービス情報の正確性限界表示と法令・規約適合要件を定義する
+  - URL: https://github.com/mizzz-dev/RouteGarage/issues/89
   - Status: In Progress
-  - Scope: `docs/current-status.md` / `docs/active-issues.md` の同期、Issue #85のCompleted反映、作業ログ・AIプロンプトログ・handoff更新、branch cleanup状態記録
+  - Scope: 情報区分、鮮度・未検証・停止状態表示、オービス情報の禁止表現、情報提供元規約確認、縮退運用、問い合わせ・監査要件の定義
 
 ## Recently Completed
+
+### Issue #87: PR #86後のドキュメント状態を更新する
+
+- URL: https://github.com/mizzz-dev/RouteGarage/issues/87
+- Status: Completed
+- Related PR: https://github.com/mizzz-dev/RouteGarage/pull/88
+- Note: Issue #85 / PR #86完了後のSource of Truthを同期し、次の高リスク領域IssueとしてIssue #89へ接続。
 
 ### Issue #85: PR #82 / Issue #81 マージ後のSource of Truthステータス最終整合
 
@@ -262,10 +269,10 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Upcoming Candidates（高リスク領域優先）
 
-1. 交通情報・オービス情報の正確性限界表示と法令/規約適合レビュー
-2. 位置情報・走行履歴の公開制御/保持期間/削除導線の要件詳細化
-3. 画像投稿・コミュニティ機能のモデレーション/通報/権利侵害対応要件
-4. 利用規約・プライバシーポリシー・問い合わせ導線・監査ログ運用要件
+1. 位置情報・走行履歴の公開制御/保持期間/削除導線の要件詳細化
+2. 画像投稿・コミュニティ機能のモデレーション/通報/権利侵害対応要件
+3. 利用規約・プライバシーポリシー・問い合わせ導線・監査ログ運用要件
+4. 交通情報/オービス情報の画面詳細設計（Issue #89の法務・運用レビュー後）
 5. 基本設計接続（DB/API/認証は要件確定後に設計Issueとして分離）
 
 ## 更新ルール

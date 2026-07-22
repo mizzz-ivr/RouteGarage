@@ -1,61 +1,65 @@
-# Handoff（2026-07-22 / Issue #87対応）
+# Handoff（2026-07-22 / Issue #89）
 
 ## Summary
 
-- Issue #87に基づき、PR #86 / Issue #85後のSource of Truth同期を実施した。
-- `docs/current-status.md` と `docs/active-issues.md` の不整合を解消した。
-- 実装コードおよび技術選定には触れていない。
-
-## Current PR
-
-- 作成予定PR: Issue #87対応のドキュメント同期PR
-- Base: `main`
-- Head: `docs/issue-87-source-of-truth-sync`
+- PR #88 / Issue #87のSource of Truth同期は完了済み。
+- 次の高リスク領域IssueとしてIssue #89を起票し、交通情報・オービス情報の要件整理に着手。
+- 方針文書、Source of Truth、作業ログ、AIプロンプトログを更新。
 
 ## Current Issue
 
-- https://github.com/mizzz-dev/RouteGarage/issues/87
-- Status: In Progress
+- Issue #89: https://github.com/mizzz-dev/RouteGarage/issues/89
+- Title: 交通情報・オービス情報の正確性限界表示と法令・規約適合要件を定義する
+- Phase: Phase 1 / Requirements Definition
 
 ## Completed Tasks
 
-- Issue #85をActiveから除外
-- Issue #85 / PR #86をCompletedへ反映
-- Issue #87をActiveへ反映
-- 作業ログとAIプロンプトログを追加
-- 高リスク領域の次候補順を整理
-
-## Repository Findings
-
-- PR #86対応branch `update-docs-after-merging-pr-#82-guo9fg` がGitHub上に残存。
-- Linear / NotionにRouteGarageの既存項目なし。
-- Build Web Apps / Expo実装は要件・設計確定前のため非対象。
+- 公式資料の確認。
+- 情報源区分、鮮度状態、未検証・競合・停止状態の定義。
+- オービス情報の安全運転目的・禁止事項の定義。
+- 情報提供元規約確認チェックリストの定義。
+- 縮退運用、訂正、問い合わせ、監査要件の定義。
+- Issue #89をSource of Truth上のActiveへ設定。
 
 ## Technical Decisions
 
-- RepositoryをSource of Truthとする既存方針を継続。
-- 技術スタック、アーキテクチャ、DB/API/Auth/Infra/Deployment/Monitoringは未確定のまま維持。
-- ADR追加なし。
+- 公式情報も完全・最新と断定しない。
+- 情報源と更新状態を常に追跡可能にする。
+- オービス情報は取締り回避支援に使用しない。
+- 規約・ライセンス確認前のデータ利用を禁止する。
+- 具体的なプロバイダー、座標粒度、通知、更新閾値は未確定のまま保持する。
 
 ## Risks
 
-- branch cleanup未完了。
-- 交通情報・オービス情報の法令/規約適合レビュー未完了。
-- 位置情報、画像投稿、コミュニティ投稿の詳細要件未完了。
+- 法務判断未完了。
+- プロバイダー規約・地域ルールの変更。
+- ユーザー投稿と公式情報の混同。
+- 走行中の画面注視。
+- 情報遅延・欠落・競合による誤認。
 
 ## Remaining Tasks
 
-1. Issue #87対応PRを人間レビューする。
-2. CIまたはドキュメント検証結果を確認する。
-3. PRをマージする。
-4. Issue #87へ完了コメントを追加してcloseする。
-5. merge後branch cleanupを確認する。
+1. 人間レビュー。
+2. 法務・運用レビュー。
+3. データ提供元候補の利用条件比較。
+4. 画面詳細設計Issueの作成。
+5. 基本設計Issueの作成。
+6. branch cleanup。
 
 ## Suggested Next Actions
 
-- 次Issue候補: 交通情報・オービス情報の正確性限界表示と法令/規約適合レビュー。
-- 次Issueでは調査・要件整理に限定し、API連携や画面実装は行わない。
+- 本IssueのPRをレビュー・マージする。
+- 次の高リスク領域として、位置情報・走行履歴の公開制御/保持期間/削除導線を詳細化する。
 
-## AI Prompts Used
+## Branch Cleanup
 
-- `docs/ai-prompts/2026-07-22-issue-87-source-of-truth-sync.md`
+- `update-docs-after-merging-pr-#82-guo9fg`: 削除候補。
+- `docs/issue-87-source-of-truth-sync`: PR #88マージ済みのため削除候補。
+- `docs/issue-89-traffic-orbis-requirements`: 本IssueのPRマージ後に削除確認。
+
+## 注意事項
+
+- 実装コードは追加しない。
+- Next.js / Expo / DB / API / Auth / Infraを確定しない。
+- 法的助言として断定しない。
+- 情報提供元の契約・規約レビュー前にデータ利用を確定しない。
