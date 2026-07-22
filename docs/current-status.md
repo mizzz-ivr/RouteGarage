@@ -6,10 +6,12 @@
 - 開発フェーズ: Phase 1 / Requirements Definition（画面設計含む）
 - 開発手法: ウォーターフォール
 - 主なAI支援: Codex
-- 現在の主目的: Issue #85として、PR #82 / Issue #81 マージ後のSource of Truthステータス整合（再確認）を完了し、次の高リスク領域Issueへ安全に接続する
+- 現在の主目的: Issue #87として、PR #86 / Issue #85 マージ後のSource of Truthを同期し、次の高リスク領域Issueへ安全に接続する
 
 ## 完了済み
 
+- Issue #85: PR #82 / Issue #81 マージ後のSource of Truthステータス最終整合
+- PR #86: Source of Truthステータス最終整合（Issue #85対応）
 - Issue #83: PR #82 / Issue #81 マージ後のSource of Truthステータス同期
 - Issue #81: PR #80 / Issue #79 マージ後のSource of Truthステータス同期
 - PR #82: Source of Truthステータス同期（Issue #81対応）
@@ -81,7 +83,9 @@
 
 ## 進行中
 
-- なし（2026-05-22 時点）
+- Issue #87: PR #86後のドキュメント状態を更新する
+  - URL: https://github.com/mizzz-dev/RouteGarage/issues/87
+  - Scope: `docs/current-status.md` / `docs/active-issues.md` の同期、Issue #85のCompleted反映、作業ログ・AIプロンプトログ・handoff更新、branch cleanup状態記録
 
 ## 未完了
 
@@ -95,6 +99,7 @@
 
 - 高リスク領域（位置情報、交通/オービス、画像投稿、コミュニティ）の設計判断に法務・運用観点の追加レビューが必要。
 - 交通情報/オービス情報はデータ鮮度・正確性に限界があり、画面上の誤認防止表示を継続検討する必要がある。
+- PR #86の作業branch `update-docs-after-merging-pr-#82-guo9fg` がGitHub上に残存しており、削除可否の確認が必要。
 
 ## 触ってはいけない箇所
 
@@ -111,9 +116,9 @@
 
 ## 次の優先作業
 
-1. 高リスク領域Issue候補を優先度順に精査し、Issue化する（位置情報/走行履歴、交通情報/オービス、画像投稿/コミュニティ）。
-2. 利用規約/プライバシーポリシー文言レビューIssueを起票する。
-3. 削除依頼・問い合わせ・監査ログ運用設計Issueを起票する。
-4. branch cleanupとして、PR #82に対応する作業branchの削除可否を確認し、削除または保留理由を記録する（2026-05-22 時点のローカル`git branch -a`は`work`のみ。GitHub上の残存branch有無は別途確認が必要）。
-5. 高リスク領域Issueの先行起票順（交通情報/オービス、位置情報/走行履歴、画像投稿/コミュニティ、規約/運用）をIssue #85の結果として確定する。
-6. Issue #81に完了コメントが未追加である点を確認し、運用上のチェック項目として記録する。
+1. Issue #87のSource of Truth同期を完了し、人間レビュー後にPRをマージする。
+2. PR #86対応branch `update-docs-after-merging-pr-#82-guo9fg` の削除可否を確認し、削除または保留理由を記録する。
+3. 交通情報・オービス情報の正確性限界表示と法令/規約適合レビューを次の高リスク領域Issue候補として優先する。
+4. 位置情報・走行履歴の公開制御、保持期間、削除導線の要件を詳細化する。
+5. 画像投稿・コミュニティ機能のモデレーション、通報、権利侵害対応要件を整理する。
+6. 利用規約、プライバシーポリシー、問い合わせ導線、監査ログ運用要件を整理する。
