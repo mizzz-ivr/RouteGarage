@@ -1,150 +1,152 @@
-# Handoff（2026-07-23 / Issue #97）
+# Handoff（2026-07-23 / Issue #99）
 
 ## Summary
 
-- Repositoryの正式な所有者は`mizzz-ivr`へ変更済み。
-- PR #96はマージ済み、Issue #93はclosed / completed、作業branchは削除済み。
-- Issue #97で交通情報データ提供元候補を比較し、PR #98を作成した。
-- 現在のゲートはCodexレビューと人間レビュー。
-- 実装コード、技術選定、APIキー、契約変更なし。
+- Repositoryの正式な所有者は`mizzz-ivr`。
+- PR #98は2026-07-23にマージ済み。
+- Issue #97はclosed / completed。
+- PR #98の作業branchは削除済み。
+- 次の高リスク作業としてIssue #99を作成。
+- JARTIC Jシステム / VICS・HERE向け契約・技術問い合わせ票を作成。
+- 問い合わせ共通前提、回答記録、Go / No-Go判定様式を作成。
+- 実送信、契約、見積取得、APIキー取得、実装は行っていない。
 
-## Current Issue / PR / Branch
+## Current Issue / Branch
 
-- Issue #97: https://github.com/mizzz-ivr/RouteGarage/issues/97
-- PR #98: https://github.com/mizzz-ivr/RouteGarage/pull/98
-- Branch: `docs/issue-97-traffic-data-provider-comparison`
+- Issue #99: https://github.com/mizzz-ivr/RouteGarage/issues/99
+- Branch: `docs/issue-99-provider-inquiry-templates`
 - Phase: Phase 1 / Requirements Definition
 
 ## Completed Tasks
 
-- PR #96のマージとIssue #93の完了を確認。
-- Issue #93へ完了記録を追加。
-- PR #96の作業branch削除を確認。
-- Repository正式URLを`mizzz-ivr/RouteGarage`として確認。
-- Issue #97とmain基点の作業branchを作成。
-- JARTIC、VICS、Google、HERE、TomTomの公式資料を確認。
-- `docs/reviews/traffic-data-provider-comparison.md`を追加。
-- Issue #97の作業ログ、AIプロンプトログを追加。
-- Source of TruthをIssue #93完了、Issue #97進行中へ更新。
-- main比較でbehind 0、docs 6ファイルのみを確認。
-- PR #98を作成。
+- PR #98のマージを確認。
+- Issue #97の完了を確認し、完了コメントを追加。
+- PR #98の作業branch削除を確認。
+- 同等のOpen Issueがないことを確認。
+- Issue #99とmain基点の作業branchを作成。
+- JARTIC、VICS、HEREの公式窓口・案内を確認。
+- 問い合わせ文書4件を作成。
+- Issue #99の作業ログ、AIプロンプトログを作成。
+- Source of TruthをIssue #97完了・Issue #99進行中へ更新。
 
-## Provider Findings
+## Created Documents
 
-### JARTICオープンデータ
+- `docs/inquiries/traffic-data-provider-inquiry-common.md`
+- `docs/inquiries/jartic-vics-contract-technical-inquiry.md`
+- `docs/inquiries/here-traffic-api-contract-technical-inquiry.md`
+- `docs/inquiries/traffic-data-provider-response-record.md`
+- `docs/logs/2026-07-23-issue-99.md`
+- `docs/ai-prompts/2026-07-23-issue-99-provider-inquiry-templates.md`
 
-- 判定: `用途限定候補`
-- 商用利用、複製、公衆送信、加工が公開規約で許容される。
-- 出典、加工表示、第三者権利確認が必要。
-- 原則月次更新であり、ライブ交通情報として扱わない。
+## Official Contact Findings
 
-### JARTIC Jシステム / VICS
+### JARTIC / VICS
 
-- 判定: `優先問い合わせ候補`
-- 渋滞、事故・工事、所要時間、閉鎖、駐車場等をオンライン提供する。
-- 基本5分更新、一部1分更新、全国提供メニューがある。
-- VICS符号型はVICSセンターとの技術開示契約が必要。
-- 再提供、加工、キャッシュ、帰属、SLA、停止条件は契約確認が必要。
+- JARTICのJシステムページには、情報提供事業者専用の問い合わせフォームがある。
+- VICS符号型の利用には、JARTIC契約とは別にVICSセンターとの技術開示契約が必要。
+- VICSセンターは、JARTICからの委託によりVICS符号型情報を事業者へ提供している。
+- VICS一般問い合わせフォームは営利目的の問い合わせを受け付けない旨がある。
+- したがって、JARTIC専用窓口からVICS技術開示契約の正式窓口・手順を確認する。
 
-### Google Maps Platform Routes API
+### HERE
 
-- 判定: `構成依存候補`
-- Google地図・ルート基盤と一体の場合のみ検討する。
-- 保存、再共有、再ホスト、派生データ化、非Google地図との併用に制限がある。
-- 提供元中立の交通情報データベース用途には使わない。
-
-### HERE Traffic API v7
-
-- 判定: `優先問い合わせ候補`
-- リアルタイムFlow / Incidentsと日本カバレッジを確認。
-- キャッシュ、リポジトリ構築、複数利用者への使い回しに制限がある。
-- 日本データの上流由来、再提供、加工、他社地図重畳、帰属、SLAを問い合わせる。
-
-### TomTom Traffic API
-
-- 判定: `現時点No-Go`
-- Flow / Incidents APIと商用料金導線は確認した。
-- 公開Traffic APIカバレッジ表は2022-11-14更新で、日本が掲載されていない。
-- 現行日本カバレッジと契約条件の書面確認後に再評価する。
+- HERE公式Contactには、製品・デモ・商用利用に関する営業問い合わせフォームがある。
+- HERE Traffic API v7はFlowとIncidentsのリアルタイム交通情報APIとして案内されている。
+- 公開ドキュメントだけでは日本データの上流由来、再提供、加工、キャッシュ、他社地図重畳、SLAを確定しない。
 
 ## Technical Decisions
 
-- 本比較でデータ提供元を採用しない。
-- 公開製品ページと契約上の許諾を区別する。
-- 一般ウェブサイト、オープンデータ、API、個別契約の条件を混同しない。
-- 上流由来、調達経路、再提供経路を候補ごとに追跡する。
-- キャッシュ、加工、再提供、他社地図重畳は明示的な許諾確認を必須とする。
-- 判断不能時はNo-Goとする。
-- 移動式取締り・警察位置のリアルタイム情報は比較対象外とする。
+- 問い合わせ票作成と送信を別工程にする。
+- 本Issueでは問い合わせを送信しない。
+- 提供元ごとに個別問い合わせ票を分ける。
+- 共通サービス前提と未確定事項を別文書で管理する。
+- 回答の適用規約・契約版、回答者、回答日、有効期限、証跡を記録する。
+- 口頭回答、曖昧回答、適用文書・版不明の回答はGo判定に使用しない。
+- 回答本文に転載・二次利用制限がある場合、公開Repositoryへ保存しない。
+- 採用時は別IssueとADRを作成する。
 - Next.js / Expo / DB / API / Auth / Infraを確定しない。
 
-## Go / No-Go Gates
+## Safety and Privacy Decisions
 
-基本設計へ進めるには、候補ごとに以下を確認する。
+- 走行中の注視・操作・能動通知を問い合わせの想定用途に含めない。
+- 移動式取締り・警察位置のリアルタイム情報を対象にしない。
+- 正確オービス座標・走行中接近通知を許容しない。
+- 利用者の位置情報、走行履歴、個人識別子を提供元へ送信する前提を置かない。
+- 外部送信が必要な場合は、同意、最小化、保持、削除を別Issueで確定する。
+- 判断不能時はNo-Goとする。
+
+## Response / Go-No-Go Gates
+
+基本設計候補へ進めるには、以下を確認する。
 
 1. 契約主体と適用規約・契約書の版
 2. 日本国内の対象地域・道路・情報種別
-3. 利用者への表示、公衆送信、第三者提供
-4. 他社地図への重畳
-5. 加工、統合、派生状態判定
-6. キャッシュ、保存期間、有効期限、削除義務
-7. 提供元更新時刻、訂正、撤回
-8. 帰属、ロゴ、リンク、サプライヤー表記
-9. 規約変更、契約停止、障害時の提供停止
-10. 監査、問い合わせ、苦情、誤情報対応の証跡
-11. 位置情報・プローブデータの同意とプライバシー
-12. 走行安全・取締り回避防止要件との整合
-13. 法務・運用責任者・人間レビュアーの承認
+3. Web / モバイル利用者への表示、公衆送信、第三者提供
+4. バックエンドからクライアントへの配信
+5. 加工、統合、状態判定、競合検出
+6. 他社地図への重畳
+7. キャッシュ、保存期間、有効期限、削除義務
+8. 上流由来、更新時刻、訂正、撤回、無効化
+9. 帰属、ロゴ、リンク、エンドユーザー条項
+10. SLA、障害通知、規約変更、契約停止時の提供停止
+11. セキュリティ、位置情報外部送信、プライバシー条件
+12. 監査、問い合わせ、事故・苦情対応の証跡
+13. 法務、運用、セキュリティ、プロジェクト責任者の承認
 
-1項目でも判断不能で安全な表示可否を確認できない場合はNo-Goとする。
+1項目でも安全・権利・運用可否を判断できない場合はNo-Goとする。
 
-## Validation Results
+## Rejected Alternatives
 
-- main比較: PR作成前時点で6 commits / 6 files / behind 0
-- 変更ファイル: docsのみ
-- 新規Markdown: すべて非空
-- Source of Truth: Issue #93完了、Issue #97進行中で整合
-- Repository正式所有者: `mizzz-ivr`を現在状態へ反映
-- PR #96 branch cleanup: 削除済み
-- 候補別の公式資料、確認事項、未確認事項: 記録済み
-- データ提供元採用、契約、APIキー取得、実装変更: なし
-- ローカル`validate-docs.sh`: 実行環境のDNS制約により未実施
-- GitHub connectorによるファイル内容・差分・branch比較: 確認済み
+- 公開資料だけで採用判断する案
+- VICS一般問い合わせフォームへ営利目的の契約問い合わせを送る案
+- AIが問い合わせを自動送信する案
+- 回答本文を許可確認なしに公開Repositoryへ保存する案
+- 曖昧回答を条件付きGoとして扱う案
+- 問い合わせ作成と同時にAPI・地図基盤を実装する案
+
+## Risks
+
+- 仮定値が確定仕様として提供元へ伝わること。
+- JARTICとVICSセンターの責務分界を誤認すること。
+- 製品説明を契約上の許諾と誤認すること。
+- 回答の転載・公開範囲を誤ること。
+- 適用規約・契約版・回答有効期限を記録しないこと。
+- 料金だけで安全・権利要件を省略して採用すること。
+- 位置情報・プローブデータの外部送信条件を見落とすこと。
 
 ## Remaining Tasks
 
-1. PR #98のCodexレビューを確認し、指摘があれば修正する。
-2. 人間レビューを受ける。
-3. マージ後にIssue #97を完了する。
-4. `docs/issue-97-traffic-data-provider-comparison`のcleanupを確認する。
-5. JARTIC Jシステム / VICSとHEREへの問い合わせ票作成Issueへ進む。
+1. branch差分、Markdown、Source of Truthを検証する。
+2. PRを作成する。
+3. Codexレビューが利用可能なら依頼する。
+4. 人間レビューを受ける。
+5. 送信先、担当者情報、仮定値を人間が入力する。
+6. 法務・運用・セキュリティレビュー後に、問い合わせ送信の明示承認を得る。
+7. 問い合わせ送信は別アクションとして実施する。
+8. 回答受領後、アクセス制御された保管先へ証跡を保存し、Go / No-Goを再判定する。
 
 ## Suggested Next Actions
 
-- PR #98では、公開情報と契約上の未確認事項が明確に分離されているかを最優先で確認する。
-- PR #98マージ前にデータ提供元、地図基盤、API方式を確定しない。
-- 交通情報API実装は、契約・権利・上流由来・停止条件が確定するまで開始しない。
+- 本IssueのPRレビューでは、問い合わせが許諾済み・採用済みを前提にしていないかを最優先で確認する。
+- JARTIC / VICSでは契約主体、再提供、加工、キャッシュ、VICS技術開示の責務分界を重点確認する。
+- HEREでは日本カバレッジ、上流由来、複数利用者表示、他社地図重畳、キャッシュ、SLA、プライバシーを重点確認する。
+- 問い合わせ回答が揃うまで交通情報APIの実装Issueを作成しない。
 
 ## Branch Cleanup
 
 削除済み:
 
 - `docs/issue-93-traffic-orbis-legal-operations-review`
+- `docs/issue-97-traffic-data-provider-comparison`
 
 作業中:
 
-- `docs/issue-97-traffic-data-provider-comparison`
-
-既存の削除確認候補:
-
-- `docs/issue-87-source-of-truth-sync`
-- `docs/issue-89-traffic-orbis-requirements`
-- `docs/issue-91-traffic-source-freshness-fix`
+- `docs/issue-99-provider-inquiry-templates`
 
 ## 注意事項
 
 - AI生成内容は人間レビュー必須。
 - 法的助言、契約判断、採用決定ではない。
-- 公開資料で確認できない事項を推測で許容しない。
+- 問い合わせは未送信。
 - データ提供元、地図基盤、API方式、キャッシュ方式は未確定。
-- 仕様確定前に実装しない。
+- 仕様・契約確定前に実装しない。
