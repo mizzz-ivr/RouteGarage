@@ -3,17 +3,15 @@
 ## Summary
 
 - Repositoryの正式な所有者は`mizzz-ivr`へ変更済み。
-- PR #96は2026-07-23にマージ済み。
-- Issue #93はclosed / completed。
-- PR #96の作業branchは削除済み。
-- 次の高リスク作業としてIssue #97を作成。
-- 交通情報データ提供元候補の利用条件・上流由来・再提供経路を比較した。
-- 現在のゲートはPR作成、Codexレビュー、人間レビュー。
+- PR #96はマージ済み、Issue #93はclosed / completed、作業branchは削除済み。
+- Issue #97で交通情報データ提供元候補を比較し、PR #98を作成した。
+- 現在のゲートはCodexレビューと人間レビュー。
 - 実装コード、技術選定、APIキー、契約変更なし。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #97: https://github.com/mizzz-ivr/RouteGarage/issues/97
+- PR #98: https://github.com/mizzz-ivr/RouteGarage/pull/98
 - Branch: `docs/issue-97-traffic-data-provider-comparison`
 - Phase: Phase 1 / Requirements Definition
 
@@ -28,6 +26,8 @@
 - `docs/reviews/traffic-data-provider-comparison.md`を追加。
 - Issue #97の作業ログ、AIプロンプトログを追加。
 - Source of TruthをIssue #93完了、Issue #97進行中へ更新。
+- main比較でbehind 0、docs 6ファイルのみを確認。
+- PR #98を作成。
 
 ## Provider Findings
 
@@ -37,7 +37,6 @@
 - 商用利用、複製、公衆送信、加工が公開規約で許容される。
 - 出典、加工表示、第三者権利確認が必要。
 - 原則月次更新であり、ライブ交通情報として扱わない。
-- 交通規制、交通量、交差点制御等の静的・定期更新データ用途に限定する。
 
 ### JARTIC Jシステム / VICS
 
@@ -50,10 +49,9 @@
 ### Google Maps Platform Routes API
 
 - 判定: `構成依存候補`
-- Google地図・ルート基盤と一体で交通対応ルートを表示する用途に限定して検討する。
-- Google Mapsコンテンツの保存、再共有、再ホスト、派生データ化、非Google地図との併用に制限がある。
-- 提供元中立の交通情報データベース用途に使わない。
-- 地図基盤未決定の現段階では採用順位を確定しない。
+- Google地図・ルート基盤と一体の場合のみ検討する。
+- 保存、再共有、再ホスト、派生データ化、非Google地図との併用に制限がある。
+- 提供元中立の交通情報データベース用途には使わない。
 
 ### HERE Traffic API v7
 
@@ -67,7 +65,6 @@
 - 判定: `現時点No-Go`
 - Flow / Incidents APIと商用料金導線は確認した。
 - 公開Traffic APIカバレッジ表は2022-11-14更新で、日本が掲載されていない。
-- 別製品のTraffic Statsに日本があっても、Traffic APIの提供根拠にしない。
 - 現行日本カバレッジと契約条件の書面確認後に再評価する。
 
 ## Technical Decisions
@@ -101,41 +98,32 @@
 
 1項目でも判断不能で安全な表示可否を確認できない場合はNo-Goとする。
 
-## Rejected Alternatives
+## Validation Results
 
-- JARTIC一般ウェブページのスクレイピング再表示
-- API利用可能性を包括的な再配布許諾とみなすこと
-- Google Routes API結果を独自交通データセットとして保存すること
-- HERE / TomTomレスポンスを契約確認なしに長期保存・複数利用者へ再利用すること
-- TomTom Traffic Statsの日本対応からTraffic APIの日本対応を推測すること
-- オービス・移動式取締り・警察位置データを同時に選定すること
-
-## Risks
-
-- 公開資料を契約書と誤認すること。
-- ブランド名だけで上流由来を確認済みと扱うこと。
-- 地図基盤との併用制限を見落とすこと。
-- キャッシュの権利・削除義務を見落とすこと。
-- 提供元更新時刻がない情報をリアルタイム表示すること。
-- 規約変更・契約停止時に情報を停止できないこと。
-- 位置情報外部送信の利用者同意が不足すること。
-- AI比較結果を法務承認・採用決定として扱うこと。
+- main比較: PR作成前時点で6 commits / 6 files / behind 0
+- 変更ファイル: docsのみ
+- 新規Markdown: すべて非空
+- Source of Truth: Issue #93完了、Issue #97進行中で整合
+- Repository正式所有者: `mizzz-ivr`を現在状態へ反映
+- PR #96 branch cleanup: 削除済み
+- 候補別の公式資料、確認事項、未確認事項: 記録済み
+- データ提供元採用、契約、APIキー取得、実装変更: なし
+- ローカル`validate-docs.sh`: 実行環境のDNS制約により未実施
+- GitHub connectorによるファイル内容・差分・branch比較: 確認済み
 
 ## Remaining Tasks
 
-1. mainとの差分とdocs整合を確認する。
-2. PRを作成し、Codexレビューを受ける。
-3. 人間レビューを受ける。
-4. マージ後にIssue #97を完了する。
-5. merged branchのcleanupを確認する。
-6. JARTIC Jシステム / VICSとHEREへの問い合わせ票作成Issueへ進む。
+1. PR #98のCodexレビューを確認し、指摘があれば修正する。
+2. 人間レビューを受ける。
+3. マージ後にIssue #97を完了する。
+4. `docs/issue-97-traffic-data-provider-comparison`のcleanupを確認する。
+5. JARTIC Jシステム / VICSとHEREへの問い合わせ票作成Issueへ進む。
 
 ## Suggested Next Actions
 
-- PRレビューでは、各候補の公開情報と未確認事項が明確に分離されているかを最優先で確認する。
-- PR #97対応のマージ前にデータ提供元、地図基盤、API方式を確定しない。
-- Issue #97マージ後は、JARTIC Jシステム / VICSとHEREへの契約・技術問い合わせ項目を別Issueで作成する。
-- 交通情報API実装は、契約・権利・上流由来・停止条件が確定するまで作成しない。
+- PR #98では、公開情報と契約上の未確認事項が明確に分離されているかを最優先で確認する。
+- PR #98マージ前にデータ提供元、地図基盤、API方式を確定しない。
+- 交通情報API実装は、契約・権利・上流由来・停止条件が確定するまで開始しない。
 
 ## Branch Cleanup
 
