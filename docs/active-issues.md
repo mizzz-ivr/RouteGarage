@@ -6,13 +6,20 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
-- Issue #93: 交通情報・オービス情報の法務・運用レビューを実施する
-  - URL: https://github.com/mizzz-dev/RouteGarage/issues/93
+- Issue #97: 交通情報データ提供元候補の利用条件・上流由来・再提供経路を比較する
+  - URL: https://github.com/mizzz-ivr/RouteGarage/issues/97
   - Status: In Progress
-  - Scope: 走行安全、情報限界、表示粒度、通知可否、地域差、利用条件、縮退運用、訂正・通報・監査の判断ゲートを整理する
-  - Branch: `docs/issue-93-traffic-orbis-legal-operations-review`
+  - Scope: JARTIC、VICS、Google、HERE、TomTomについて、上流由来、商用利用、第三者表示、再配布、加工、キャッシュ、帰属、停止条件を公式資料ベースで比較する
+  - Branch: `docs/issue-97-traffic-data-provider-comparison`
 
 ## Recently Completed
+
+### Issue #93: 交通情報・オービス情報の法務・運用レビューを実施する
+
+- URL: https://github.com/mizzz-ivr/RouteGarage/issues/93
+- Status: Completed
+- Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/96
+- Note: 走行安全、表示粒度、通知、地域差、利用条件、縮退、訂正・通報・監査のGo / No-Goゲートを整理。merged branchは削除済み。
 
 ### Issue #91: PR #90レビュー指摘に基づき交通情報の由来・更新時刻要件を修正する
 
@@ -280,12 +287,13 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Upcoming Candidates（高リスク領域優先）
 
-1. データ提供元候補の利用条件・上流由来・再提供経路比較
-2. 交通情報・オービス情報の画面詳細設計（法務・運用レビュー完了後）
-3. 提供停止・訂正・通報・監査の運用設計
-4. 位置情報・走行履歴の公開制御/保持期間/削除導線の要件詳細化
-5. 画像投稿・コミュニティ機能のモデレーション/通報/権利侵害対応要件
-6. 利用規約・プライバシーポリシー・問い合わせ導線・監査ログ運用要件
+1. JARTIC Jシステム / VICSとHEREへの契約・技術問い合わせ項目の確定
+2. 地図基盤候補と交通データ候補の組合せ制約比較
+3. 交通情報・オービス情報の画面詳細設計
+4. 提供停止・訂正・通報・監査の運用設計
+5. 位置情報・走行履歴の公開制御/保持期間/削除導線の要件詳細化
+6. 画像投稿・コミュニティ機能のモデレーション/通報/権利侵害対応要件
+7. 利用規約・プライバシーポリシー・問い合わせ導線・監査ログ運用要件
 
 ## 更新ルール
 
