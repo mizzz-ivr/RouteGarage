@@ -6,19 +6,27 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
-- Issue #91: PR #90レビュー指摘に基づき交通情報の由来・更新時刻要件を修正する
-  - URL: https://github.com/mizzz-dev/RouteGarage/issues/91
+- Issue #93: 交通情報・オービス情報の法務・運用レビューを実施する
+  - URL: https://github.com/mizzz-dev/RouteGarage/issues/93
   - Status: In Progress
-  - Scope: 上流データ由来と調達経路の分離、提供元更新時刻欠落時の保守的状態判定、PR #90レビュー指摘の反映
+  - Scope: 走行安全、情報限界、表示粒度、通知可否、地域差、利用条件、縮退運用、訂正・通報・監査の判断ゲートを整理する
+  - Branch: `docs/issue-93-traffic-orbis-legal-operations-review`
 
 ## Recently Completed
+
+### Issue #91: PR #90レビュー指摘に基づき交通情報の由来・更新時刻要件を修正する
+
+- URL: https://github.com/mizzz-dev/RouteGarage/issues/91
+- Status: Completed
+- Related PR: https://github.com/mizzz-dev/RouteGarage/pull/92
+- Note: 上流由来と調達経路、表示可否・鮮度・検証状態、更新時刻欠落、競合、キャッシュ縮退、利用者表示の要件を安全側へ修正。
 
 ### Issue #89: 交通情報・オービス情報の正確性限界表示と法令・規約適合要件を定義する
 
 - URL: https://github.com/mizzz-dev/RouteGarage/issues/89
 - Status: Completed
 - Related PR: https://github.com/mizzz-dev/RouteGarage/pull/90
-- Note: 基本方針を定義済み。PR #90マージ後のレビュー指摘2件はIssue #91で修正する。
+- Note: 基本方針を定義済み。PR #90マージ後のレビュー指摘はIssue #91 / PR #92で修正済み。
 
 ### Issue #87: PR #86後のドキュメント状態を更新する
 
@@ -272,12 +280,12 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Upcoming Candidates（高リスク領域優先）
 
-1. 交通情報・オービス情報の法務・運用レビュー
-2. データ提供元候補の利用条件・上流由来・再提供経路比較
-3. 位置情報・走行履歴の公開制御/保持期間/削除導線の要件詳細化
-4. 画像投稿・コミュニティ機能のモデレーション/通報/権利侵害対応要件
-5. 利用規約・プライバシーポリシー・問い合わせ導線・監査ログ運用要件
-6. 交通情報/オービス情報の画面詳細設計（レビュー完了後）
+1. データ提供元候補の利用条件・上流由来・再提供経路比較
+2. 交通情報・オービス情報の画面詳細設計（法務・運用レビュー完了後）
+3. 提供停止・訂正・通報・監査の運用設計
+4. 位置情報・走行履歴の公開制御/保持期間/削除導線の要件詳細化
+5. 画像投稿・コミュニティ機能のモデレーション/通報/権利侵害対応要件
+6. 利用規約・プライバシーポリシー・問い合わせ導線・監査ログ運用要件
 
 ## 更新ルール
 
