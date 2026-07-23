@@ -16,9 +16,9 @@ https://github.com/mizzz-ivr/RouteGarage/issues/99
 
 ## Purpose
 
-JARTIC Jシステム / VICSおよびHEREに対し、契約・技術・再提供・加工・キャッシュ・帰属・SLA・停止条件を確認する問い合わせ票を作成する。
+JARTIC Jシステム / VICSおよびHEREに対し、契約・技術・再提供・加工・キャッシュ・帰属・SLA・停止条件を確認する問い合わせ文書を作成する。
 
-問い合わせを実送信せず、人間レビュー後に送信可能な完成形と、回答記録・Go / No-Go判定様式をRepositoryへ保存する。
+問い合わせを実送信せず、人間レビュー後に使用できる初回問い合わせ文、詳細質問票、回答記録・Go / No-Go判定様式をRepositoryへ保存する。
 
 ## Repository Sources
 
@@ -51,18 +51,45 @@ JARTIC Jシステム / VICSおよびHEREに対し、契約・技術・再提供�
 
 ## Required Documents
 
+### 共通
+
 - `docs/inquiries/traffic-data-provider-inquiry-common.md`
-- `docs/inquiries/jartic-vics-contract-technical-inquiry.md`
-- `docs/inquiries/here-traffic-api-contract-technical-inquiry.md`
 - `docs/inquiries/traffic-data-provider-response-record.md`
+
+### JARTIC / VICS
+
+- `docs/inquiries/jartic-vics-initial-inquiry.md`
+- `docs/inquiries/jartic-vics-contract-technical-inquiry.md`
+
+### HERE
+
+- `docs/inquiries/here-traffic-api-initial-inquiry.md`
+- `docs/inquiries/here-traffic-api-contract-technical-inquiry.md`
+
+### Source of Truth / Logs
+
 - `docs/logs/2026-07-23-issue-99.md`
 - `docs/ai-prompts/2026-07-23-issue-99-provider-inquiry-templates.md`
 - `docs/current-status.md`
 - `docs/active-issues.md`
 - `docs/handoff/2026-07-22-next-task-handoff.md`
 
+## Inquiry Workflow
+
+1. 共通前提を人間が確認する。
+2. 初回問い合わせ文へ運営主体・担当者・連絡先と承認済み仮定値を入力する。
+3. プロジェクト、法務、運用、セキュリティが送信前レビューする。
+4. 明示承認後に公式の法人・営業窓口へ初回問い合わせを送信する。
+5. 正式な営業・契約・技術窓口と適用文書を確認する。
+6. 詳細質問票から必要な章だけを選び、追加質問する。
+7. 回答をアクセス制御された保管先へ保存する。
+8. Repositoryには公開可能な要約と証跡参照IDを記録する。
+9. 回答記録様式を使ってGo / No-Goを再判定する。
+
 ## Inquiry Requirements
 
+- 初回問い合わせは各提供元12項目程度に限定する
+- 詳細質問票を初回フォームへ一括送信しない
 - RouteGarageのサービス概要と想定利用形態を説明する
 - 未確定事項を確定済みと記載しない
 - 契約主体、利用者表示、公衆送信、再提供を確認する
@@ -86,7 +113,7 @@ JARTIC Jシステム / VICSおよびHEREに対し、契約・技術・再提供�
 
 ## Commercial Constraints
 
-- 問い合わせ票を作るが送信しない
+- 問い合わせ文書を作るが送信しない
 - 契約、見積、料金交渉、APIキー取得を行わない
 - 回答本文の公開可否を確認せずRepositoryへ掲載しない
 - AI要約だけで契約・採用判断しない
@@ -105,10 +132,11 @@ JARTIC Jシステム / VICSおよびHEREに対し、契約・技術・再提供�
 ## Completion Conditions
 
 - 共通前提文書がある
-- JARTIC / VICS問い合わせ票がある
-- HERE問い合わせ票がある
+- JARTIC / VICSの初回問い合わせ文と詳細質問票がある
+- HEREの初回問い合わせ文と詳細質問票がある
 - 回答記録・Go / No-Go様式がある
 - 公式窓口と送信先制約が記録されている
+- 初回問い合わせと追加質問の分岐が明確である
 - 質問の確認目的とGo / No-Go影響が明確である
 - 送信前人間レビューゲートがある
 - Source of Truth、ログ、handoffが整合する
@@ -118,6 +146,7 @@ JARTIC Jシステム / VICSおよびHEREに対し、契約・技術・再提供�
 
 - docsのみの差分であること
 - 新規Markdownが空でないこと
+- 初回問い合わせと詳細質問が分離されていること
 - 公式資料で確認済みの事項と要問い合わせ事項を混同していないこと
 - JARTICとVICSの責務分界を断定していないこと
 - VICS一般問い合わせフォームを営利目的の送信先にしていないこと
