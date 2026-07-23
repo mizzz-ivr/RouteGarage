@@ -4,18 +4,20 @@
 
 - Repositoryの正式な所有者は`mizzz-ivr`。
 - PR #98は2026-07-23にマージ済み。
-- Issue #97はclosed / completed。
-- PR #98の作業branchは削除済み。
-- 次の高リスク作業としてIssue #99を作成。
-- JARTIC Jシステム / VICS・HERE向け契約・技術問い合わせ票を作成。
-- 問い合わせ共通前提、回答記録、Go / No-Go判定様式を作成。
-- 実送信、契約、見積取得、APIキー取得、実装は行っていない。
+- Issue #97はclosed / completed、作業branchは削除済み。
+- Issue #99を作成し、PR #100をOpenした。
+- JARTIC Jシステム / VICS・HERE向け問い合わせ文書を作成。
+- 初回問い合わせ文と詳細質問票を分離した。
+- 共通前提、回答記録、Go / No-Go判定様式を作成した。
+- 問い合わせ送信、契約、見積取得、APIキー取得、実装は行っていない。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #99: https://github.com/mizzz-ivr/RouteGarage/issues/99
+- PR #100: https://github.com/mizzz-ivr/RouteGarage/pull/100
 - Branch: `docs/issue-99-provider-inquiry-templates`
 - Phase: Phase 1 / Requirements Definition
+- PR state: open / mergeable / not draft
 
 ## Completed Tasks
 
@@ -25,18 +27,40 @@
 - 同等のOpen Issueがないことを確認。
 - Issue #99とmain基点の作業branchを作成。
 - JARTIC、VICS、HEREの公式窓口・案内を確認。
-- 問い合わせ文書4件を作成。
+- 初回問い合わせ文2件、詳細質問票2件、共通前提、回答記録様式を作成。
 - Issue #99の作業ログ、AIプロンプトログを作成。
 - Source of TruthをIssue #97完了・Issue #99進行中へ更新。
+- PR #100を作成し、法務・安全ラベルを付与。
+- Issue #99へ実行証跡を追加。
 
 ## Created Documents
 
+### 共通
+
 - `docs/inquiries/traffic-data-provider-inquiry-common.md`
-- `docs/inquiries/jartic-vics-contract-technical-inquiry.md`
-- `docs/inquiries/here-traffic-api-contract-technical-inquiry.md`
 - `docs/inquiries/traffic-data-provider-response-record.md`
+
+### JARTIC / VICS
+
+- `docs/inquiries/jartic-vics-initial-inquiry.md`
+  - 初回問い合わせフォーム用の12項目
+- `docs/inquiries/jartic-vics-contract-technical-inquiry.md`
+  - 正式窓口確定後の契約・技術詳細質問票
+
+### HERE
+
+- `docs/inquiries/here-traffic-api-initial-inquiry.md`
+  - 初回営業問い合わせ用の12項目
+- `docs/inquiries/here-traffic-api-contract-technical-inquiry.md`
+  - 営業・契約・技術窓口向けの詳細英語質問票
+
+### 記録
+
 - `docs/logs/2026-07-23-issue-99.md`
 - `docs/ai-prompts/2026-07-23-issue-99-provider-inquiry-templates.md`
+- `docs/current-status.md`
+- `docs/active-issues.md`
+- `docs/handoff/2026-07-22-next-task-handoff.md`
 
 ## Official Contact Findings
 
@@ -44,21 +68,23 @@
 
 - JARTICのJシステムページには、情報提供事業者専用の問い合わせフォームがある。
 - VICS符号型の利用には、JARTIC契約とは別にVICSセンターとの技術開示契約が必要。
-- VICSセンターは、JARTICからの委託によりVICS符号型情報を事業者へ提供している。
+- VICSセンターはJARTICからの委託によりVICS符号型情報を事業者へ提供している。
 - VICS一般問い合わせフォームは営利目的の問い合わせを受け付けない旨がある。
-- したがって、JARTIC専用窓口からVICS技術開示契約の正式窓口・手順を確認する。
+- JARTIC専用窓口からVICS技術開示契約の正式窓口・手順を確認する。
 
 ### HERE
 
-- HERE公式Contactには、製品・デモ・商用利用に関する営業問い合わせフォームがある。
+- HERE公式Contactには製品・デモ・商用利用に関する営業問い合わせフォームがある。
 - HERE Traffic API v7はFlowとIncidentsのリアルタイム交通情報APIとして案内されている。
 - 公開ドキュメントだけでは日本データの上流由来、再提供、加工、キャッシュ、他社地図重畳、SLAを確定しない。
 
 ## Technical Decisions
 
 - 問い合わせ票作成と送信を別工程にする。
-- 本Issueでは問い合わせを送信しない。
-- 提供元ごとに個別問い合わせ票を分ける。
+- 初回問い合わせと詳細質問を二段階に分離する。
+- 初回問い合わせは各提供元12項目に限定する。
+- 詳細質問票は正式な営業・契約・技術窓口確定後に、必要な章だけ送る。
+- 本Issue・PRでは問い合わせを送信しない。
 - 共通サービス前提と未確定事項を別文書で管理する。
 - 回答の適用規約・契約版、回答者、回答日、有効期限、証跡を記録する。
 - 口頭回答、曖昧回答、適用文書・版不明の回答はGo判定に使用しない。
@@ -72,7 +98,7 @@
 - 移動式取締り・警察位置のリアルタイム情報を対象にしない。
 - 正確オービス座標・走行中接近通知を許容しない。
 - 利用者の位置情報、走行履歴、個人識別子を提供元へ送信する前提を置かない。
-- 外部送信が必要な場合は、同意、最小化、保持、削除を別Issueで確定する。
+- 外部送信が必要な場合は同意、最小化、保持、削除を別Issueで確定する。
 - 判断不能時はNo-Goとする。
 
 ## Response / Go-No-Go Gates
@@ -95,10 +121,18 @@
 
 1項目でも安全・権利・運用可否を判断できない場合はNo-Goとする。
 
+## Review Status
+
+- PR #100はopen / mergeable / not draft。
+- CodexレビューはPR #98時点で利用上限に達しており、現時点では実行できない。
+- AIレビュー未実施を隠さず、人間レビューを必須ゲートとする。
+- Build Web Appsによる画面実装は仕様・契約未確定のため行わない。
+
 ## Rejected Alternatives
 
 - 公開資料だけで採用判断する案
-- VICS一般問い合わせフォームへ営利目的の契約問い合わせを送る案
+- 58問・88問の詳細票を初回フォームへ一括送信する案
+- VICS一般問い合わせフォームへ営利目的の問い合わせを送る案
 - AIが問い合わせを自動送信する案
 - 回答本文を許可確認なしに公開Repositoryへ保存する案
 - 曖昧回答を条件付きGoとして扱う案
@@ -113,24 +147,18 @@
 - 適用規約・契約版・回答有効期限を記録しないこと。
 - 料金だけで安全・権利要件を省略して採用すること。
 - 位置情報・プローブデータの外部送信条件を見落とすこと。
+- 初回回答前に詳細質問票を一括送信すること。
 
 ## Remaining Tasks
 
-1. branch差分、Markdown、Source of Truthを検証する。
-2. PRを作成する。
-3. Codexレビューが利用可能なら依頼する。
-4. 人間レビューを受ける。
+1. 最新差分を再検証する。
+2. PR #100本文を初回問い合わせ・詳細質問の二段階構成へ更新する。
+3. 人間レビューを受ける。
+4. マージ後も問い合わせを自動送信しない。
 5. 送信先、担当者情報、仮定値を人間が入力する。
-6. 法務・運用・セキュリティレビュー後に、問い合わせ送信の明示承認を得る。
+6. 法務・運用・セキュリティレビュー後、問い合わせ送信の明示承認を得る。
 7. 問い合わせ送信は別アクションとして実施する。
 8. 回答受領後、アクセス制御された保管先へ証跡を保存し、Go / No-Goを再判定する。
-
-## Suggested Next Actions
-
-- 本IssueのPRレビューでは、問い合わせが許諾済み・採用済みを前提にしていないかを最優先で確認する。
-- JARTIC / VICSでは契約主体、再提供、加工、キャッシュ、VICS技術開示の責務分界を重点確認する。
-- HEREでは日本カバレッジ、上流由来、複数利用者表示、他社地図重畳、キャッシュ、SLA、プライバシーを重点確認する。
-- 問い合わせ回答が揃うまで交通情報APIの実装Issueを作成しない。
 
 ## Branch Cleanup
 
