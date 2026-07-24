@@ -1,159 +1,185 @@
-# Handoff（2026-07-24 / Issue #101）
+# Handoff（2026-07-24 / Issue #103）
 
 ## Summary
 
 - Repositoryの正式な所有者は`mizzz-ivr`。
-- PR #100は2026-07-23T23:20:40Zにマージ済み。
-- Issue #99はclosed / completed、作業branchは削除済み。
-- Issue #101を作成し、送信前レビュー・承認台帳の整備を開始。
-- JARTIC / VICS・HEREともに現在判定は`No-Go（要入力・要承認）`。
-- 外部問い合わせ、契約、見積取得、APIキー取得、実装は行っていない。
+- PR #102は2026-07-24T03:16:54Zにマージ済み。
+- Issue #101はclosed / completed、作業branchは削除済み。
+- Issue #101へ完了コメントを追加済み。
+- 問い合わせ送信は未承認であり、JARTIC / VICS・HEREともにNo-Goを維持。
+- 次の独立作業としてIssue #103を作成。
+- Google Maps Platform、JARTIC / VICS、HERE Traffic、Google Routesの組合せ制約を比較。
+- 地図・ルート・交通原データ・安全状態・キャッシュ・帰属・障害停止の責務境界を整理。
+- 実装、契約、問い合わせ送信、APIキー取得、採用決定は行っていない。
 
 ## Current Issue / Branch
 
-- Issue #101: https://github.com/mizzz-ivr/RouteGarage/issues/101
-- Branch: `docs/issue-101-provider-submission-review`
+- Issue #103: https://github.com/mizzz-ivr/RouteGarage/issues/103
+- Branch: `docs/issue-103-map-traffic-combination-comparison`
 - Phase: Phase 1 / Requirements Definition
 
 ## Completed Tasks
 
-- PR #100のマージを確認。
-- Issue #99の完了を確認し、完了コメントを追加。
-- PR #100の作業branch削除を確認。
+- PR #102のマージを確認。
+- Issue #101の完了を確認し、完了コメントを追加。
+- PR #102の作業branch削除を確認。
 - 同等のOpen Issueがないことを確認。
-- Issue #101とmain基点の作業branchを作成。
-- 共通の問い合わせ送信・承認台帳を作成。
-- JARTIC / VICS送信前レビュー票を作成。
-- HERE送信前レビュー票を作成。
-- 未入力・未承認の状態をNo-Goとして明記。
-- Issue #101の作業ログ、AIプロンプトログを追加。
-- Source of TruthをIssue #99完了、Issue #101進行中へ更新。
+- Issue #103とmain基点の作業branchを作成。
+- Repository内の地図・交通情報候補を確認。
+- Google、JARTIC / VICS、HEREの公式資料を確認。
+- 組合せ比較文書を作成。
+- Issue #103の作業ログ・AIプロンプトログを作成。
+- Source of TruthをIssue #101完了・Issue #103進行中へ更新。
 
 ## Created Documents
 
-- `docs/inquiries/provider-submission-register.md`
-- `docs/inquiries/jartic-vics-submission-review.md`
-- `docs/inquiries/here-traffic-api-submission-review.md`
-- `docs/logs/2026-07-24-issue-101.md`
-- `docs/ai-prompts/2026-07-24-issue-101-provider-submission-review.md`
+- `docs/reviews/map-traffic-provider-combination-comparison.md`
+- `docs/logs/2026-07-24-issue-103.md`
+- `docs/ai-prompts/2026-07-24-issue-103-map-traffic-combination-comparison.md`
 
-## Current Decisions
+## Updated Documents
 
-### JARTIC / VICS
+- `docs/current-status.md`
+- `docs/active-issues.md`
+- `docs/handoff/2026-07-22-next-task-handoff.md`
 
-`No-Go（要入力・要承認）`
+## Compared Configurations
 
-未完了:
+| ID | 構成 | 初期評価 |
+| --- | --- | --- |
+| C-01 | Google Maps Platform + Google Routes API | 条件付き候補 |
+| C-02 | Google Maps Platform + JARTICオープンデータ | 用途限定候補 |
+| C-03 | Google Maps Platform + JARTIC Jシステム / VICS | 要問い合わせ |
+| C-04 | Google Maps Platform + HERE Traffic API v7 | 現時点No-Go |
+| C-05 | HERE地図基盤 + HERE Traffic API v7 | 条件付き候補 |
+| C-06 | 地図非依存backend + 複数provider adapter | 要問い合わせ |
 
-- 運営主体、担当者、連絡先
-- 送信対象commit SHA
-- 公式窓口の送信直前再確認
-- プロジェクト、法務、運用、セキュリティ・プライバシー承認
-- 外部送信承認
-- 回答証跡のアクセス制御された保管先
-
-### HERE
-
-`No-Go（required fields and approvals are incomplete）`
-
-未完了:
-
-- Legal entity、担当者、連絡先
-- 送信対象commit SHA
-- HERE公式営業窓口の送信直前再確認
-- プロジェクト、法務、運用、セキュリティ・プライバシー承認
-- 英語表現レビュー
-- 外部送信承認
-- 回答証跡のアクセス制御された保管先
+本評価は採用決定ではない。
 
 ## Technical Decisions
 
-- PRマージ・Issue Closeと外部送信承認を分離する。
-- 初回問い合わせ文の対象commit SHAを承認記録へ固定する。
-- 送信直前に公式窓口・フォーム用途を人間が再確認する。
-- 運営主体、担当者、連絡先をAIが推測しない。
-- 確定値、仮定値、未確定値を区別する。
-- 仮定値には根拠、承認者、承認日を記録する。
-- JARTIC / VICSとHEREを別々に承認する。
-- HEREは英語表現レビューを別に設ける。
-- 詳細質問票は初回問い合わせへ添付しない。
-- 外部送信の明示承認がない場合はNo-Goとする。
-- 提供元回答、契約、見積、添付資料は公開Repositoryへ保存しない。
-- 採用時は別IssueとADRを作成する。
+- Google Maps Platformは優先候補だが未確定のまま維持する。
+- Google Routes結果を地図表示する場合はGoogle Mapを使う構成に限定する。
+- Google Routes結果を提供元中立の道路・交通データベースへ恒久保存する前提を置かない。
+- JARTICオープンデータは静的・定期更新レイヤーに限定し、ライブ交通として扱わない。
+- Maps JavaScript APIのカスタムオーバーレイ機能と、第三者交通データの契約許諾を分離する。
+- Google Maps上へのJARTIC Jシステム / VICS重畳は要問い合わせとする。
+- Google Maps上へのHERE Traffic重畳は、両社の明示許諾までNo-Goとする。
+- HERE地図 + HERE Trafficは同一提供元の条件付き候補とするが、日本向け契約、キャッシュ、再提供、SLAを確認する。
+- provider adapterは契約制限を回避する仕組みではない。
+- providerごとに保存、加工、再配布、有効期限、削除を管理する。
+- 採用時は地図、ルート、交通provider、adapter境界について別IssueとADRを作成する。
+
+## Responsibility Boundaries
+
+- 地図描画: 地図提供元
+- ルート計算: ルート提供元
+- 交通原データ: 交通情報提供元
+- 上流由来追跡: 交通情報提供元の情報をRouteGarageが保持
+- 表示可否・鮮度・検証・提供停止: RouteGarage。ただし加工許諾の範囲内
+- キャッシュ・削除: provider契約ごとにRouteGarageが管理
+- 帰属: 各provider要件を同一画面上で明確に分離
+- 障害・規約変更・契約停止: provider単位・地域単位・情報種別単位で停止
 
 ## Safety and Privacy Decisions
 
+- 情報源、提供元更新時刻、鮮度、検証状態、提供停止を利用者へ表示できない構成はNo-Go。
+- 地図と交通情報の道路リンク・位置参照のずれを検出・停止できない構成はNo-Go。
+- 利用者位置情報・走行履歴・識別子を複数providerへ無制限に送信しない。
+- providerごとの送信目的、項目、保持、削除を特定する。
 - 走行中の注視・操作・能動通知を前提にしない。
-- 移動式取締り・警察位置のリアルタイム情報を含めない。
-- 取締り回避を目的とする表現を含めない。
-- 正確なオービス座標・走行中接近通知を許容しない。
-- 利用者の実位置、走行履歴、識別子を送信しない。
-- APIキー、秘密鍵、トークン、パスワードを送信しない。
-- 他社の非公開契約・見積・回答を送信しない。
+- 移動式取締り・警察位置リアルタイム情報を扱わない。
+- 取締り回避を目的とするルート・表示・通知を扱わない。
 - 判断不能時はNo-Goとする。
 
-## Approval Gates
+## Inquiry Status
 
-1. 運営主体、部署、担当者、連絡先を入力
-2. 仮定値の区分・根拠・承認者を記録
-3. 初回問い合わせ文の対象commit SHAを固定
-4. 送信先・フォーム用途を送信直前に確認
-5. プロジェクト承認
-6. 法務・契約承認
-7. 運用承認
-8. セキュリティ・プライバシー承認
-9. HERE英語表現レビュー
-10. 証跡保管先・責任者・アクセス権限を確定
-11. 外部送信の明示承認
+### JARTIC / VICS
 
-1項目でも未完了の場合はNo-Go。
+`No-Go（外部送信未承認）`
+
+### HERE
+
+`No-Go（external submission not approved）`
+
+- PRマージ・Issue Closeは外部送信承認ではない。
+- Issue #101で作成した台帳の未入力・未承認項目が残っている。
+- 本Issueでは問い合わせを送信しない。
+
+## Go / No-Go Gates
+
+基本設計候補へ進めるには、以下を確認する。
+
+1. 地図・交通providerそれぞれの契約主体、適用規約、版
+2. Web / mobile / backend利用、複数利用者表示、公衆送信
+3. 他社地図重畳または同一provider利用の許諾
+4. 加工、状態判定、競合検出、派生情報の許諾
+5. 上流由来、更新時刻、訂正、撤回、無効化
+6. キャッシュ、履歴、監査メタデータ、削除義務
+7. 帰属、ロゴ、リンク、エンドユーザー条項
+8. 道路リンク・位置参照・座標変換の責任主体
+9. provider・地域・情報種別単位の停止方式
+10. 利用者位置情報・走行履歴・識別子の外部送信条件
+11. SLA、障害通知、サポート、緊急連絡、責任分界
+12. 法務、運用、セキュリティ・プライバシー、プロジェクト責任者の承認
+
+1項目でも判断できない場合はNo-Goまたは保留とする。
 
 ## Rejected Alternatives
 
-- PR #100のマージを外部送信承認として扱う案
-- Issue #99 Close後の自動送信
-- AIによる運営主体・担当者・連絡先の推測
-- 送信対象文書版を記録しない運用
-- JARTICとHEREの一括承認
-- 提供元回答の公開Repository保存
-- AIのみのレビュー・承認
+- Google Maps Platformの優先候補表記を採用決定として扱う案
+- カスタムオーバーレイが実装可能であることを契約許諾とみなす案
+- HERE TrafficをGoogle Mapsへ無条件に重畳する案
+- JARTIC / VICS道路リンクをGoogle道路ネットワークへ無許可で変換する案
+- 複数providerの原レスポンスを恒久保存して共通API化する案
+- provider adapterで契約制限を回避できるとみなす案
+- Repositoryに未定義の地図providerを本Issueで追加する案
 
 ## Risks
 
-- 承認版と実送信版が異なること。
-- 送信先URLやフォーム用途が変更されていること。
-- 未確定値を確定値として送信すること。
-- 担当者の個人情報を公開Repositoryへ過剰に記録すること。
-- 回答証跡の保管先・アクセス権限が不十分なこと。
-- HERE英語文と日本語承認内容が一致しないこと。
-- 詳細質問票を初回問い合わせへ添付すること。
-- AIの確認だけで外部送信を許可すること。
+- Google Maps Contentと非Googleデータの出所・帰属が混在すること。
+- VICS道路リンクとGoogle道路ネットワークがずれること。
+- HERE TrafficとGoogle地図の契約・責任分界が不明なこと。
+- キャッシュ・履歴・監査保存が代替データベース作成となること。
+- provider切替時に別providerコンテンツを移植できると誤認すること。
+- 複数providerへの位置情報送信でプライバシー影響が拡大すること。
+- 規約変更・契約停止時に一部providerだけを停止できないこと。
+
+## Tool Operation Incident
+
+branch作成時のツール選択ミスによりIssue #104・#105を誤作成した。
+
+- Issue #104: `誤作成Issue（作業対象外）`として`not_planned`でクローズ済み。
+- Issue #105: `誤作成Issue（作業対象外）`として`not_planned`でクローズ済み。
+- 正式な作業対象はIssue #103のみ。
+- branch作成ツールのスキーマを再取得し、正しいbranchをmainから作成済み。
 
 ## Remaining Tasks
 
-1. mainとの差分、Markdown、No-Go条件を検証する。
+1. mainとの差分、Markdown、組合せ判定、禁止事項を検証する。
 2. PRを作成する。
-3. 人間レビューを受ける。
-4. 運営主体、担当者、連絡先、仮定値、証跡保管責任者を人間が入力する。
-5. 対象commit SHAを固定して各承認を取得する。
-6. 外部送信は別途明示承認後に実施する。
-7. 回答受領後、非公開証跡を保存し、公開可能な要約と参照IDをRepositoryへ記録する。
+3. Codexレビューが利用可能なら依頼する。
+4. 人間レビューを受ける。
+5. 問い合わせ送信が別途承認された場合、C-03 / C-05の契約条件を提供元へ確認する。
+6. provider選定時にADRを作成する。
+7. provider確定後にprovider adapter・保存境界・縮退方式の基本設計へ進む。
 
 ## Branch Cleanup
 
 削除済み:
 
 - `docs/issue-99-provider-inquiry-templates`
+- `docs/issue-101-provider-submission-review`
 
 作業中:
 
-- `docs/issue-101-provider-submission-review`
+- `docs/issue-103-map-traffic-combination-comparison`
 
 ## 注意事項
 
 - AI生成内容は人間レビュー必須。
+- 公開製品説明は契約上の許諾ではない。
 - 問い合わせは未送信。
-- PRマージは送信承認ではない。
 - 法的助言、契約判断、採用決定ではない。
-- データ提供元、地図基盤、API方式、キャッシュ方式は未確定。
+- 地図、ルート、交通provider、API方式、キャッシュ方式は未確定。
 - 仕様・契約確定前に実装しない。
