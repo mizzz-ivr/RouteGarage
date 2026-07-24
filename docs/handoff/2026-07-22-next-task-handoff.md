@@ -1,180 +1,159 @@
-# Handoff（2026-07-23 / Issue #99）
+# Handoff（2026-07-24 / Issue #101）
 
 ## Summary
 
 - Repositoryの正式な所有者は`mizzz-ivr`。
-- PR #98は2026-07-23にマージ済み。
-- Issue #97はclosed / completed、作業branchは削除済み。
-- Issue #99を作成し、PR #100をOpenした。
-- JARTIC Jシステム / VICS・HERE向け問い合わせ文書を作成。
-- 初回問い合わせ文と詳細質問票を分離した。
-- 共通前提、回答記録、Go / No-Go判定様式を作成した。
-- 問い合わせ送信、契約、見積取得、APIキー取得、実装は行っていない。
+- PR #100は2026-07-23T23:20:40Zにマージ済み。
+- Issue #99はclosed / completed、作業branchは削除済み。
+- Issue #101を作成し、送信前レビュー・承認台帳の整備を開始。
+- JARTIC / VICS・HEREともに現在判定は`No-Go（要入力・要承認）`。
+- 外部問い合わせ、契約、見積取得、APIキー取得、実装は行っていない。
 
-## Current Issue / PR / Branch
+## Current Issue / Branch
 
-- Issue #99: https://github.com/mizzz-ivr/RouteGarage/issues/99
-- PR #100: https://github.com/mizzz-ivr/RouteGarage/pull/100
-- Branch: `docs/issue-99-provider-inquiry-templates`
+- Issue #101: https://github.com/mizzz-ivr/RouteGarage/issues/101
+- Branch: `docs/issue-101-provider-submission-review`
 - Phase: Phase 1 / Requirements Definition
-- PR state: open / mergeable / not draft
 
 ## Completed Tasks
 
-- PR #98のマージを確認。
-- Issue #97の完了を確認し、完了コメントを追加。
-- PR #98の作業branch削除を確認。
+- PR #100のマージを確認。
+- Issue #99の完了を確認し、完了コメントを追加。
+- PR #100の作業branch削除を確認。
 - 同等のOpen Issueがないことを確認。
-- Issue #99とmain基点の作業branchを作成。
-- JARTIC、VICS、HEREの公式窓口・案内を確認。
-- 初回問い合わせ文2件、詳細質問票2件、共通前提、回答記録様式を作成。
-- Issue #99の作業ログ、AIプロンプトログを作成。
-- Source of TruthをIssue #97完了・Issue #99進行中へ更新。
-- PR #100を作成し、法務・安全ラベルを付与。
-- Issue #99へ実行証跡を追加。
+- Issue #101とmain基点の作業branchを作成。
+- 共通の問い合わせ送信・承認台帳を作成。
+- JARTIC / VICS送信前レビュー票を作成。
+- HERE送信前レビュー票を作成。
+- 未入力・未承認の状態をNo-Goとして明記。
+- Issue #101の作業ログ、AIプロンプトログを追加。
+- Source of TruthをIssue #99完了、Issue #101進行中へ更新。
 
 ## Created Documents
 
-### 共通
+- `docs/inquiries/provider-submission-register.md`
+- `docs/inquiries/jartic-vics-submission-review.md`
+- `docs/inquiries/here-traffic-api-submission-review.md`
+- `docs/logs/2026-07-24-issue-101.md`
+- `docs/ai-prompts/2026-07-24-issue-101-provider-submission-review.md`
 
-- `docs/inquiries/traffic-data-provider-inquiry-common.md`
-- `docs/inquiries/traffic-data-provider-response-record.md`
-
-### JARTIC / VICS
-
-- `docs/inquiries/jartic-vics-initial-inquiry.md`
-  - 初回問い合わせフォーム用の12項目
-- `docs/inquiries/jartic-vics-contract-technical-inquiry.md`
-  - 正式窓口確定後の契約・技術詳細質問票
-
-### HERE
-
-- `docs/inquiries/here-traffic-api-initial-inquiry.md`
-  - 初回営業問い合わせ用の12項目
-- `docs/inquiries/here-traffic-api-contract-technical-inquiry.md`
-  - 営業・契約・技術窓口向けの詳細英語質問票
-
-### 記録
-
-- `docs/logs/2026-07-23-issue-99.md`
-- `docs/ai-prompts/2026-07-23-issue-99-provider-inquiry-templates.md`
-- `docs/current-status.md`
-- `docs/active-issues.md`
-- `docs/handoff/2026-07-22-next-task-handoff.md`
-
-## Official Contact Findings
+## Current Decisions
 
 ### JARTIC / VICS
 
-- JARTICのJシステムページには、情報提供事業者専用の問い合わせフォームがある。
-- VICS符号型の利用には、JARTIC契約とは別にVICSセンターとの技術開示契約が必要。
-- VICSセンターはJARTICからの委託によりVICS符号型情報を事業者へ提供している。
-- VICS一般問い合わせフォームは営利目的の問い合わせを受け付けない旨がある。
-- JARTIC専用窓口からVICS技術開示契約の正式窓口・手順を確認する。
+`No-Go（要入力・要承認）`
+
+未完了:
+
+- 運営主体、担当者、連絡先
+- 送信対象commit SHA
+- 公式窓口の送信直前再確認
+- プロジェクト、法務、運用、セキュリティ・プライバシー承認
+- 外部送信承認
+- 回答証跡のアクセス制御された保管先
 
 ### HERE
 
-- HERE公式Contactには製品・デモ・商用利用に関する営業問い合わせフォームがある。
-- HERE Traffic API v7はFlowとIncidentsのリアルタイム交通情報APIとして案内されている。
-- 公開ドキュメントだけでは日本データの上流由来、再提供、加工、キャッシュ、他社地図重畳、SLAを確定しない。
+`No-Go（required fields and approvals are incomplete）`
+
+未完了:
+
+- Legal entity、担当者、連絡先
+- 送信対象commit SHA
+- HERE公式営業窓口の送信直前再確認
+- プロジェクト、法務、運用、セキュリティ・プライバシー承認
+- 英語表現レビュー
+- 外部送信承認
+- 回答証跡のアクセス制御された保管先
 
 ## Technical Decisions
 
-- 問い合わせ票作成と送信を別工程にする。
-- 初回問い合わせと詳細質問を二段階に分離する。
-- 初回問い合わせは各提供元12項目に限定する。
-- 詳細質問票は正式な営業・契約・技術窓口確定後に、必要な章だけ送る。
-- 本Issue・PRでは問い合わせを送信しない。
-- 共通サービス前提と未確定事項を別文書で管理する。
-- 回答の適用規約・契約版、回答者、回答日、有効期限、証跡を記録する。
-- 口頭回答、曖昧回答、適用文書・版不明の回答はGo判定に使用しない。
-- 回答本文に転載・二次利用制限がある場合、公開Repositoryへ保存しない。
+- PRマージ・Issue Closeと外部送信承認を分離する。
+- 初回問い合わせ文の対象commit SHAを承認記録へ固定する。
+- 送信直前に公式窓口・フォーム用途を人間が再確認する。
+- 運営主体、担当者、連絡先をAIが推測しない。
+- 確定値、仮定値、未確定値を区別する。
+- 仮定値には根拠、承認者、承認日を記録する。
+- JARTIC / VICSとHEREを別々に承認する。
+- HEREは英語表現レビューを別に設ける。
+- 詳細質問票は初回問い合わせへ添付しない。
+- 外部送信の明示承認がない場合はNo-Goとする。
+- 提供元回答、契約、見積、添付資料は公開Repositoryへ保存しない。
 - 採用時は別IssueとADRを作成する。
-- Next.js / Expo / DB / API / Auth / Infraを確定しない。
 
 ## Safety and Privacy Decisions
 
-- 走行中の注視・操作・能動通知を問い合わせの想定用途に含めない。
-- 移動式取締り・警察位置のリアルタイム情報を対象にしない。
-- 正確オービス座標・走行中接近通知を許容しない。
-- 利用者の位置情報、走行履歴、個人識別子を提供元へ送信する前提を置かない。
-- 外部送信が必要な場合は同意、最小化、保持、削除を別Issueで確定する。
+- 走行中の注視・操作・能動通知を前提にしない。
+- 移動式取締り・警察位置のリアルタイム情報を含めない。
+- 取締り回避を目的とする表現を含めない。
+- 正確なオービス座標・走行中接近通知を許容しない。
+- 利用者の実位置、走行履歴、識別子を送信しない。
+- APIキー、秘密鍵、トークン、パスワードを送信しない。
+- 他社の非公開契約・見積・回答を送信しない。
 - 判断不能時はNo-Goとする。
 
-## Response / Go-No-Go Gates
+## Approval Gates
 
-基本設計候補へ進めるには、以下を確認する。
+1. 運営主体、部署、担当者、連絡先を入力
+2. 仮定値の区分・根拠・承認者を記録
+3. 初回問い合わせ文の対象commit SHAを固定
+4. 送信先・フォーム用途を送信直前に確認
+5. プロジェクト承認
+6. 法務・契約承認
+7. 運用承認
+8. セキュリティ・プライバシー承認
+9. HERE英語表現レビュー
+10. 証跡保管先・責任者・アクセス権限を確定
+11. 外部送信の明示承認
 
-1. 契約主体と適用規約・契約書の版
-2. 日本国内の対象地域・道路・情報種別
-3. Web / モバイル利用者への表示、公衆送信、第三者提供
-4. バックエンドからクライアントへの配信
-5. 加工、統合、状態判定、競合検出
-6. 他社地図への重畳
-7. キャッシュ、保存期間、有効期限、削除義務
-8. 上流由来、更新時刻、訂正、撤回、無効化
-9. 帰属、ロゴ、リンク、エンドユーザー条項
-10. SLA、障害通知、規約変更、契約停止時の提供停止
-11. セキュリティ、位置情報外部送信、プライバシー条件
-12. 監査、問い合わせ、事故・苦情対応の証跡
-13. 法務、運用、セキュリティ、プロジェクト責任者の承認
-
-1項目でも安全・権利・運用可否を判断できない場合はNo-Goとする。
-
-## Review Status
-
-- PR #100はopen / mergeable / not draft。
-- CodexレビューはPR #98時点で利用上限に達しており、現時点では実行できない。
-- AIレビュー未実施を隠さず、人間レビューを必須ゲートとする。
-- Build Web Appsによる画面実装は仕様・契約未確定のため行わない。
+1項目でも未完了の場合はNo-Go。
 
 ## Rejected Alternatives
 
-- 公開資料だけで採用判断する案
-- 58問・88問の詳細票を初回フォームへ一括送信する案
-- VICS一般問い合わせフォームへ営利目的の問い合わせを送る案
-- AIが問い合わせを自動送信する案
-- 回答本文を許可確認なしに公開Repositoryへ保存する案
-- 曖昧回答を条件付きGoとして扱う案
-- 問い合わせ作成と同時にAPI・地図基盤を実装する案
+- PR #100のマージを外部送信承認として扱う案
+- Issue #99 Close後の自動送信
+- AIによる運営主体・担当者・連絡先の推測
+- 送信対象文書版を記録しない運用
+- JARTICとHEREの一括承認
+- 提供元回答の公開Repository保存
+- AIのみのレビュー・承認
 
 ## Risks
 
-- 仮定値が確定仕様として提供元へ伝わること。
-- JARTICとVICSセンターの責務分界を誤認すること。
-- 製品説明を契約上の許諾と誤認すること。
-- 回答の転載・公開範囲を誤ること。
-- 適用規約・契約版・回答有効期限を記録しないこと。
-- 料金だけで安全・権利要件を省略して採用すること。
-- 位置情報・プローブデータの外部送信条件を見落とすこと。
-- 初回回答前に詳細質問票を一括送信すること。
+- 承認版と実送信版が異なること。
+- 送信先URLやフォーム用途が変更されていること。
+- 未確定値を確定値として送信すること。
+- 担当者の個人情報を公開Repositoryへ過剰に記録すること。
+- 回答証跡の保管先・アクセス権限が不十分なこと。
+- HERE英語文と日本語承認内容が一致しないこと。
+- 詳細質問票を初回問い合わせへ添付すること。
+- AIの確認だけで外部送信を許可すること。
 
 ## Remaining Tasks
 
-1. 最新差分を再検証する。
-2. PR #100本文を初回問い合わせ・詳細質問の二段階構成へ更新する。
+1. mainとの差分、Markdown、No-Go条件を検証する。
+2. PRを作成する。
 3. 人間レビューを受ける。
-4. マージ後も問い合わせを自動送信しない。
-5. 送信先、担当者情報、仮定値を人間が入力する。
-6. 法務・運用・セキュリティレビュー後、問い合わせ送信の明示承認を得る。
-7. 問い合わせ送信は別アクションとして実施する。
-8. 回答受領後、アクセス制御された保管先へ証跡を保存し、Go / No-Goを再判定する。
+4. 運営主体、担当者、連絡先、仮定値、証跡保管責任者を人間が入力する。
+5. 対象commit SHAを固定して各承認を取得する。
+6. 外部送信は別途明示承認後に実施する。
+7. 回答受領後、非公開証跡を保存し、公開可能な要約と参照IDをRepositoryへ記録する。
 
 ## Branch Cleanup
 
 削除済み:
 
-- `docs/issue-93-traffic-orbis-legal-operations-review`
-- `docs/issue-97-traffic-data-provider-comparison`
+- `docs/issue-99-provider-inquiry-templates`
 
 作業中:
 
-- `docs/issue-99-provider-inquiry-templates`
+- `docs/issue-101-provider-submission-review`
 
 ## 注意事項
 
 - AI生成内容は人間レビュー必須。
-- 法的助言、契約判断、採用決定ではない。
 - 問い合わせは未送信。
+- PRマージは送信承認ではない。
+- 法的助言、契約判断、採用決定ではない。
 - データ提供元、地図基盤、API方式、キャッシュ方式は未確定。
 - 仕様・契約確定前に実装しない。
