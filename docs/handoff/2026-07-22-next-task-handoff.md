@@ -1,41 +1,43 @@
-# Handoff（2026-07-24 / Issue #103）
+# Handoff（2026-07-25 / Issue #107）
 
 ## Summary
 
 - Repositoryの正式な所有者は`mizzz-ivr`。
-- PR #102は2026-07-24T03:16:54Zにマージ済み。
-- Issue #101はclosed / completed、作業branchは削除済み。
-- Issue #101へ完了コメントを追加済み。
-- 問い合わせ送信は未承認であり、JARTIC / VICS・HEREともにNo-Goを維持。
-- 次の独立作業としてIssue #103を作成。
-- Google Maps Platform、JARTIC / VICS、HERE Traffic、Google Routesの組合せ制約を比較。
-- 地図・ルート・交通原データ・安全状態・キャッシュ・帰属・障害停止の責務境界を整理。
-- 実装、契約、問い合わせ送信、APIキー取得、採用決定は行っていない。
+- PR #106はマージ済み。
+- Issue #103はclosed / completed、完了コメント追加済み。
+- PR #106の作業branchは削除済み。
+- 次の優先作業としてIssue #107を作成。
+- Google Maps Platform + Routes APIの契約・保存・帰属・監査境界をGoogle公式一次資料ベースで整理。
+- C-01の判定は`条件付き候補を維持 / 基本設計前提としては保留`。
+- Google Maps Platform / Routes APIの採用、契約、APIキー取得、実装は行っていない。
+- JARTIC / VICS・HEREへの問い合わせは未承認でNo-Goを維持。
 
 ## Current Issue / Branch
 
-- Issue #103: https://github.com/mizzz-ivr/RouteGarage/issues/103
-- Branch: `docs/issue-103-map-traffic-combination-comparison`
+- Issue #107: https://github.com/mizzz-ivr/RouteGarage/issues/107
+- Branch: `docs/issue-107-google-routes-contract-boundaries`
 - Phase: Phase 1 / Requirements Definition
 
 ## Completed Tasks
 
-- PR #102のマージを確認。
-- Issue #101の完了を確認し、完了コメントを追加。
-- PR #102の作業branch削除を確認。
+- PR #106のマージを確認。
+- Issue #103の完了を確認し、完了コメントを追加。
+- PR #106の作業branch削除を確認。
 - 同等のOpen Issueがないことを確認。
-- Issue #103とmain基点の作業branchを作成。
-- Repository内の地図・交通情報候補を確認。
-- Google、JARTIC / VICS、HEREの公式資料を確認。
-- 組合せ比較文書を作成。
-- Issue #103の作業ログ・AIプロンプトログを作成。
-- Source of TruthをIssue #101完了・Issue #103進行中へ更新。
+- Issue #107とmain基点の作業branchを作成。
+- Google公式のRoutes APIポリシー、Service Specific Terms、Core Services Summary、SLA、Place ID、セキュリティ資料を確認。
+- Google Map表示、地図なし表示、非Google地図禁止の境界を整理。
+- Place ID、期限付き緯度経度、保存禁止項目、運用メタデータ候補を分類。
+- Google Maps ContentとRouteGarage独自データの境界を整理。
+- 帰属、利用規約・プライバシー、APIセキュリティ、SLA・縮退要件を整理。
+- Issue #107の作業ログ・AIプロンプトログを追加。
+- Source of TruthをIssue #103完了・Issue #107進行中へ更新。
 
 ## Created Documents
 
-- `docs/reviews/map-traffic-provider-combination-comparison.md`
-- `docs/logs/2026-07-24-issue-103.md`
-- `docs/ai-prompts/2026-07-24-issue-103-map-traffic-combination-comparison.md`
+- `docs/reviews/google-routes-contract-storage-attribution-review.md`
+- `docs/logs/2026-07-25-issue-107.md`
+- `docs/ai-prompts/2026-07-25-issue-107-google-routes-contract-boundaries.md`
 
 ## Updated Documents
 
@@ -43,54 +45,125 @@
 - `docs/active-issues.md`
 - `docs/handoff/2026-07-22-next-task-handoff.md`
 
-## Compared Configurations
+## Official Sources
 
-| ID | 構成 | 初期評価 |
-| --- | --- | --- |
-| C-01 | Google Maps Platform + Google Routes API | 条件付き候補 |
-| C-02 | Google Maps Platform + JARTICオープンデータ | 用途限定候補 |
-| C-03 | Google Maps Platform + JARTIC Jシステム / VICS | 要問い合わせ |
-| C-04 | Google Maps Platform + HERE Traffic API v7 | 現時点No-Go |
-| C-05 | HERE地図基盤 + HERE Traffic API v7 | 条件付き候補 |
-| C-06 | 地図非依存backend + 複数provider adapter | 要問い合わせ |
+確認日: 2026-07-25
 
-本評価は採用決定ではない。
+- Routes API Policies and Attributions
+  - https://developers.google.com/maps/documentation/routes/policies
+- Google Maps Platform Service Specific Terms
+  - https://cloud.google.com/maps-platform/terms/maps-service-terms
+- Google Maps Platform Core Services Summary
+  - https://cloud.google.com/maps-platform/terms/maps-services
+- Google Maps Platform SLA
+  - https://cloud.google.com/maps-platform/terms/sla
+- Place IDs
+  - https://developers.google.com/maps/documentation/places/web-service/place-id
+- Routes API Web Service Best Practices
+  - https://developers.google.com/maps/documentation/routes/web-service-best-practices
+- Google Maps Platform Security Guidance
+  - https://developers.google.com/maps/api-security-best-practices
+
+## Current Decision
+
+`条件付き候補を維持 / 基本設計前提としては保留`
+
+採用決定ではない。
+
+保留理由:
+
+- 契約主体・請求先住所・EEA / 非EEA適用区分が未確定
+- 実際に適用される契約文書・版が未確定
+- 30日以内削除、backup削除、通常ログ混入防止の運用が未設計
+- Google Maps ContentとRouteGarage独自データの保存境界に対する人間・法務レビューが未完了
+- 公開利用規約・プライバシーポリシーが未整備
+- APIキー制限、秘密情報管理、障害・縮退方式が未設計
+
+## Display Boundaries
+
+- Routes API結果を地図表示する場合はGoogle Mapを使う。
+- Routes API結果は地図なし表示も可能だが、Google Maps帰属を表示する。
+- Routes APIのGoogle Maps Contentを非Google地図と組み合わせない。
+- Google Maps ContentとRouteGarage独自・第三者コンテンツを視覚的に区別する。
+- Googleが指定する第三者帰属を表示できる領域を確保する。
+
+## Storage Boundaries
+
+| データ | 初期方針 |
+| --- | --- |
+| Place ID | 長期保存候補。定期的な有効性確認が必要 |
+| Google出力の緯度・経度 | 適用契約確認後も最大30暦日の期限付き保存候補 |
+| polyline | 保存しない |
+| distance / duration / staticDuration | 保存しない |
+| traffic-aware情報 | 保存しない |
+| route response全体 | log / DB / analytics / backupへ保存しない |
+| RouteGarage内部request ID | Google Content・正確位置を含まない運用メタデータ候補 |
+| HTTP status / latency / retry count | 個人・位置情報を除去した運用メタデータ候補 |
+| ユーザー入力・メモ・公開設定 | Google Maps Contentと分離したRouteGarageデータ候補 |
 
 ## Technical Decisions
 
-- Google Maps Platformは優先候補だが未確定のまま維持する。
-- Google Routes結果を地図表示する場合はGoogle Mapを使う構成に限定する。
-- Google Routes結果を提供元中立の道路・交通データベースへ恒久保存する前提を置かない。
-- JARTICオープンデータは静的・定期更新レイヤーに限定し、ライブ交通として扱わない。
-- Maps JavaScript APIのカスタムオーバーレイ機能と、第三者交通データの契約許諾を分離する。
-- Google Maps上へのJARTIC Jシステム / VICS重畳は要問い合わせとする。
-- Google Maps上へのHERE Traffic重畳は、両社の明示許諾までNo-Goとする。
-- HERE地図 + HERE Trafficは同一提供元の条件付き候補とするが、日本向け契約、キャッシュ、再提供、SLAを確認する。
-- provider adapterは契約制限を回避する仕組みではない。
-- providerごとに保存、加工、再配布、有効期限、削除を管理する。
-- 採用時は地図、ルート、交通provider、adapter境界について別IssueとADRを作成する。
-
-## Responsibility Boundaries
-
-- 地図描画: 地図提供元
-- ルート計算: ルート提供元
-- 交通原データ: 交通情報提供元
-- 上流由来追跡: 交通情報提供元の情報をRouteGarageが保持
-- 表示可否・鮮度・検証・提供停止: RouteGarage。ただし加工許諾の範囲内
-- キャッシュ・削除: provider契約ごとにRouteGarageが管理
-- 帰属: 各provider要件を同一画面上で明確に分離
-- 障害・規約変更・契約停止: provider単位・地域単位・情報種別単位で停止
+- Google Map表示と地図なし表示を分ける。
+- 非Google地図との併用をNo-Goとする。
+- Place ID以外の長期保存を許可済みと扱わない。
+- Google出力緯度経度の期限付き保存を採用する場合も、30日以内削除とbackup削除を必須とする。
+- Routes APIのpolyline、distance、duration、traffic情報を走行履歴・分析DBへ保存しない。
+- Google Routes結果から長期交通統計、学習データ、検索インデックス、共通ルートDBを作成しない。
+- 走行記録はユーザー自身の計測データとしてGoogle Routes結果と分離する。
+- SLAとRouteGarage利用者向けSLOを同一視しない。
+- 採用時は別IssueとADRを作成する。
 
 ## Safety and Privacy Decisions
 
-- 情報源、提供元更新時刻、鮮度、検証状態、提供停止を利用者へ表示できない構成はNo-Go。
-- 地図と交通情報の道路リンク・位置参照のずれを検出・停止できない構成はNo-Go。
-- 利用者位置情報・走行履歴・識別子を複数providerへ無制限に送信しない。
-- providerごとの送信目的、項目、保持、削除を特定する。
+- origin / destination等の正確な位置を通常ログへ保存しない。
+- APIキー・認証情報をRepository、client log、エラーへ記録しない。
+- HTTPSとAPIキー制限を必須要件候補とする。
+- Googleへの送信履歴とRouteGarageの走行履歴を長期結合しない。
+- 自宅・職場・生活圏に関係する地点の送信必要性、同意、代替手段を別途レビューする。
 - 走行中の注視・操作・能動通知を前提にしない。
-- 移動式取締り・警察位置リアルタイム情報を扱わない。
-- 取締り回避を目的とするルート・表示・通知を扱わない。
+- ルート情報を安全判断の唯一の根拠にしない。
+- 取締り回避目的のルート・表示・通知を扱わない。
 - 判断不能時はNo-Goとする。
+
+## Go / No-Go Gates
+
+1. 契約主体、請求先住所、EEA / 非EEA適用区分
+2. 適用Terms、Service Specific Terms、Policiesの文書名・版
+3. Google Map表示、地図なし表示、非Google地図禁止
+4. Google Maps帰属と第三者帰属のUI
+5. Place ID以外の長期保存禁止
+6. Google出力緯度経度の30日以内削除
+7. polyline、distance、duration、traffic情報の永続化防止
+8. backup、analytics、debug dumpへの混入防止
+9. RouteGarage独自データとの物理・論理分離
+10. 公開利用規約・プライバシーポリシー
+11. 位置情報の送信目的・同意・保持
+12. APIキー制限、HTTPS、秘密情報管理
+13. quota、障害、規約変更、feature停止の運用
+14. SLAとRouteGarage SLOの分離
+15. 法務、運用、セキュリティ・プライバシー、プロジェクト責任者の承認
+
+1項目でも未確認の場合は保留またはNo-Go。
+
+## Rejected Alternatives
+
+- Google Maps Platformの優先候補表記を採用決定として扱う案
+- Routes APIレスポンス全体を走行履歴へ保存する案
+- polyline、distance、duration、traffic情報を長期分析する案
+- Google Routes結果を非Google地図へ表示する案
+- API失敗時に保存済みルート結果を無期限再表示する案
+- request / response全体をデバッグログへ保存する案
+- Google SLAをRouteGarageの利用者向け保証として表示する案
+
+## Risks
+
+- 契約主体の請求先住所によって適用規約が変わること。
+- 公開ポリシーの更新を見落とすこと。
+- Google出力座標とユーザー登録座標を混同すること。
+- backup、analytics、debug dumpへGoogle Maps Contentが残ること。
+- Google Maps Contentと独自・第三者データの帰属が混在すること。
+- Place ID以外を長期保存可能と誤認すること。
+- 位置情報送信と走行履歴を長期結合し、生活圏推定リスクを高めること。
 
 ## Inquiry Status
 
@@ -103,66 +176,18 @@
 `No-Go（external submission not approved）`
 
 - PRマージ・Issue Closeは外部送信承認ではない。
-- Issue #101で作成した台帳の未入力・未承認項目が残っている。
 - 本Issueでは問い合わせを送信しない。
-
-## Go / No-Go Gates
-
-基本設計候補へ進めるには、以下を確認する。
-
-1. 地図・交通providerそれぞれの契約主体、適用規約、版
-2. Web / mobile / backend利用、複数利用者表示、公衆送信
-3. 他社地図重畳または同一provider利用の許諾
-4. 加工、状態判定、競合検出、派生情報の許諾
-5. 上流由来、更新時刻、訂正、撤回、無効化
-6. キャッシュ、履歴、監査メタデータ、削除義務
-7. 帰属、ロゴ、リンク、エンドユーザー条項
-8. 道路リンク・位置参照・座標変換の責任主体
-9. provider・地域・情報種別単位の停止方式
-10. 利用者位置情報・走行履歴・識別子の外部送信条件
-11. SLA、障害通知、サポート、緊急連絡、責任分界
-12. 法務、運用、セキュリティ・プライバシー、プロジェクト責任者の承認
-
-1項目でも判断できない場合はNo-Goまたは保留とする。
-
-## Rejected Alternatives
-
-- Google Maps Platformの優先候補表記を採用決定として扱う案
-- カスタムオーバーレイが実装可能であることを契約許諾とみなす案
-- HERE TrafficをGoogle Mapsへ無条件に重畳する案
-- JARTIC / VICS道路リンクをGoogle道路ネットワークへ無許可で変換する案
-- 複数providerの原レスポンスを恒久保存して共通API化する案
-- provider adapterで契約制限を回避できるとみなす案
-- Repositoryに未定義の地図providerを本Issueで追加する案
-
-## Risks
-
-- Google Maps Contentと非Googleデータの出所・帰属が混在すること。
-- VICS道路リンクとGoogle道路ネットワークがずれること。
-- HERE TrafficとGoogle地図の契約・責任分界が不明なこと。
-- キャッシュ・履歴・監査保存が代替データベース作成となること。
-- provider切替時に別providerコンテンツを移植できると誤認すること。
-- 複数providerへの位置情報送信でプライバシー影響が拡大すること。
-- 規約変更・契約停止時に一部providerだけを停止できないこと。
-
-## Tool Operation Incident
-
-branch作成時のツール選択ミスによりIssue #104・#105を誤作成した。
-
-- Issue #104: `誤作成Issue（作業対象外）`として`not_planned`でクローズ済み。
-- Issue #105: `誤作成Issue（作業対象外）`として`not_planned`でクローズ済み。
-- 正式な作業対象はIssue #103のみ。
-- branch作成ツールのスキーマを再取得し、正しいbranchをmainから作成済み。
 
 ## Remaining Tasks
 
-1. mainとの差分、Markdown、組合せ判定、禁止事項を検証する。
+1. mainとの差分、Markdown、保存分類、禁止事項を検証する。
 2. PRを作成する。
 3. Codexレビューが利用可能なら依頼する。
 4. 人間レビューを受ける。
-5. 問い合わせ送信が別途承認された場合、C-03 / C-05の契約条件を提供元へ確認する。
-6. provider選定時にADRを作成する。
-7. provider確定後にprovider adapter・保存境界・縮退方式の基本設計へ進む。
+5. C-02 Google Maps + JARTICオープンデータの静的レイヤー・帰属・履歴保存レビューを行う。
+6. Google Maps Platformを採用候補として絞る場合、契約主体・請求・適用文書を確認する。
+7. provider選定時にADRを作成する。
+8. provider確定後に基本設計へ進む。
 
 ## Branch Cleanup
 
@@ -170,16 +195,23 @@ branch作成時のツール選択ミスによりIssue #104・#105を誤作成し
 
 - `docs/issue-99-provider-inquiry-templates`
 - `docs/issue-101-provider-submission-review`
+- `docs/issue-103-map-traffic-combination-comparison`
 
 作業中:
 
-- `docs/issue-103-map-traffic-combination-comparison`
+- `docs/issue-107-google-routes-contract-boundaries`
+
+## Tool Operation Incident
+
+- Issue #104・#105は過去のbranch作成時のツール選択ミスによる誤作成。
+- 両Issueは`not_planned`でクローズ済み。
+- 正式な進行中IssueはIssue #107のみ。
 
 ## 注意事項
 
 - AI生成内容は人間レビュー必須。
 - 公開製品説明は契約上の許諾ではない。
-- 問い合わせは未送信。
+- Google Maps Platform / Routes APIは未採用。
 - 法的助言、契約判断、採用決定ではない。
-- 地図、ルート、交通provider、API方式、キャッシュ方式は未確定。
+- APIキー、技術構成、DB、API、認証、インフラは未確定。
 - 仕様・契約確定前に実装しない。
