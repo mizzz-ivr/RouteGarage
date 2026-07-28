@@ -1,44 +1,41 @@
-# Handoff（2026-07-27 / Issue #109）
+# Handoff（2026-07-28 / Issue #111）
 
 ## Summary
 
 - Repository: `mizzz-ivr/RouteGarage`
-- PR #108はマージ済み。
-- Issue #107はclosed / completed、完了コメント追加済み。
-- PR #108の作業branchは削除済み。
-- Issue #109を作成し、PR #110をOpenした。
-- C-02「Google Maps + JARTICオープンデータ」の静的レイヤー利用境界を整理。
-- 現在判定は`用途限定候補 / 公開MVPレイヤーとしては保留`。
-- 実データ取得、変換、Googleへのアップロード、provider採用、契約、APIキー取得、実装は行っていない。
+- PR #110はマージ済み。
+- Issue #109はclosed / completed。
+- PR #110の作業branchは削除済み。
+- 次の優先作業としてIssue #111を作成。
+- JARTICオープンデータの第三者権利台帳・公開判定手順を定義。
+- 4データセットの初期状態はすべて`未着手 / No-Go`。
+- 実データ取得、解析、第三者問い合わせ、許諾取得、採用決定、実装は行っていない。
 - JARTIC Jシステム / VICS・HEREへの問い合わせは未承認でNo-Go。
 
-## Current Issue / PR / Branch
+## Current Issue / Branch
 
-- Issue #109: https://github.com/mizzz-ivr/RouteGarage/issues/109
-- PR #110: https://github.com/mizzz-ivr/RouteGarage/pull/110
-- Branch: `docs/issue-109-jartic-open-data-static-layer`
+- Issue #111: https://github.com/mizzz-ivr/RouteGarage/issues/111
+- Branch: `docs/issue-111-jartic-third-party-rights-register`
 - Phase: Phase 1 / Requirements Definition
 
 ## Completed Tasks
 
-- PR #108のマージを確認。
-- Issue #107の完了を確認し、完了コメントを追加。
-- PR #108の作業branch削除を確認。
-- C-02と同等のOpen Issueがないことを確認。
-- Issue #109とmain基点のbranchを作成。
-- JARTICオープンデータページ・利用規約を確認。
-- Google Maps JavaScript APIのData Layer、Ground Overlay、Datasets資料を確認。
-- JARTICの4データ種別を用途・鮮度別に分類。
-- 出典、加工、第三者権利、履歴保存、提供停止要件を整理。
-- Google Maps標準帰属とJARTIC出典の表示境界を整理。
+- PR #110のマージを確認。
+- Issue #109の完了を確認。
+- PR #110の作業branch削除を確認。
+- 同等のOpen Issueがないことを確認。
+- Issue #111とmain基点branchを作成。
+- JARTIC公式オープンデータページ・利用規約を2026-07-28時点で再確認。
+- 第三者権利台帳の管理単位、必須項目、状態、公開判定、失効、停止・再開を定義。
+- 最新公開版と現在情報を混同しない鮮度補足を追加。
+- 公開Repositoryと非公開証跡の境界を定義。
 - Source of Truth、ログ、AIプロンプトログ、handoffを更新。
-- PR #110を作成。
 
 ## Created Documents
 
-- `docs/reviews/google-maps-jartic-open-data-static-layer-review.md`
-- `docs/logs/2026-07-27-issue-109.md`
-- `docs/ai-prompts/2026-07-27-issue-109-jartic-open-data-static-layer.md`
+- `docs/registers/jartic-open-data-third-party-rights-register.md`
+- `docs/logs/2026-07-28-issue-111.md`
+- `docs/ai-prompts/2026-07-28-issue-111-jartic-third-party-rights-register.md`
 
 ## Updated Documents
 
@@ -48,7 +45,7 @@
 
 ## Official Sources
 
-確認日: 2026-07-27
+確認日: 2026-07-28
 
 ### JARTIC
 
@@ -57,233 +54,195 @@
 - オープンデータ利用規約
   - https://www.jartic.or.jp/d/opendata/riyou_kiyaku.pdf
 
-### Google Maps Platform
+確認事項:
 
-- Maps JavaScript API Data Layer / GeoJSON example
-  - https://developers.google.com/maps/documentation/javascript/examples/layer-data-dragndrop
-- Ground Overlays
-  - https://developers.google.com/maps/documentation/javascript/groundoverlays
-- Google Maps Platform Datasets
-  - https://developers.google.com/maps/documentation/javascript/dds-datasets/create-dataset
-- Google Maps Platform Service Specific Terms
-  - https://cloud.google.com/maps-platform/terms/maps-service-terms
+- 交通規制情報、断面交通量情報、交通量データ（国土交通省）、交差点制御情報を提供。
+- 原則毎月月初に更新。
+- 更新前情報は提供元ページから取得できなくなる。
+- 更新が遅れる場合がある。
+- 掲載対象年月と公開更新日は一致しない場合がある。
+- 複製、公衆送信、翻案、商用利用が可能。
+- 出典・加工表示が必要。
+- 第三者権利は利用者の責任で確認する。
+- 権利処理済み範囲が明示されない場合がある。
+- データ・規約は変更、移転、削除される場合がある。
+- CC BY 4.0と互換性がある。
 
 ## Current Decision
 
-`用途限定候補 / 公開MVPレイヤーとしては保留`
+JARTICオープンデータの4分類は、実ファイル・項目・権利状態を確認していないため、すべて公開No-Goとする。
 
-採用決定ではない。
-
-保留理由:
-
-- 第三者権利をファイル・項目単位で確認していない
-- 出典・加工表示・対象年月の画面要件が未確定
-- 原本、変換後、履歴、監査データの保持・削除方式が未設計
-- Google Maps Datasetsへのアップロード可否を確認していない
-- 誤情報・権利侵害・規約変更時の責任者とSLAが未確定
-- 人間・法務・運用レビューが未完了
-
-## Dataset Classification
-
-| データ種別 | 初期評価 | 用途境界 |
+| データセット | 状態 | 公開判定 |
 | --- | --- | --- |
-| 交通規制情報 | 条件付き候補 | 基準年月時点の参照。現在有効な一時・緊急規制として使わない |
-| 断面交通量情報 | 条件付き候補 | 月次分析・参考。現在の渋滞・所要時間として使わない |
-| 交通量データ（国土交通省） | 条件付き候補 | 統計・傾向。上流由来・第三者権利を確認する |
-| 交差点制御情報 | 内部調査候補 | 公開MVPでは使用しない |
+| 交通規制情報 | 未着手 | No-Go |
+| 断面交通量情報 | 未着手 | No-Go |
+| 交通量データ（国土交通省） | 未着手 | No-Go |
+| 交差点制御情報 | 未着手 | No-Go |
 
-## License Boundaries
+これはJARTICオープンデータの将来的な利用を否定する判断ではなく、証跡・権利範囲・承認前に公開しないための初期状態である。
 
-JARTIC公式利用規約から確認した事項:
+## Register Management Unit
 
-- 商用利用可能
-- 複製、公衆送信、翻訳・変形、編集・加工が可能
-- 出典表示が必要
-- 加工時は加工した事実の表示が必要
-- 加工後データをJARTIC、国、府省等の作成物と誤認させてはならない
-- 第三者権利は利用者の責任で確認する
-- データは予告なく変更、移転、削除される場合がある
-- 利用規約はCC BY 4.0と互換性がある
+最低限次を組み合わせてレコードを識別する。
 
-商用利用可能であることを、第三者権利処理済みの根拠にしない。
-
-## Freshness Boundaries
-
-- 原則月初更新。
-- 更新が遅れる場合がある。
-- 更新前情報は提供元ページから取得できなくなる。
-- 月次データをリアルタイム・現在情報として表示しない。
-- 旧版を現在情報として自動表示しない。
-- 対象年月、公開更新日、RouteGarage取得日を分離する。
-
-状態候補:
-
-- 最新公開版
-- 更新遅延
-- 旧版・履歴
-- 権利確認中
-- 提供停止
-
-## Attribution Boundaries
-
-JARTICレイヤーに表示する候補:
-
-- データセット名
-- 公益財団法人日本道路交通情報センター
-- 対象ページURL
-- 利用日
+- データセット種別
 - 対象年月・作成基準日
-- RouteGarageによる加工表示
-- 現在の交通状況ではない旨
-
-Google Maps標準帰属は削除・隠蔽・改変しない。
-
-Google Maps標準帰属とJARTIC出典・加工表示を別に管理する。
-
-## Storage Boundaries
-
-| 保存対象 | 初期方針 |
-| --- | --- |
-| 取得原本 | 条件付き保存候補 |
-| 正規化データ | 条件付き保存候補 |
-| 表示用GeoJSON等 | 条件付き保存候補 |
-| 過去スナップショット | 条件付き保存候補。現在情報と分離 |
-| 監査メタデータ | 保存候補 |
-| 公開Repositoryへのデータ本体 | No-Go |
-| Google Maps Datasetsへのアップロード | No-Go |
-
-必須監査メタデータ候補:
-
-- データセット名
-- 対象年月・作成基準日
-- 公開更新日
-- 取得日時
+- 都道府県・地域
 - 原本ファイル名・ハッシュ
-- フォーマット・説明書バージョン
-- 利用規約確認日・URL
-- 変換処理バージョン
-- 第三者権利状態
-- 表示状態
+- 説明書・フォーマット版
+- 項目・カラム・地物
+- 上流提供者・権利者候補
 
-## Third-Party Rights Gates
+次の場合はファイル・項目・地物単位へ分割する。
 
-データセット、都道府県、ファイル、項目単位で記録する。
+- 上流提供者・権利者が異なる
+- 権利処理済み範囲が限定される
+- 一部項目だけ第三者権利の可能性がある
+- 地域ごとに説明書・条件が異なる
+- 公開可能部分と非公開部分が混在する
+- 同一対象年月でファイル差替えが発生した
 
-- 上流提供者
-- 権利者表示
-- 第三者権利の可能性
-- 権利処理済みの明示
-- 確認資料・証跡
-- 保存・加工・公衆送信可否
-- 判定
+## Register States
 
-`未確認`または`非許可`は公開No-Go。
+| 状態 | 公開可否 |
+| --- | --- |
+| 未着手 | No-Go |
+| 調査中 | No-Go |
+| 確認済み | 全ゲート充足時のみGo候補 |
+| 条件付き | 条件を強制できる場合のみGo候補 |
+| 非許可 | No-Go |
+| 失効・再確認必要 | No-Go |
 
-## Safety Decisions
+## Main Gates
 
-- 月次データを現在の渋滞、事故、閉鎖、所要時間として表示しない。
-- 一時的・緊急の交通規制判断に使用しない。
-- 走行中の注視・操作・能動通知を前提にしない。
-- 安全判断の唯一の根拠にしない。
-- 利用者位置情報・走行履歴を不要に結合しない。
-- 安全影響または権利侵害の可能性が高い通報時は調査完了まで停止する。
+1. 原本URL、ファイル名、ハッシュ、対象年月、地域、版を追跡できる。
+2. 上流提供者・権利者候補・第三者権利の可能性を記録できる。
+3. 権利処理済み範囲または追加許諾を証跡で確認できる。
+4. 保存、加工、公衆送信、地図表示、履歴保存、履歴公開等を独立判定できる。
+5. 必須出典、加工表示、追加帰属、鮮度注意文を表示できる。
+6. 最新公開版を現在情報として扱わない。
+7. 旧版・履歴を現在情報から分離できる。
+8. 規約、説明書、ファイル、許諾変更時に失効できる。
+9. 権利侵害・誤情報・安全通報時に停止できる。
+10. 削除・非公開要求へ対応できる。
+11. 法務、運用、安全、プロジェクト責任者が承認した。
 
-## Google Maps Datasets
+1項目でも未確認の場合はNo-Goまたは保留。
 
-本Issue・PRではJARTICデータをGoogle Maps Datasets等へアップロードしない。
+## Freshness Clarification
 
-採用候補とする場合は別Issueで次を確認する。
+`最新公開版`は次を意味しない。
 
-- Google側の保存場所・期間
-- 公開範囲
-- Google・委託先による処理
-- 削除手順
-- 第三者権利データのアップロード可否
-- 契約終了・規約変更時の回収
-- JARTIC出典・加工表示
+- 現在月
+- 現在有効な規制
+- 現在の交通量・渋滞
+- リアルタイム情報
+- 緊急・一時規制
 
-## Go / No-Go Gates
+次を独立管理する。
 
-1. 利用するデータセットと用途を特定した
-2. ライブ交通として扱わない
-3. 対象年月、公開更新日、取得日を表示できる
-4. JARTIC出典・加工表示を実装できる
-5. Google Maps標準帰属を維持できる
-6. Google由来・JARTIC由来を視覚的に分離できる
-7. 第三者権利をファイル・項目単位で確認した
-8. 原本、変換後、表示用、履歴、監査データを分離できる
-9. 規約・データ版・変換版・ハッシュを追跡できる
-10. 旧版を現在情報として表示しない
-11. 更新遅延、権利問題、規約変更で停止できる
-12. Googleへ無確認でアップロードしない
-13. 誤情報・権利侵害通報に対応できる
-14. 法務、運用、安全、プロジェクト責任者が承認した
+- 対象年月・作成基準日
+- JARTIC公開更新日
+- RouteGarage取得日
+- RouteGarage検証日
+- 権利確認日
 
-1項目でも未確認の場合は保留またはNo-Go。
+利用者向けに`最新交通情報`とは表示しない。
+
+## Evidence Boundaries
+
+### Public Repository
+
+- 台帳様式
+- 公開資料URL・確認日
+- 公開可能な判定要約
+- 証跡参照ID
+- 非機密の出典・加工表示文言
+
+### Restricted Storage
+
+- 非公開契約書・回答
+- 個人名・個人メール・電話番号
+- 非公開の許諾書・見積
+- アクセス制御が必要な証拠
+- APIキー・秘密鍵・トークン
+
+Repositoryには非公開証跡本文を保存しない。
+
+## Stop / Resume
+
+### Immediate Stop
+
+- 権利侵害の可能性が高い通報
+- 誤情報による安全影響
+- 出典・加工表示欠落
+- 上流提供者・権利者からの停止要請
+- 規約変更後の利用可否不明
+- 原本と公開データの対応喪失
+- ハッシュ・真正性不一致
+
+### Resume Conditions
+
+- 原因と影響範囲を特定
+- 権利・安全問題を解消
+- 出典・加工表示を修正
+- 原本から公開データまで再検証
+- 法務、運用、安全、プロジェクト責任者が再開承認
+
+## Safety and Privacy Decisions
+
+- 権利未確認データを公開しない。
+- 月次データを現在の交通状況・緊急規制として表示しない。
+- 利用者の位置情報・走行履歴を権利台帳へ保存しない。
+- 権利未確認部分を欠損補完・推定で公開しない。
+- 権利侵害・安全影響の可能性が高い通報時は即時停止する。
+- 判断不能時はNo-Goとする。
 
 ## Inquiry Status
 
 - JARTIC Jシステム / VICS: `No-Go（外部送信未承認）`
 - HERE: `No-Go（external submission not approved）`
 - PRマージ・Issue Closeは外部送信承認ではない。
-- Issue #109では問い合わせを送信しない。
-
-## Review Status
-
-- PR #110は作成済み。
-- 作成時点の差分: mainに対して6 commits / 6 files / behind 0。
-- 最新headでmergeability、workflow、commit status、review threadsを再確認する。
-- AI生成内容は人間レビュー必須。
+- Issue #111では問い合わせ・許諾取得を行わない。
 
 ## Rejected Alternatives
 
-- 月次データをリアルタイム交通情報として扱う案
-- 旧版を更新遅延時の現在情報として表示する案
-- JARTIC出典とGoogle帰属を統合する案
-- 商用利用可能を第三者権利処理済みと解釈する案
-- 原本を加工後データで上書きする案
-- Google Maps Datasetsへ先にアップロードする案
-- データ本体を公開Repositoryへ保存する案
-
-## Risks
-
-- 月次情報が現在情報と誤認される
-- 出典・加工表示が欠落する
-- 第三者権利未確認のデータが公開される
-- 旧版が無期限に現在情報として利用される
-- 原本と加工後の対応を失う
-- Google帰属とJARTIC出典が混在する
-- Googleへアップロードしたデータを削除できない
-- フォーマット変更・位置ずれを検出できない
+- JARTICオープンデータを一括で権利確認済みとする案
+- 商用利用可能だけを公開根拠にする案
+- 第三者権利の可能性を推定で`なし`にする案
+- 原本ハッシュ・規約版・説明書版なしで承認する案
+- 口頭回答だけでGo判定する案
+- 権利未確認部分を欠損補完して公開する案
+- 非公開証跡を公開Repositoryへ保存する案
+- 最新公開版を現在の交通情報として扱う案
 
 ## Remaining Tasks
 
-1. PR #110の最新差分、mergeability、CI、レビュー状態を確認する。
-2. 人間・法務・運用レビューを受ける。
-3. マージ後にIssue #109完了とbranch削除を確認する。
-4. 第三者権利台帳を別Issueで整備する。
-5. 内部検証候補データセットを1種類に限定して別Issue化する。
-6. provider選定時にADRを作成する。
-7. provider確定後に基本設計へ進む。
+1. mainとの差分、台帳状態、禁止事項を検証する。
+2. PRを作成する。
+3. AIレビューが利用可能なら依頼する。
+4. 人間・法務・運用・安全レビューを受ける。
+5. 対象年月、出典、加工表示、更新状態の画面要件を定義する。
+6. 原本、変換後、履歴、監査メタデータの保持・削除要件を定義する。
+7. 実データ候補の登録は別Issueで行う。
+8. provider選定時にADRを作成する。
 
 ## Branch Cleanup
 
 削除済み:
 
-- `docs/issue-99-provider-inquiry-templates`
-- `docs/issue-101-provider-submission-review`
-- `docs/issue-103-map-traffic-combination-comparison`
 - `docs/issue-107-google-routes-contract-boundaries`
+- `docs/issue-109-jartic-open-data-static-layer`
 
 作業中:
 
-- `docs/issue-109-jartic-open-data-static-layer`
+- `docs/issue-111-jartic-third-party-rights-register`
 
 ## 注意事項
 
 - AI生成内容は人間レビュー必須。
-- 技術的表示可能性は契約・権利上の許諾ではない。
-- JARTICデータは未取得。
+- 法的助言、権利確認完了、採用決定ではない。
+- 実データを取得していない。
+- 第三者へ問い合わせていない。
 - Google Maps Platform / JARTICは未採用。
-- 法的助言、契約判断、採用決定ではない。
 - 仕様・契約確定前に実装しない。
