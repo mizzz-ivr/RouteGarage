@@ -11,7 +11,7 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 - Issue #113: JARTIC静的レイヤーの出典・加工・鮮度表示要件を定義する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/113
   - PR: https://github.com/mizzz-ivr/RouteGarage/pull/114
-  - Status: In Progress / Codex P1指摘5件修正済み・再レビュー待ち
+  - Status: In Progress / Codex P1指摘10件修正・返信・thread解決済み / 再レビュー待ち
   - Branch: `docs/issue-113-jartic-display-requirements`
   - Scope: 地図、凡例、詳細、履歴、停止、共有・印刷における出典・加工・対象年月・安全状態・プライバシー表示を定義する
   - Current Decision: 要件文書のみ。レイヤー公開・provider採用・実装は保留
@@ -69,12 +69,14 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 - 表示可否、鮮度、検証、権利状態を独立保持する。
 - 利用者向け状態は4軸から導出する。
 - 優先順位は `STOPPED` > `LIMITED` > `DISPLAYABLE`。
-- 更新遅延中でも権利失効・競合・検証失敗があれば情報本体を非表示にする。
+- `UNVERIFIED`、`CONFLICTED`、`VERIFICATION_FAILED`では通常表示へ進めない。
+- 更新遅延・過去版でも、検証・権利・表示可否を満たさなければ情報本体を非表示にする。
 
 ### 固定必須表示
 
 情報本体の表示中は、走行状態にかかわらず次を維持する。
 
+- レイヤー名・データセット名
 - 情報源・提供元
 - 静的・月次更新情報
 - 対象年月・作成基準日
@@ -86,7 +88,7 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 - 詳細操作は安全な場所に停車してから行う旨
 - JARTIC出典・RouteGarage加工表示
 
-走行中・小画面で維持できない場合は項目を省略せず、JARTICレイヤー本体を非表示にする。
+走行中・状態不明・小画面で維持できない場合は項目を省略せず、JARTICレイヤー本体を非表示にする。
 
 ### 取得失敗時のキャッシュ
 
@@ -116,16 +118,19 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 - Google、JARTIC、RouteGarage由来情報を区別する。
 - 状態を色だけで表現しない。
 - 権利確認中、非許可、失効、提供停止の地物は描画しない。
-- 走行中に詳細展開、履歴比較、レイヤー切替を促さない。
+- キーボード、スクリーンリーダー、200%ズーム、文字拡大、ライト・ダークモードを確認する。
 
 ## Review Status
 
-- Codex P1指摘: 合計5件
-- 初回修正commit: `cefaf2bff7a05ba17eb6e4f32c3a53cf7b714332`
-- 追加修正commit: `eb4bd83a0d480c5ea459b8501f358d6bec1fa303`
-- コメント返信: 5件完了
-- 該当review thread: 5件解決済み
-- 再レビュー: 最新headへ依頼予定
+- Codex P1指摘: 合計10件
+- 画面要件本文5件: 修正・返信・解決済み
+- Current Status / handoff同期5件: 修正・返信・解決済み
+- 主な修正commit:
+  - `cefaf2bff7a05ba17eb6e4f32c3a53cf7b714332`
+  - `eb4bd83a0d480c5ea459b8501f358d6bec1fa303`
+  - `5223a720c536977337823080283d8dc271d2b7c6`
+  - `fc51825b0ac4d58522b98a14322af94d6e635a49`
+- 再レビュー: 最新headへ依頼する
 - 人間・法務・運用・安全・プライバシー・アクセシビリティレビュー: 未完了
 
 ## Cross-Cutting Gates
@@ -138,10 +143,10 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 1. Issue #113のCodex再レビューと人間・法務・運用・安全・プライバシー・アクセシビリティレビュー
 2. 原本・変換後・履歴・監査メタデータの保持・削除要件
-3. 実データ候補とファイル・項目単位の第三者権利調査
-4. RouteGarage公開利用規約・プライバシーポリシー論点整理
-5. Google Maps Platform契約主体・請求先・適用文書確認
-6. 明示承認後のJARTIC / VICS・HERE初回問い合わせ
+3. 自宅周辺ぼかしアルゴリズム・距離閾値
+4. 実データ候補とファイル・項目単位の第三者権利調査
+5. RouteGarage公開利用規約・プライバシーポリシー論点整理
+6. Google Maps Platform契約主体・請求先・適用文書確認
 7. provider選定ADR・基本設計
 
 ## 更新ルール
