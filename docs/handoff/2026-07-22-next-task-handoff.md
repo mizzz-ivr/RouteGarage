@@ -6,14 +6,15 @@
 - PR #112はマージ済み。
 - Issue #111はclosed / completed、完了コメント追加済み。
 - PR #112の作業branchは削除済み。
-- 次の優先作業としてIssue #113を作成。
+- Issue #113を作成し、PR #114をOpenした。
 - JARTIC静的レイヤーの出典・加工・対象年月・鮮度・状態表示要件を定義。
 - 実データ取得、画面実装、provider採用、APIキー取得、外部問い合わせは行っていない。
 - JARTIC Jシステム / VICS・HEREへの問い合わせは未承認でNo-Go。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #113: https://github.com/mizzz-ivr/RouteGarage/issues/113
+- PR #114: https://github.com/mizzz-ivr/RouteGarage/pull/114
 - Branch: `docs/issue-113-jartic-display-requirements`
 - Phase: Phase 1 / Requirements Definition（画面設計）
 
@@ -31,6 +32,7 @@
 - 状態モデル、禁止表現、受け入れ条件、Go / No-Goゲートを定義。
 - Web / 将来モバイル、走行状態、アクセシビリティ要件を定義。
 - Source of Truth、ログ、AIプロンプトログ、handoffを更新。
+- PR #114を作成。
 
 ## Created Documents
 
@@ -58,7 +60,7 @@
 確認事項:
 
 - 出典表示が必要。
-- 編集・加工した場合は、出典と別に加工した事実の表示が必要。
+- 編集・加工時は、出典と別に加工した事実の表示が必要。
 - 加工情報をJARTIC、国、府省等の作成物と誤認させてはならない。
 - 第三者権利は利用者の責任で確認する。
 - データは変更・移転・削除される場合がある。
@@ -80,9 +82,9 @@
 
 ## Current Decision
 
-画面要件の文書化のみ完了候補とし、JARTICレイヤーの公開、Google Maps Platform / JARTICの採用、実装は保留する。
+画面要件の文書化だけを実施し、JARTICレイヤーの公開、Google Maps Platform / JARTICの採用、実装は保留する。
 
-JARTIC権利台帳の4データセットは、実ファイル・項目を確認していないため、引き続きすべて公開No-Go。
+JARTIC権利台帳の4データセットは、実ファイル・項目を確認していないため、すべて公開No-Goを維持する。
 
 | データセット | 状態 | 公開判定 |
 | --- | --- | --- |
@@ -110,16 +112,16 @@ JARTIC権利台帳の4データセットは、実ファイル・項目を確認�
 - 公開更新日・取得日・検証日・権利確認日
 - 上流提供者・追加帰属
 - 加工内容
-- 欠落・遅延・誤差・位置ずれの可能性
+- 欠落・遅延・誤差・位置ずれ
 - 利用目的・禁止用途
 
 ### 内部運用のみ
 
 - 原本ファイル名・ハッシュ
-- 利用規約文書ハッシュ
+- 規約文書ハッシュ
 - 証跡参照ID
 - 非公開契約・許諾情報
-- 承認者の個人情報
+- 承認者個人情報
 - 内部調査メモ
 
 ## Display States
@@ -127,7 +129,7 @@ JARTIC権利台帳の4データセットは、実ファイル・項目を確認�
 | 状態 | 地図表示 |
 | --- | --- |
 | 静的参照 | 権利・表示・鮮度ゲート充足時のみ |
-| 更新確認中 | 承認済み旧版のみ条件付き |
+| 更新確認中 | 承認済み旧版だけ条件付き |
 | 過去版 | 履歴モードのみ |
 | 条件付き公開 | 条件を強制できる場合のみ |
 | 権利確認中 | 非表示 |
@@ -227,6 +229,14 @@ JARTIC権利台帳の4データセットは、実ファイル・項目を確認�
 - PRマージ・Issue Closeは外部送信承認ではない。
 - Issue #113では問い合わせ・許諾取得を行わない。
 
+## Review Status
+
+- PR #114は作成済み。
+- PR作成前の差分: mainに対して6 commits / 6 files / behind 0。
+- 変更はdocsのみ。
+- UI実装、実データ取得、provider採用、APIキー取得、外部送信なし。
+- 最新headでmergeability、workflow、status、review threadを確認する。
+
 ## Rejected Alternatives
 
 - 出典を詳細画面だけへ隠す案
@@ -239,12 +249,11 @@ JARTIC権利台帳の4データセットは、実ファイル・項目を確認�
 
 ## Remaining Tasks
 
-1. mainとの差分、画面要件、禁止事項を検証する。
-2. PRを作成する。
-3. 人間・法務・運用・安全・アクセシビリティレビューを受ける。
-4. 後続で原本、変換後、履歴、監査メタデータの保持・削除要件を定義する。
-5. 実データ候補の選定と第三者権利調査を別Issueで行う。
-6. RouteGarage公開利用規約・プライバシーポリシー論点を整理する。
+1. 最新headの差分、mergeability、workflow、status、review threadを確認する。
+2. 人間・法務・運用・安全・アクセシビリティレビューを受ける。
+3. 後続で原本、変換後、履歴、監査メタデータの保持・削除要件を定義する。
+4. 実データ候補の選定と第三者権利調査を別Issueで行う。
+5. RouteGarage公開利用規約・プライバシーポリシー論点を整理する。
 
 ## Branch Cleanup
 
