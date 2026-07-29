@@ -8,25 +8,31 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Active
 
-- Issue #111: JARTICオープンデータの第三者権利台帳と公開判定手順を定義する
-  - URL: https://github.com/mizzz-ivr/RouteGarage/issues/111
+- Issue #113: JARTIC静的レイヤーの出典・加工・鮮度表示要件を定義する
+  - URL: https://github.com/mizzz-ivr/RouteGarage/issues/113
   - Status: In Progress
-  - Branch: `docs/issue-111-jartic-third-party-rights-register`
-  - Scope: 管理単位、証跡、利用可否、状態遷移、公開Go / No-Go、停止・再開、公開／非公開証跡境界を定義する
-  - Initial Status: 4データセットすべて`未着手 / No-Go`
-  - Data Action: 実データ取得・解析・登録を行わない
+  - Branch: `docs/issue-113-jartic-display-requirements`
+  - Scope: 地図、凡例、地物詳細、出典詳細、履歴、停止、共有・印刷における出典・加工・対象年月・状態表示を定義する
+  - Current Decision: 画面要件の文書化のみ。レイヤー公開・provider採用・実装は保留
+  - Data Action: 実データ取得・解析・変換・公開を行わない
   - External Action: 問い合わせ・許諾取得を行わない
-  - Adoption: Google Maps Platform / JARTICを決定しない
-  - Implementation: Next.js / Expo / Maps / DB / API / Auth / Infraを実装しない
+  - Implementation: Figma / Next.js / Expo / Maps / DB / API / Auth / Infraを実装しない
 
 ## Recently Completed
+
+### Issue #111: JARTICオープンデータの第三者権利台帳と公開判定手順を定義する
+
+- URL: https://github.com/mizzz-ivr/RouteGarage/issues/111
+- Status: Completed
+- Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/112
+- Note: 権利台帳、利用方法別判定、失効・再確認、停止・再開、公開／非公開証跡境界を定義。4データセットは未着手 / No-Go。作業branchは削除済み。
 
 ### Issue #109: Google Maps + JARTICオープンデータの静的レイヤー利用境界を整理する
 
 - URL: https://github.com/mizzz-ivr/RouteGarage/issues/109
 - Status: Completed
 - Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/110
-- Note: 月次・静的用途、出典・加工表示、第三者権利、保存、Google Maps帰属、提供停止境界を整理。作業branchは削除済み。
+- Note: 月次・静的用途、出典・加工表示、第三者権利、保存、Google Maps帰属、提供停止境界を整理。
 
 ### Issue #107: Google Maps Platform + Routes APIの契約・保存・帰属境界を整理する
 
@@ -41,13 +47,6 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 - Status: Completed
 - Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/106
 - Note: Google、JARTIC / VICS、HEREの6構成を比較し、責務境界とGo / No-Goゲートを整理。
-
-### Issue #101: JARTIC / VICS・HERE問い合わせの送信前レビューと送信パッケージを確定する
-
-- URL: https://github.com/mizzz-ivr/RouteGarage/issues/101
-- Status: Completed
-- Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/102
-- Note: 送信前レビュー台帳、承認、対象文書版、証跡保管、No-Go判定を整備。問い合わせは未送信。
 
 ## C-01 Current Boundaries
 
@@ -71,33 +70,31 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 | 交差点制御情報 | 内部調査候補。公開MVPでは使用しない |
 | ライブ交通用途 | No-Go |
 | 旧版の現在情報表示 | No-Go |
-| 原本・変換後・履歴保存 | 第三者権利・版・削除要件付きの条件付き候補 |
+| 権利台帳の初期状態 | 4データセットすべて未着手 / No-Go |
 | 公開Repositoryへのデータ本体 | No-Go |
 | Google Maps Datasetsへのアップロード | No-Go / 別途レビューが必要 |
 
-## Issue #111 Current Gates
+## Issue #113 Current Gates
 
-- データセット全体を一括で確認済みにしない。
-- 必要に応じて都道府県、ファイル、項目、地物単位へ分割する。
-- 証跡がない結果を確認済みにしない。
-- `未確認`は許可を意味しない。
-- 保存、加工、公衆送信、地図表示、履歴公開を独立判定する。
-- `未着手`、`調査中`、`非許可`、`失効・再確認必要`は公開No-Go。
-- `条件付き`は期限・範囲・表示義務・停止条件を強制できる場合だけGo候補。
-- 規約、説明書、ファイルハッシュ、許諾変更時は再確認する。
-- 権利未確認部分を含むファイルは原則No-Go。
-- 非公開契約・回答・許諾書・個人情報を公開Repositoryへ保存しない。
-- 最新公開版を現在月・現在有効・リアルタイムと解釈しない。
-- 権利侵害・安全影響の可能性が高い通報時は即時一時停止する。
+- レイヤー表示中はレイヤー名、静的情報、対象年月、状態を常時確認可能にする。
+- 出典を詳細画面だけへ隠さない。
+- 対象年月、公開更新日、取得日、検証日、権利確認日を混同しない。
+- Google Maps標準帰属とJARTIC出典・RouteGarage加工表示を別責務として扱う。
+- Google、JARTIC、RouteGarage由来情報を視覚的・意味的に区別する。
+- 状態を色だけで表現しない。
+- 権利確認中、非許可、失効、提供停止の地物は描画しない。
+- 小画面で両方の帰属を表示できない場合はJARTICレイヤーを表示しない。
+- 走行中に詳細展開、履歴比較、レイヤー切替を促さない。
+- 共有・印刷・エクスポートでも出典・対象年月・加工表示を維持する。
 - PRマージやIssue Closeはprovider採用・契約・外部送信の承認ではない。
 - JARTIC / VICS・HEREへの問い合わせは未承認でNo-Go。
 - 仕様・契約確定前に実装しない。
 
 ## Upcoming Candidates（高リスク領域優先）
 
-1. Issue #111の台帳・公開判定に対する人間・法務・運用・安全レビュー
-2. 出典・加工表示・対象年月・更新状態の画面要件
-3. 原本・変換後・履歴・監査メタデータの保持・削除要件
+1. Issue #113の画面要件に対する人間・法務・運用・安全・アクセシビリティレビュー
+2. 原本・変換後・履歴・監査メタデータの保持・削除要件
+3. 実データ候補の選定とファイル・項目単位の第三者権利調査
 4. RouteGarage公開利用規約・プライバシーポリシー論点整理
 5. Google Maps Platform契約主体・請求先・適用文書確認
 6. 明示承認後のJARTIC / VICS・HERE初回問い合わせ
