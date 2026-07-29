@@ -11,7 +11,7 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 - Issue #113: JARTIC静的レイヤーの出典・加工・鮮度表示要件を定義する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/113
   - PR: https://github.com/mizzz-ivr/RouteGarage/pull/114
-  - Status: In Progress / Codex P1指摘10件修正・返信・thread解決済み / 再レビュー待ち
+  - Status: In Progress / Codex P1 10件・P2 2件対応中
   - Branch: `docs/issue-113-jartic-display-requirements`
   - Scope: 地図、凡例、詳細、履歴、停止、共有・印刷における出典・加工・対象年月・安全状態・プライバシー表示を定義する
   - Current Decision: 要件文書のみ。レイヤー公開・provider採用・実装は保留
@@ -78,6 +78,7 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 - レイヤー名・データセット名
 - 情報源・提供元
+- `参考情報`
 - 静的・月次更新情報
 - 対象年月・作成基準日
 - 提供元更新時点
@@ -89,6 +90,12 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 - JARTIC出典・RouteGarage加工表示
 
 走行中・状態不明・小画面で維持できない場合は項目を省略せず、JARTICレイヤー本体を非表示にする。
+
+### 状態不明時
+
+- 走行中と同等の安全側制御を適用する。
+- `走行状態を確認できないため、安全のため操作を制限中です`を固定表示する。
+- 無効化した操作の理由を文字と支援技術で説明する。
 
 ### 取得失敗時のキャッシュ
 
@@ -122,15 +129,18 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Review Status
 
-- Codex P1指摘: 合計10件
-- 画面要件本文5件: 修正・返信・解決済み
-- Current Status / handoff同期5件: 修正・返信・解決済み
+- Codex P1指摘: 10件
+- Codex P2指摘: 2件
+- P1 10件: 修正・返信・thread解決済み
+- P2 2件: 画面要件・Current Status・handoff・Active Issueへ反映済み。返信・thread解決後に再レビュー
 - 主な修正commit:
   - `cefaf2bff7a05ba17eb6e4f32c3a53cf7b714332`
   - `eb4bd83a0d480c5ea459b8501f358d6bec1fa303`
   - `5223a720c536977337823080283d8dc271d2b7c6`
   - `fc51825b0ac4d58522b98a14322af94d6e635a49`
-- 再レビュー: 最新headへ依頼する
+  - `645b4245d98a91029997f7ce86bf79d1a200bf63`
+  - `59a0821abd8329b89b195a07cb5d4449088307fc`
+  - `4e4ed7ce56f5ff9c36bbbc977528fa31d01ddd5c`
 - 人間・法務・運用・安全・プライバシー・アクセシビリティレビュー: 未完了
 
 ## Cross-Cutting Gates
