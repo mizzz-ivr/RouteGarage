@@ -2,18 +2,16 @@
 
 ## 目的
 
-RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握できるように整理する。
-
-詳細な完了履歴はGitHubのclosed Issues、merged PRs、`docs/current-status.md`、`docs/logs/`を正本とする。
+RouteGarageの進行中Issueを短時間で把握する。詳細履歴はGitHub、`docs/current-status.md`、`docs/logs/`を正本とする。
 
 ## Active
 
 - Issue #113: JARTIC静的レイヤーの出典・加工・鮮度表示要件を定義する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/113
   - PR: https://github.com/mizzz-ivr/RouteGarage/pull/114
-  - Status: In Progress / Codex P1 10件・P2 2件対応中
+  - Status: In Progress / Codex P1 10件・P2 2件を修正・返信・thread解決済み / 最終再レビュー待ち
   - Branch: `docs/issue-113-jartic-display-requirements`
-  - Scope: 地図、凡例、詳細、履歴、停止、共有・印刷における出典・加工・対象年月・安全状態・プライバシー表示を定義する
+  - Scope: 地図、凡例、詳細、履歴、停止、共有・印刷における出典・加工・対象年月・安全状態・プライバシー表示
   - Current Decision: 要件文書のみ。レイヤー公開・provider採用・実装は保留
   - Data Action: 実データ取得・解析・変換・公開を行わない
   - External Action: 問い合わせ・許諾取得を行わない
@@ -21,23 +19,10 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Recently Completed
 
-### Issue #111: JARTICオープンデータの第三者権利台帳と公開判定手順を定義する
-
-- Status: Completed
-- Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/112
-- Note: 権利台帳、利用方法別判定、失効・再確認、停止・再開、公開／非公開証跡境界を定義。4データセットは未着手 / No-Go。
-
-### Issue #109: Google Maps + JARTICオープンデータの静的レイヤー利用境界を整理する
-
-- Status: Completed
-- Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/110
-- Note: 月次・静的用途、出典・加工、第三者権利、保存、Google Maps帰属、提供停止境界を整理。
-
-### Issue #107: Google Maps Platform + Routes APIの契約・保存・帰属境界を整理する
-
-- Status: Completed
-- Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/108
-- Note: Google Routesの表示、保存、帰属、監査、プライバシー、SLA境界を整理。
+- Issue #111 / PR #112: JARTICオープンデータの第三者権利台帳と公開判定手順
+- Issue #109 / PR #110: Google Maps + JARTICオープンデータの静的レイヤー利用境界
+- Issue #107 / PR #108: Google Maps Platform + Routes APIの契約・保存・帰属境界
+- Issue #103 / PR #106: 地図基盤候補と交通データ候補の組合せ制約比較
 
 ## C-01 Current Boundaries
 
@@ -89,7 +74,7 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 - 詳細操作は安全な場所に停車してから行う旨
 - JARTIC出典・RouteGarage加工表示
 
-走行中・状態不明・小画面で維持できない場合は項目を省略せず、JARTICレイヤー本体を非表示にする。
+走行中・状態不明・小画面で維持できない場合は、項目を省略せずJARTICレイヤー本体を非表示にする。
 
 ### 状態不明時
 
@@ -114,7 +99,7 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 ### 共有・プライバシー
 
 - 自宅・職場・開始・終了・反復訪問地点周辺の機械的ぼかしを必須とする。
-- 道路形状・表示中心・履歴からの生活拠点再推定リスクも確認する。
+- 道路形状・表示中心・履歴からの生活拠点再推定リスクを確認する。
 - 共有前プレビューでぼかし結果・対象範囲・帰属・対象年月を確認する。
 - ぼかし解除を公開初期値にしない。
 - ぼかし方式が未確定の間、位置・走行履歴を含む共有出力はNo-Go。
@@ -124,23 +109,15 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 - Google Maps帰属とJARTIC出典・加工表示を別責務として扱う。
 - Google、JARTIC、RouteGarage由来情報を区別する。
 - 状態を色だけで表現しない。
-- 権利確認中、非許可、失効、提供停止の地物は描画しない。
 - キーボード、スクリーンリーダー、200%ズーム、文字拡大、ライト・ダークモードを確認する。
 
 ## Review Status
 
 - Codex P1指摘: 10件
 - Codex P2指摘: 2件
-- P1 10件: 修正・返信・thread解決済み
-- P2 2件: 画面要件・Current Status・handoff・Active Issueへ反映済み。返信・thread解決後に再レビュー
-- 主な修正commit:
-  - `cefaf2bff7a05ba17eb6e4f32c3a53cf7b714332`
-  - `eb4bd83a0d480c5ea459b8501f358d6bec1fa303`
-  - `5223a720c536977337823080283d8dc271d2b7c6`
-  - `fc51825b0ac4d58522b98a14322af94d6e635a49`
-  - `645b4245d98a91029997f7ce86bf79d1a200bf63`
-  - `59a0821abd8329b89b195a07cb5d4449088307fc`
-  - `4e4ed7ce56f5ff9c36bbbc977528fa31d01ddd5c`
+- 合計12件: 画面要件・Current Status・handoff・Active Issueへ反映済み
+- 12件すべて返信・thread解決済み
+- 最新headへ最終再レビューを依頼する
 - 人間・法務・運用・安全・プライバシー・アクセシビリティレビュー: 未完了
 
 ## Cross-Cutting Gates
@@ -151,7 +128,7 @@ RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握でき�
 
 ## Upcoming Candidates
 
-1. Issue #113のCodex再レビューと人間・法務・運用・安全・プライバシー・アクセシビリティレビュー
+1. Issue #113のCodex最終再レビューと人間レビュー
 2. 原本・変換後・履歴・監査メタデータの保持・削除要件
 3. 自宅周辺ぼかしアルゴリズム・距離閾値
 4. 実データ候補とファイル・項目単位の第三者権利調査
