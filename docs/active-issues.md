@@ -4,8 +4,9 @@
 
 - Issue #117: PR #116の未解決レビュー指摘を反映し保持・削除要件を同期する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/117
+  - PR: https://github.com/mizzz-ivr/RouteGarage/pull/118
   - Branch: `docs/issue-117-jartic-retention-review-fixes`
-  - Status: In Progress / 要件補足・Source of Truth同期中
+  - Status: In Progress / PR #118レビュー待ち
   - Scope: 削除確定時の状態遷移、項目・地物削除の全保存先伝播、保持上下限競合、バックアップ実失効確認、復旧台帳No-Go、法的保全解除後の削除再開、拒否記録の機微情報最小化
   - Current Decision: PR #116のレビュー指摘対応に限定。具体期間、製品、provider、実装は未確定
   - Data Action: 実データの取得・変換・保存・削除を行わない
@@ -66,10 +67,12 @@
 
 ## Recently Completed
 
+- PR #116のreview thread対応
+  - 12件すべてに後続PR #118を紐付けて解決済み
 - Issue #115 / PR #116: JARTIC静的レイヤーの保持・削除要件
   - Merge commit: `0c1b67f5a849a74f90e00ce7f9f1c338ccacbfe5`
   - Issue: completed
-  - Follow-up: Issue #117で未解決レビュー指摘を対応
+  - Follow-up: Issue #117 / PR #118でレビュー指摘を対応
 - Issue #113 / PR #114: JARTIC静的レイヤーの出典・加工・鮮度・安全・プライバシー表示要件
 - Issue #111 / PR #112: 第三者権利台帳
 - Issue #109 / PR #110: JARTIC静的レイヤー利用境界
@@ -78,19 +81,24 @@
 ## Review Status
 
 - Issue #117: Open
+- PR #118: Open / mergeable
 - 要件補足文書: 作成済み
-- Source of Truth同期: 進行中
-- PR #116未解決review thread: 後続PR作成後に返信・解決予定
+- Source of Truth同期: 完了
+- PR #116 review thread: 12件すべて解決済み
+- PR #118 review thread: 0件
+- GitHub Actions / commit status: workflow・status checkなし
+- Codexレビュー: 利用上限のため未実施
 - 人間・法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
 
 ## Upcoming
 
-1. Issue #117の要件補足・Source of Truth同期・レビューthread対応
-2. データ分類ごとの具体的保持期間・再確認期限・削除SLA
-3. 生活拠点ぼかし・外部キャプチャ保護の具体化
-4. 実データ候補のファイル・項目単位第三者権利調査
-5. 公開利用規約・プライバシーポリシー論点整理
-6. provider選定ADR・基本設計
+1. PR #118の人間・法務・運用・安全・セキュリティ・プライバシーレビュー
+2. レビュー指摘反映、mergeability・status再確認、PR #118マージ判断
+3. データ分類ごとの具体的保持期間・再確認期限・削除SLA
+4. 生活拠点ぼかし・外部キャプチャ保護の具体化
+5. 実データ候補のファイル・項目単位第三者権利調査
+6. 公開利用規約・プライバシーポリシー論点整理
+7. provider選定ADR・基本設計
 
 ## Cross-Cutting Gates
 
