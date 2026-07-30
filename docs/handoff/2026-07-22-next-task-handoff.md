@@ -5,13 +5,15 @@
 - Repository: `mizzz-ivr/RouteGarage`
 - PR #114は2026-07-30にマージ済み。
 - Issue #113は`completed`、作業branchは削除済み。
-- Issue #115を作成し、JARTIC静的レイヤー候補の保持・削除要件を整理中。
+- Issue #115を作成し、PR #116をOpenした。
+- JARTIC静的レイヤー候補の保持・削除要件を整理中。
 - 実データ取得・変換・保存・削除、UI実装、provider採用、APIキー取得、外部問い合わせは行っていない。
 - JARTIC Jシステム / VICS・HEREへの問い合わせは未承認でNo-Go。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #115: https://github.com/mizzz-ivr/RouteGarage/issues/115
+- PR #116: https://github.com/mizzz-ivr/RouteGarage/pull/116
 - Branch: `docs/issue-115-jartic-data-retention-deletion`
 - Phase: Phase 1 / Requirements Definition
 - Main document: `docs/requirements/jartic-static-layer-data-retention-deletion-requirements.md`
@@ -272,15 +274,24 @@ Issue #115は要件文書だけを対象とし、次を保留する。
 - `docs/active-issues.md`
 - `docs/handoff/2026-07-22-next-task-handoff.md`
 
+## Review Status
+
+- PR #116: Open
+- Codexレビュー: 依頼予定
+- 人間レビュー: 未実施
+- 法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
+- 未解決review thread: 0件を確認後にマージ判断
+- GitHub Actions / commit status: 最新headで確認予定
+
 ## Remaining Tasks
 
-1. mainとの差分・docs限定・Source of Truth整合を確認する。
-2. PRを作成する。
-3. Codexレビューを依頼する。
-4. 指摘があれば同一branchで修正し、返信・thread解決する。
-5. 人間・法務・運用・安全・セキュリティ・プライバシーレビューを受ける。
-6. 問題がなければPRをマージする。
-7. branch削除を確認する。
+1. PR #116へラベルを付与する。
+2. Codexレビューを依頼する。
+3. 指摘があれば同一branchで修正し、返信・thread解決する。
+4. 人間・法務・運用・安全・セキュリティ・プライバシーレビューを受ける。
+5. 未解決review thread 0件、mergeability、workflow/statusを確認する。
+6. 問題がなければPR #116をマージする。
+7. Issue #115のcompletedとbranch削除を確認する。
 8. 後続候補として具体的保持期間・削除SLAまたは生活拠点ぼかし・キャプチャ保護のIssueを開始する。
 
 ## 注意事項
