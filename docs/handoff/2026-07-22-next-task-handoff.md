@@ -1,303 +1,169 @@
-# Handoff（2026-07-30 / Issue #115）
+# Handoff（2026-07-30 / Issue #117）
 
 ## Summary
 
 - Repository: `mizzz-ivr/RouteGarage`
-- PR #114は2026-07-30にマージ済み。
-- Issue #113は`completed`、作業branchは削除済み。
-- Issue #115を作成し、PR #116をOpenした。
-- JARTIC静的レイヤー候補の保持・削除要件を整理中。
+- PR #116は2026-07-30にマージ済み。
+- Issue #115は`completed`。
+- PR #116には未解決review threadが残っており、現行`main`にも安全上の不足が確認された。
+- Issue #117を作成し、保持・削除要件のレビュー補足とSource of Truth同期を進行中。
 - 実データ取得・変換・保存・削除、UI実装、provider採用、APIキー取得、外部問い合わせは行っていない。
 - JARTIC Jシステム / VICS・HEREへの問い合わせは未承認でNo-Go。
 
-## Current Issue / PR / Branch
+## Current Issue / Branch
 
-- Issue #115: https://github.com/mizzz-ivr/RouteGarage/issues/115
-- PR #116: https://github.com/mizzz-ivr/RouteGarage/pull/116
-- Branch: `docs/issue-115-jartic-data-retention-deletion`
+- Issue #117: https://github.com/mizzz-ivr/RouteGarage/issues/117
+- Branch: `docs/issue-117-jartic-retention-review-fixes`
 - Phase: Phase 1 / Requirements Definition
-- Main document: `docs/requirements/jartic-static-layer-data-retention-deletion-requirements.md`
+- Main document: `docs/requirements/jartic-static-layer-data-retention-deletion-review-fixes.md`
+- Base requirement: `docs/requirements/jartic-static-layer-data-retention-deletion-requirements.md`
 
 ## Previous Completion
 
+- Issue #115 / PR #116
+  - JARTIC静的レイヤー候補の保持・削除要件
+  - Merge commit: `0c1b67f5a849a74f90e00ce7f9f1c338ccacbfe5`
+  - Issue: completed
+  - 未解決review thread: Issue #117で後続対応
 - Issue #113 / PR #114
   - JARTIC静的レイヤーの出典・加工・鮮度・安全・プライバシー表示要件
-  - Merge commit: `270fd4db63c2ff87d084237cf4657129ecabb2e9`
-  - Issue: completed
-  - Branch: 削除済み
+- Issue #111 / PR #112
+  - JARTICオープンデータ第三者権利台帳
+- Issue #109 / PR #110
+  - JARTIC静的レイヤー利用境界
 
-PRマージ・Issue Closeは、Google Maps Platform / JARTICの採用、実データ公開、外部問い合わせ、実装開始の承認ではない。
+PRマージ・Issue Closeは、Google Maps Platform / JARTIC採用、実データ公開、外部問い合わせ、実装開始の承認ではない。
 
 ## Current Decision
 
-Issue #115は要件文書だけを対象とし、次を保留する。
+Issue #117はPR #116のレビュー指摘対応とSource of Truth同期だけを対象とする。
 
-- 保存期間の具体的な日数・月数
+次を保留する。
+
+- 保存期間・削除SLAの具体的な日数・月数
 - DB・ストレージ・クラウド・バックアップ製品
 - テーブル・バケット・API・ジョブ・IaC・監視
 - 実データ取得・変換・保存・削除
 - Google Maps Datasets等へのアップロード
 - Google Maps Platform / JARTIC採用
 - APIキー・契約・外部問い合わせ
+- Next.js / Expo / Maps SDK実装
 - 法的助言・契約解釈の最終判断
 
 権利台帳4データセットはすべて`未着手 / No-Go`を維持する。
 
-## Data Classification
+## Issue #117 Requirements
 
-対象分類:
+### 1. 削除トリガー分類
 
-- 取得原本
-- 説明書・フォーマット定義
-- 正規化データ
-- 加工・変換後データ
-- 表示用データ
-- 過去スナップショット・履歴
-- 一時処理ファイル
-- キャッシュ
-- 検索インデックス・配信キャッシュ
-- バックアップ・レプリカ
-- 品質・権利・公開判定記録
-- 監査メタデータ
-- 削除墓標・削除完了証跡
+- 調査・再確認トリガー
+- 削除確定トリガー
+- 法的保全トリガー
 
-公開Repositoryへのデータ本体保存とGoogle Maps Datasets等へのアップロードはNo-Go。
+削除確定イベントは削除計画承認期限までに必ず`DELETION_PENDING`へ遷移する。
 
-## Lineage Requirements
+`RECHECK_REQUIRED`・`QUARANTINED`へ無期限に滞留させない。
 
-- 取得単位を`lineage_root_id`で識別する。
-- 派生物を`artifact_id`で識別する。
-- 原本ハッシュ、派生物ハッシュ、変換版、権利台帳`record_id`を関連付ける。
-- 原本、正規化、加工後、表示用、履歴、キャッシュ、バックアップの対応を追跡できること。
-- 系譜を追跡できないデータは表示・配信・履歴・共有・エクスポートNo-Go。
+### 2. 項目・地物単位の全保存先伝播
 
-## Retention Requirements
+項目、地物、地域、上流提供者、権利レコードの一部が削除対象となった場合、最低限次を対象特定する。
 
-保持開始前に最低限次を記録する。
-
-- 保存目的
-- 保存・加工・履歴保存・再表示許可の根拠
-- 適用範囲
-- 保持開始日時
-- 保持期限または期限決定ルール
-- 再確認期限
-- バックアップ最大残存期間
-- 削除伝播対象
-- 承認者
-- ポリシー版
-
-具体的な期限値はprovider、契約、権利、技術構成の確定後に決定する。
-
-期限値・根拠・承認者のいずれかがない保存はNo-Go。
-
-`監査のため`または`将来使うかもしれない`のみを理由にデータ本体を無期限保存しない。
-
-## State Model
-
-### データ本体
-
-- `NOT_APPROVED`: 保存・利用承認前
-- `ACTIVE`: 承認範囲で利用候補
-- `RECHECK_REQUIRED`: 規約・権利・版等の再確認が必要。表示停止
-- `QUARANTINED`: 真正性・安全・権利疑義の隔離中。表示・配信No-Go
-- `DELETION_PENDING`: 削除伝播中。表示・配信No-Go
-- `DELETED`: 本体削除確認済み。利用No-Go
-- `LEGAL_HOLD`: 法務承認された限定保全。公開・加工・再利用No-Go
-
-### 監査メタデータ
-
-データ本体とは別ポリシー・別状態で管理する。
-
-データ本体が`DELETED`でも、承認済みの最小監査メタデータを保持できるが、データ内容を復元できる情報を含めない。
-
-## Deletion Triggers
-
-- 利用規約・契約の変更または終了
-- 保存・加工・履歴・再表示許可の失効
-- 許諾期限・再確認期限・保持期限の超過
-- 権利者・上流提供者からの停止・削除要請
-- 提供元による訂正・撤回・削除・差替え
-- 原本ハッシュ・真正性・完全性の不一致
-- 誤情報・権利侵害・安全影響の高い通報
-- 個人情報・正確位置・走行履歴・秘密情報の混入
-- データセット・地域・項目・地物の採用中止
-- 保存目的の終了
-- 削除範囲・保存可否を判断できない状態
-
-## Deletion Order
-
-1. 削除要求・根拠を記録
-2. 表示・履歴・共有・エクスポート・再生成を即時停止
-3. 系譜から対象範囲を特定
-4. 必要に応じて隔離
-5. 削除計画を承認
-6. CDN・配信キャッシュ・検索インデックスを無効化
-7. 表示用・加工後・正規化・履歴・一時ファイルを削除
-8. 原本を削除
-9. バックアップを失効または物理削除
-10. 外部保存先の削除を確認
-11. 全伝播先を検証
-12. 本体を含まない削除墓標・完了証跡を保存
-13. 法務・運用・セキュリティ・責任者が完了承認
-
-安全・権利影響がある場合、表示停止は削除計画確定を待たない。
-
-論理削除だけで削除完了と扱わない。
-
-## Deletion Propagation
-
-原本または権利台帳レコードの削除・失効を、最低限次へ伝播する。
-
-- 正規化データ
-- 加工・変換後データ
-- 表示用データ
-- 過去スナップショット・履歴
-- 一時ファイル・キャッシュ
-- 検索インデックス・配信キャッシュ
-- 品質レポート内の本体断片
-- バックアップ・レプリカ
+- 対象値を含む取得原本
+- 正規化・加工後・表示用・履歴
+- 一時ファイル・キャッシュ・インデックス
+- 本体断片を含む品質レポート・ログ・添付
+- バックアップ・レプリカ・復旧用コピー
 - 外部サービス・委託先
 - 共有・印刷・エクスポート候補
+- 集約結果
 
-集約結果に削除対象が含まれる場合、対象部分だけを安全に除外できなければ集約結果全体を停止・再生成する。
+原本を安全に部分除去できない場合は原本全体を削除対象とする。
 
-## Backup and Restore
+### 3. 保持上限・最低保持期間・再確認期限
 
-- バックアップ最大残存期間を保持開始前に定義する。
-- 削除期限を満たせないバックアップ方式はNo-Go。
-- 復旧時は削除墓標・停止台帳・権利台帳の最新状態を先に適用する。
-- `DELETED`、`DELETION_PENDING`、`RECHECK_REQUIRED`、`QUARANTINED`を復旧後に再適用する。
-- 削除済みデータを公開・通常処理へ戻さない。
-- 配信キャッシュ・検索インデックスは安全な状態から再構築する。
+- 契約・権利・安全上の期間は保持上限として管理する。
+- 法令・法務確認済みの監査・保全期間は最低保持期間として別管理する。
+- 最低保持期間が保持上限を超える場合、自動決定せず法務No-Goとする。
+- `監査のため`という抽象的理由だけでデータ本体を保持しない。
 
-削除墓標・権利台帳を復旧データと同じ古い時点へ巻き戻さない。
+### 4. バックアップ失効と削除完了
 
-## Audit Metadata
+- バックアップ失効予定日時は進行管理にだけ使用する。
+- 実際の世代失効、物理削除、または復元不能を確認するまで`DELETION_PENDING`を維持する。
+- 外部サービス削除、再取得拒否、復旧時再混入防止の確認前に完了証跡を発行しない。
 
-保存候補:
+### 5. 復旧時の5台帳
 
-- 不変識別子、ハッシュ
-- データセット、対象年月、地域
-- 取得・変換・公開・停止・削除日時
-- 変換・検証・判定ルール版
-- 権利台帳`record_id`
-- 状態遷移・削除根拠参照ID
-- 承認者・実施者・確認者
-- 伝播先状態
-- バックアップ失効状態
-- 外部削除要求ID
-- 部分失敗・再試行・エスカレーション
+必須台帳:
+
+1. 削除墓標
+2. 再取得拒否記録
+3. 停止台帳
+4. 権利台帳
+5. 法的保全台帳
+
+1つでも取得、完全性検証、整合性確認ができない場合、サービス再開、表示、加工、再利用、キャッシュ・インデックス再構築をNo-Goとする。
+
+### 6. `LEGAL_HOLD`解除後
+
+- 解除、期限到来、再確認失敗、目的終了を記録する。
+- 保全前に削除義務があった対象は期限付きで`DELETION_PENDING`へ戻す。
+- 元期限超過時は`DELETION_OVERDUE`として直ちにエスカレーションする。
+- `ACTIVE`へ自動復帰させない。
+
+### 7. 再取得拒否記録の機微情報最小化
 
 保存禁止:
 
-- 原本データ内容
-- 正確位置・走行履歴
-- 不要な個人情報
-- 非公開契約・回答本文
-- APIキー・秘密鍵・トークン
-- 削除済みデータを復元可能な断片
-- 権利未確認部分の値
+- 正確な緯度・経度
+- 走行履歴・移動軌跡
+- 生活拠点を推定できる範囲
+- 不要な個人情報・車両識別情報
+- 原本内容・地物値
+- 再識別可能な細粒度期間・地域
 
-非公開証跡はアクセス制御された保管先へ保存し、Repository・一般ログには参照IDのみを記録する。
+不透明な内部ID、非可逆識別値、必要最小限に粗粒度化した分類を使用する。
 
-## Deletion Tombstone
+## Source of Truth Files
 
-削除墓標は再混入・再取得・再公開防止と完了説明に限定する。
-
-最低限:
-
-- 墓標ID
-- 対象`lineage_root_id`
-- 対象ハッシュ
-- 対象範囲
-- 削除理由・根拠参照ID
-- 表示停止日時
-- 物理削除日時またはバックアップ失効予定日時
-- 伝播先状態
-- 実施者・確認者・承認者
-- 再取得・再生成禁止状態
-- 墓標自体の保持期限
-
-墓標へデータ内容を保存しない。
-
-## Legal Hold
-
-- 法務レビュー・明示承認
-- 保全目的・範囲
-- 開始日時・期限・再確認期限
-- アクセス可能者
-- 隔離・暗号化
-- 公開・加工・再利用禁止
-- 削除計画
-- 解除承認者
-
-`LEGAL_HOLD`は公開継続・再利用を許可する状態ではない。
-
-保全と契約上の削除義務が競合する場合、法務判断完了までNo-Go。
-
-## Failure Handling
-
-- 削除伝播先の一部失敗を全体完了扱いにしない。
-- 対象単位の状態、失敗理由、再試行回数、最終試行時刻を記録する。
-- 冪等に再実行できる要件を持つ。
-- 人手対応への切替条件・エスカレーション先を定義する。
-- 表示停止を継続する。
-- 完了確認前に自動クローズしない。
-- 削除失敗を理由に対象データを再表示しない。
-
-## Review and Go / No-Go
-
-次をすべて満たす場合だけ保存・履歴・バックアップ設計をGo候補とする。
-
-1. 保存目的と範囲が明確
-2. 利用方法別の許可を確認済み
-3. 保持期限と根拠がある
-4. 原本から全派生物まで系譜を追跡可能
-5. 即時表示停止が可能
-6. 削除が全伝播先へ届く
-7. バックアップ残存期間が削除義務を満たす
-8. 復旧時再混入を防止できる
-9. 監査メタデータと本体を分離
-10. 部分失敗・再試行・エスカレーションを定義
-11. 削除完了証跡を提示可能
-12. 非公開証跡と公開Repositoryを分離
-13. 法務・運用・安全・セキュリティ・プライバシー・責任者承認
-
-1つでも判断不能・未確認の場合はNo-Go。
-
-## Current Files
-
-- `docs/requirements/jartic-static-layer-data-retention-deletion-requirements.md`
-- `docs/logs/2026-07-30-issue-115.md`
-- `docs/ai-prompts/2026-07-30-issue-115-jartic-data-retention-deletion.md`
+- `docs/requirements/jartic-static-layer-data-retention-deletion-review-fixes.md`
 - `docs/current-status.md`
 - `docs/active-issues.md`
 - `docs/handoff/2026-07-22-next-task-handoff.md`
+- `docs/logs/2026-07-30-issue-117.md`
+- `docs/ai-prompts/2026-07-30-issue-117-jartic-retention-review-fixes.md`
 
 ## Review Status
 
-- PR #116: Open
-- Codexレビュー: 依頼予定
+- Issue #117: Open
+- Branch: 作成済み
+- 要件補足文書: 作成済み
+- Current Status: 同期済み
+- Active Issues: 同期済み
+- Handoff: 本更新で同期
+- Codexレビュー: PR作成後に依頼
 - 人間レビュー: 未実施
 - 法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
-- 未解決review thread: 0件を確認後にマージ判断
-- GitHub Actions / commit status: 最新headで確認予定
+- PR #116 review thread: 後続PR作成後に返信・解決予定
 
 ## Remaining Tasks
 
-1. PR #116へラベルを付与する。
-2. Codexレビューを依頼する。
-3. 指摘があれば同一branchで修正し、返信・thread解決する。
-4. 人間・法務・運用・安全・セキュリティ・プライバシーレビューを受ける。
-5. 未解決review thread 0件、mergeability、workflow/statusを確認する。
-6. 問題がなければPR #116をマージする。
-7. Issue #115のcompletedとbranch削除を確認する。
-8. 後続候補として具体的保持期間・削除SLAまたは生活拠点ぼかし・キャプチャ保護のIssueを開始する。
+1. 作業ログとAIプロンプトログを追加する。
+2. Issue #117のbranch差分とmain追従状態を確認する。
+3. PRを日本語で作成する。
+4. PR #116の該当review threadへ後続PRを返信する。
+5. PR #116の対応済みreview threadを解決する。
+6. Issue #117のPRでCodex・人間レビューを受ける。
+7. 未解決review thread 0件、workflow/status、mergeabilityを確認する。
+8. 問題がなければPRをマージする。
+9. Issue #117のcompletedとbranch削除を確認する。
+10. 後続候補として具体的保持期間・削除SLA、または生活拠点ぼかし・キャプチャ保護のIssueを開始する。
 
 ## 注意事項
 
 - AI生成内容は人間レビュー必須。
 - 法的助言・provider採用決定ではない。
 - 実データ・実装・外部送信は行っていない。
-- 保存期間の具体値を確定していない。
-- 仕様・契約確定前に実装しない。
+- 保存期間・削除SLAの具体値を確定していない。
+- 仕様・契約・法務判断確定前に実装しない。
+- 新機能へ進む前にPR #116の未解決P1指摘を解消する。
