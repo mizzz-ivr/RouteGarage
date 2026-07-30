@@ -1,115 +1,80 @@
 # Active Issues
 
-## 目的
-
-RouteGarageの進行中Issueを、AI/人間の双方が短時間で把握できるように整理する。
-
-詳細な完了履歴はGitHubのclosed Issues、merged PRs、`docs/current-status.md`、`docs/logs/`を正本とする。
-
 ## Active
 
-- Issue #111: JARTICオープンデータの第三者権利台帳と公開判定手順を定義する
-  - URL: https://github.com/mizzz-ivr/RouteGarage/issues/111
-  - Status: In Progress
-  - Branch: `docs/issue-111-jartic-third-party-rights-register`
-  - Scope: 管理単位、証跡、利用可否、状態遷移、公開Go / No-Go、停止・再開、公開／非公開証跡境界を定義する
-  - Initial Status: 4データセットすべて`未着手 / No-Go`
-  - Data Action: 実データ取得・解析・登録を行わない
-  - External Action: 問い合わせ・許諾取得を行わない
-  - Adoption: Google Maps Platform / JARTICを決定しない
-  - Implementation: Next.js / Expo / Maps / DB / API / Auth / Infraを実装しない
+- Issue #113: JARTIC静的レイヤーの出典・加工・鮮度表示要件を定義する
+  - URL: https://github.com/mizzz-ivr/RouteGarage/issues/113
+  - PR: https://github.com/mizzz-ivr/RouteGarage/pull/114
+  - Status: In Progress / Codex指摘13件対応中
+  - Branch: `docs/issue-113-jartic-display-requirements`
+  - Current Decision: 要件文書のみ。実データ、provider採用、UI実装、外部問い合わせは保留
+
+## Current Gates
+
+### 独立状態軸
+
+- 表示可否、鮮度、検証、権利を独立保持する。
+- 利用者向け状態は4軸から導出する。
+- `STOPPED` > `LIMITED` > `DISPLAYABLE`。
+- 検証未完了・競合・検証失敗、権利失効、期限切れ、安全判断不能時は情報本体を非表示にする。
+
+### 固定必須表示
+
+情報本体表示中は走行状態にかかわらず次を固定表示する。
+
+- 情報源・提供元
+- `参考情報`
+- 静的・月次更新情報
+- 対象年月・提供元更新時点
+- 鮮度・検証状態
+- 制限・キャッシュ表示
+- 情報限界と安全注意
+- JARTIC出典・RouteGarage加工表示
+
+維持できない画面では情報本体を非表示にする。
+
+### 状態不明時
+
+- `走行状態を確認できないため、安全のため操作を制限中です`を固定表示する。
+- 操作無効化理由を文字と支援技術で説明する。
+
+### キャッシュ表示
+
+旧版・キャッシュ表示は、契約許可、提供元更新時点、承認済み期限、停止・撤回・完全性、由来・検証追跡、固定警告、承認記録の7条件すべてを満たす場合だけ候補とする。
+
+### 共有・外部キャプチャ
+
+- アプリ内共有前に生活拠点ぼかしとプレビューを必須とする。
+- ブラウザ印刷では印刷専用表示・印刷CSSで正確位置・履歴を除去する。
+- OS標準スクリーンショット・画面収録をアプリ内共有処理だけで防げると仮定しない。
+- 正確位置・履歴表示には、通常表示マスク、または検証済みキャプチャ保護と安全なフォールバックを必須とする。
+- Webで上記を満たさない場合、正確位置・履歴とJARTICレイヤーの同時表示はNo-Go。
+
+## Review Status
+
+- Codex P1: 11件
+- Codex P2: 2件
+- P1 10件・P2 2件: 修正・返信・thread解決済み
+- 外部キャプチャP1: 画面要件・Current Status・handoff・Active Issueへ反映済み。返信・thread解決後に再レビュー
+- 人間・法務・運用・安全・プライバシー・アクセシビリティレビュー: 未完了
 
 ## Recently Completed
 
-### Issue #109: Google Maps + JARTICオープンデータの静的レイヤー利用境界を整理する
+- Issue #111 / PR #112: 第三者権利台帳
+- Issue #109 / PR #110: JARTIC静的レイヤー利用境界
+- Issue #107 / PR #108: Google Routes契約・保存・帰属境界
 
-- URL: https://github.com/mizzz-ivr/RouteGarage/issues/109
-- Status: Completed
-- Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/110
-- Note: 月次・静的用途、出典・加工表示、第三者権利、保存、Google Maps帰属、提供停止境界を整理。作業branchは削除済み。
+## Upcoming
 
-### Issue #107: Google Maps Platform + Routes APIの契約・保存・帰属境界を整理する
+1. PR #114の再レビューと人間レビュー
+2. 原本・変換後・履歴・監査メタデータの保持・削除要件
+3. 生活拠点ぼかし・外部キャプチャ保護の具体化
+4. 実データ候補の第三者権利調査
+5. provider選定ADR・基本設計
 
-- URL: https://github.com/mizzz-ivr/RouteGarage/issues/107
-- Status: Completed
-- Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/108
-- Note: Google Routesの表示、保存、帰属、監査、プライバシー、SLA境界を整理。
+## Cross-Cutting Gates
 
-### Issue #103: 地図基盤候補と交通データ候補の組合せ制約を比較する
-
-- URL: https://github.com/mizzz-ivr/RouteGarage/issues/103
-- Status: Completed
-- Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/106
-- Note: Google、JARTIC / VICS、HEREの6構成を比較し、責務境界とGo / No-Goゲートを整理。
-
-### Issue #101: JARTIC / VICS・HERE問い合わせの送信前レビューと送信パッケージを確定する
-
-- URL: https://github.com/mizzz-ivr/RouteGarage/issues/101
-- Status: Completed
-- Related PR: https://github.com/mizzz-ivr/RouteGarage/pull/102
-- Note: 送信前レビュー台帳、承認、対象文書版、証跡保管、No-Go判定を整備。問い合わせは未送信。
-
-## C-01 Current Boundaries
-
-| 項目 | 初期方針 |
-| --- | --- |
-| Google Map上のRoutes結果 | 条件付き候補 |
-| 地図なしのRoutes結果 | Google Maps帰属を付ける条件付き候補 |
-| 非Google地図との併用 | No-Go |
-| Place ID保存 | 長期保存候補 |
-| Google出力緯度経度 | 適用契約確認後も最大30暦日の期限付き保存候補 |
-| polyline / distance / duration / traffic情報 | 永続保存しない |
-| response全体 | log / DB / analytics / backupへ保存しない |
-
-## C-02 Current Boundaries
-
-| 項目 | 初期方針 |
-| --- | --- |
-| 交通規制情報 | 基準年月付き静的参照の条件付き候補 |
-| 断面交通量情報 | 月次分析・参考表示の条件付き候補 |
-| 交通量データ（国土交通省） | 上流由来・第三者権利確認付き候補 |
-| 交差点制御情報 | 内部調査候補。公開MVPでは使用しない |
-| ライブ交通用途 | No-Go |
-| 旧版の現在情報表示 | No-Go |
-| 原本・変換後・履歴保存 | 第三者権利・版・削除要件付きの条件付き候補 |
-| 公開Repositoryへのデータ本体 | No-Go |
-| Google Maps Datasetsへのアップロード | No-Go / 別途レビューが必要 |
-
-## Issue #111 Current Gates
-
-- データセット全体を一括で確認済みにしない。
-- 必要に応じて都道府県、ファイル、項目、地物単位へ分割する。
-- 証跡がない結果を確認済みにしない。
-- `未確認`は許可を意味しない。
-- 保存、加工、公衆送信、地図表示、履歴公開を独立判定する。
-- `未着手`、`調査中`、`非許可`、`失効・再確認必要`は公開No-Go。
-- `条件付き`は期限・範囲・表示義務・停止条件を強制できる場合だけGo候補。
-- 規約、説明書、ファイルハッシュ、許諾変更時は再確認する。
-- 権利未確認部分を含むファイルは原則No-Go。
-- 非公開契約・回答・許諾書・個人情報を公開Repositoryへ保存しない。
-- 最新公開版を現在月・現在有効・リアルタイムと解釈しない。
-- 権利侵害・安全影響の可能性が高い通報時は即時一時停止する。
-- PRマージやIssue Closeはprovider採用・契約・外部送信の承認ではない。
+- 権利台帳4データセットは未着手 / No-Go。
 - JARTIC / VICS・HEREへの問い合わせは未承認でNo-Go。
+- PRマージ・Issue Closeはprovider採用・契約・外部送信承認ではない。
 - 仕様・契約確定前に実装しない。
-
-## Upcoming Candidates（高リスク領域優先）
-
-1. Issue #111の台帳・公開判定に対する人間・法務・運用・安全レビュー
-2. 出典・加工表示・対象年月・更新状態の画面要件
-3. 原本・変換後・履歴・監査メタデータの保持・削除要件
-4. RouteGarage公開利用規約・プライバシーポリシー論点整理
-5. Google Maps Platform契約主体・請求先・適用文書確認
-6. 明示承認後のJARTIC / VICS・HERE初回問い合わせ
-7. 地図・ルート・交通provider選定ADR
-8. provider adapterと保存境界の基本設計
-9. 交通情報・オービス情報の画面詳細設計
-10. 提供停止・訂正・通報・監査・事故・苦情対応の運用設計
-
-## 更新ルール
-
-- Issue作成・Close・優先度変更時に更新する。
-- 会話やProject Boardだけを正本にしない。
-- Activeは原則1件に絞る。
-- Recently Completedは、現在の判断に直接影響する直近・高リスクIssueを中心に保持する。
-- 詳細な過去履歴はGitHubと`docs/logs/`を参照する。
