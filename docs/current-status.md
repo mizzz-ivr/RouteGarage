@@ -6,12 +6,13 @@
 - 開発フェーズ: Phase 1 / Requirements Definition
 - 開発手法: ウォーターフォール
 - AI生成物: 人間レビュー必須
-- 現在の主目的: Issue #117として、PR #116の未解決レビュー指摘を保持・削除要件とSource of Truthへ反映する
+- 現在の主目的: Issue #117 / PR #118として、PR #116のレビュー指摘を保持・削除要件とSource of Truthへ反映し、レビューを受ける
 - 実装、実データ取得、provider採用、APIキー取得、外部問い合わせ: 未実施
 
 ## 進行中
 
 - Issue #117: https://github.com/mizzz-ivr/RouteGarage/issues/117
+- PR #118: https://github.com/mizzz-ivr/RouteGarage/pull/118
 - Branch: `docs/issue-117-jartic-retention-review-fixes`
 - Scope: 削除確定遷移、項目・地物削除伝播、保持上下限競合、バックアップ実失効、復旧台帳No-Go、法的保全解除後削除再開、拒否記録最小化、Source of Truth同期
 - Main document: `docs/requirements/jartic-static-layer-data-retention-deletion-review-fixes.md`
@@ -20,12 +21,25 @@
 - External Action: 問い合わせ・許諾取得を行わない
 - Implementation: DB / API / Auth / Infra / Storage / Backup / Maps / Next.js / Expoを実装しない
 
+## 実行状態
+
+- PR #118: Open / mergeable
+- PR #116 review thread: 12件すべて解決済み
+- PR #118 review thread: 0件
+- GitHub Actions / commit status: workflow・status checkなし
+- Codexレビュー: 利用上限のため未実施
+- 人間・法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
+- Linear: RouteGarageプロジェクト作成済み。無料Issue上限により個別Issueは未作成
+- Notion: `RouteGarage｜要件・意思決定ハブ`作成済み
+
 ## 直近の完了済み
 
+- PR #116のレビューthread対応
+  - 後続Issue #117 / PR #118を紐付け、12件すべて解決済み
 - Issue #115 / PR #116: JARTIC静的レイヤーの原本・変換後・履歴・監査メタデータの保持・削除要件
   - Merge commit: `0c1b67f5a849a74f90e00ce7f9f1c338ccacbfe5`
   - Issue: completed
-  - Follow-up: Issue #117でマージ後の未解決レビュー指摘を対応
+  - Follow-up: Issue #117でマージ後のレビュー指摘を対応
 - Issue #113 / PR #114: JARTIC静的レイヤーの出典・加工・鮮度・安全・プライバシー表示要件
 - Issue #111 / PR #112: JARTICオープンデータの第三者権利台帳
 - Issue #109 / PR #110: JARTIC静的レイヤー利用境界
@@ -167,12 +181,13 @@
 
 ## 未完了・次の優先作業
 
-1. Issue #117のレビュー補足・Source of Truth同期・PR #116 review thread対応
-2. データ分類ごとの具体的保持期間・再確認期限・削除SLA
-3. 生活拠点ぼかし・外部キャプチャ保護の具体化
-4. 実データ候補のファイル・項目単位第三者権利調査
-5. 公開利用規約・プライバシーポリシー論点整理
-6. provider選定ADR・基本設計
+1. PR #118の人間・法務・運用・安全・セキュリティ・プライバシーレビュー
+2. レビュー指摘反映、mergeability・status再確認、PR #118マージ判断
+3. データ分類ごとの具体的保持期間・再確認期限・削除SLA
+4. 生活拠点ぼかし・外部キャプチャ保護の具体化
+5. 実データ候補のファイル・項目単位第三者権利調査
+6. 公開利用規約・プライバシーポリシー論点整理
+7. provider選定ADR・基本設計
 
 ## 触ってはいけない箇所
 
