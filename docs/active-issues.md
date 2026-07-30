@@ -4,8 +4,9 @@
 
 - Issue #115: JARTIC静的レイヤーの原本・変換後・履歴・監査メタデータの保持・削除要件を定義する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/115
+  - PR: https://github.com/mizzz-ivr/RouteGarage/pull/116
   - Branch: `docs/issue-115-jartic-data-retention-deletion`
-  - Status: In Progress / 要件文書作成・レビュー準備中
+  - Status: In Progress / PR #116レビュー待ち
   - Scope: データ分類、系譜、保持判断、表示停止、削除伝播、バックアップ失効、復旧時再混入防止、監査メタデータ、削除墓標、完了証跡
   - Current Decision: 要件文書のみ。具体期間、ストレージ、DB、クラウド、削除ジョブ、providerは未確定
   - Data Action: 実データの取得・変換・保存・削除を行わない
@@ -68,15 +69,16 @@
 
 ## Review Status
 
+- PR #116: Open / レビュー待ち
 - Issue #115要件文書: 作成済み
-- Codexレビュー: 未実施
+- Codexレビュー: 依頼予定
 - 人間レビュー: 未実施
 - 法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
-- 未解決review thread: PR作成後に確認
+- 未解決review thread: 0件を確認後にマージ判断
 
 ## Upcoming
 
-1. Issue #115のCodex・人間レビュー
+1. PR #116のCodex・人間レビュー
 2. データ分類ごとの具体的保持期間・再確認期限・削除SLA
 3. 生活拠点ぼかし・外部キャプチャ保護の具体化
 4. 実データ候補の第三者権利調査
