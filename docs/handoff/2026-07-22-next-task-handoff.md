@@ -5,14 +5,17 @@
 - Repository: `mizzz-ivr/RouteGarage`
 - PR #116は2026-07-30にマージ済み。
 - Issue #115は`completed`。
-- PR #116には未解決review threadが残っており、現行`main`にも安全上の不足が確認された。
-- Issue #117を作成し、保持・削除要件のレビュー補足とSource of Truth同期を進行中。
+- PR #116のreview thread 12件は、後続Issue #117 / PR #118を紐付けてすべて解決済み。
+- Issue #117の保持・削除要件補足とSource of Truth同期は完了し、PR #118をレビュー中。
+- PR #118は`open / mergeable`、review thread 0件、workflow・commit status checkなし。
+- Codexレビューは利用上限のため実施できていない。
 - 実データ取得・変換・保存・削除、UI実装、provider採用、APIキー取得、外部問い合わせは行っていない。
 - JARTIC Jシステム / VICS・HEREへの問い合わせは未承認でNo-Go。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #117: https://github.com/mizzz-ivr/RouteGarage/issues/117
+- PR #118: https://github.com/mizzz-ivr/RouteGarage/pull/118
 - Branch: `docs/issue-117-jartic-retention-review-fixes`
 - Phase: Phase 1 / Requirements Definition
 - Main document: `docs/requirements/jartic-static-layer-data-retention-deletion-review-fixes.md`
@@ -20,11 +23,14 @@
 
 ## Previous Completion
 
+- PR #116 review thread
+  - 12件すべて解決済み
+  - PR #116へ後続対応コメントを追加済み
 - Issue #115 / PR #116
   - JARTIC静的レイヤー候補の保持・削除要件
   - Merge commit: `0c1b67f5a849a74f90e00ce7f9f1c338ccacbfe5`
   - Issue: completed
-  - 未解決review thread: Issue #117で後続対応
+  - Follow-up: Issue #117 / PR #118
 - Issue #113 / PR #114
   - JARTIC静的レイヤーの出典・加工・鮮度・安全・プライバシー表示要件
 - Issue #111 / PR #112
@@ -133,37 +139,46 @@ Issue #117はPR #116のレビュー指摘対応とSource of Truth同期だけを
 - `docs/logs/2026-07-30-issue-117.md`
 - `docs/ai-prompts/2026-07-30-issue-117-jartic-retention-review-fixes.md`
 
+## External Workspaces
+
+- Linear Project: https://linear.app/mizzzjp/project/routegarage-71286ad9056c
+  - RouteGarageプロジェクト作成済み
+  - 無料Issue上限により個別Issue #117相当は未作成
+  - GitHub Issue #117を実行タスクの正本として扱う
+- Notion Hub: https://app.notion.com/p/3ad7322f39fa81e9be8fe370b4140720
+  - 要件・意思決定ハブ作成済み
+  - GitHub Issue #117、PR #118、Linear Projectを紐付け済み
+
 ## Review Status
 
 - Issue #117: Open
+- PR #118: Open / mergeable
 - Branch: 作成済み
 - 要件補足文書: 作成済み
-- Current Status: 同期済み
-- Active Issues: 同期済み
-- Handoff: 本更新で同期
-- Codexレビュー: PR作成後に依頼
+- Current Status / Active Issues / Handoff: 同期済み
+- PR #116 review thread: 12件すべて解決済み
+- PR #118 review thread: 0件
+- GitHub Actions / commit status: workflow・status checkなし
+- Codexレビュー: 利用上限のため未実施
 - 人間レビュー: 未実施
 - 法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
-- PR #116 review thread: 後続PR作成後に返信・解決予定
 
 ## Remaining Tasks
 
-1. 作業ログとAIプロンプトログを追加する。
-2. Issue #117のbranch差分とmain追従状態を確認する。
-3. PRを日本語で作成する。
-4. PR #116の該当review threadへ後続PRを返信する。
-5. PR #116の対応済みreview threadを解決する。
-6. Issue #117のPRでCodex・人間レビューを受ける。
-7. 未解決review thread 0件、workflow/status、mergeabilityを確認する。
-8. 問題がなければPRをマージする。
-9. Issue #117のcompletedとbranch削除を確認する。
-10. 後続候補として具体的保持期間・削除SLA、または生活拠点ぼかし・キャプチャ保護のIssueを開始する。
+1. PR #118の人間・法務・運用・安全・セキュリティ・プライバシーレビューを受ける。
+2. 指摘があれば同一branchで修正し、返信・thread解決する。
+3. mergeability、workflow/status、未解決review thread 0件を再確認する。
+4. 問題がなければPR #118をマージする。
+5. Issue #117のcompletedとbranch削除を確認する。
+6. 基本設計開始前に元要件本文とIssue #117補足を単一Source of Truthへ統合する。
+7. 後続候補として具体的保持期間・削除SLA、または生活拠点ぼかし・キャプチャ保護のIssueを開始する。
 
 ## 注意事項
 
 - AI生成内容は人間レビュー必須。
+- Codexレビュー未実施を人間レビューで代替済みとは扱わない。
 - 法的助言・provider採用決定ではない。
 - 実データ・実装・外部送信は行っていない。
 - 保存期間・削除SLAの具体値を確定していない。
 - 仕様・契約・法務判断確定前に実装しない。
-- 新機能へ進む前にPR #116の未解決P1指摘を解消する。
+- PR #118のマージ前に人間・法務・運用・安全・セキュリティ・プライバシーレビューを必須とする。
