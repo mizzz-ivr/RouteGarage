@@ -4,8 +4,9 @@
 
 - Issue #119: 生活拠点ぼかし・共有出力・外部キャプチャ保護要件を定義する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/119
+  - PR: https://github.com/mizzz-ivr/RouteGarage/pull/120
   - Branch: `docs/issue-119-location-privacy-capture`
-  - Status: In Progress / 要件文書作成・Source of Truth同期中
+  - Status: In Progress / PR #120レビュー待ち
   - Scope: 機微地点・機微パターン分類、プライバシー変換、共有前プレビュー、Web印刷、iOS / Androidキャプチャ保護、失敗時フォールバック、テストマトリクス
   - Current Decision: 要件定義のみ。ぼかし具体値、アルゴリズム、ライブラリ、対象OS、実装は未確定
   - Data Action: 実位置情報・実走行履歴を取得・保存・変換しない
@@ -90,17 +91,21 @@
 ## Review Status
 
 - Issue #119: Open
-- 要件文書: 作成済み
-- Source of Truth同期: 進行中
+- PR #120: Open / mergeability確認中
+- 要件文書・作業ログ・AIプロンプトログ: 作成済み
+- Source of Truth同期: 完了
 - 公式資料確認: Expo / Android / iOS / Web印刷を確認済み
+- Codexレビュー: 利用上限のため未実施
+- PR #120 review thread: 確認予定
+- GitHub Actions / commit status: 確認予定
 - 実装・実データ・外部送信: なし
 - 人間・法務・運用・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビュー: 未実施
 
 ## Upcoming
 
-1. Issue #119のSource of Truth・handoff・記録同期
-2. Issue #119のPR作成とレビュー
-3. レビュー指摘反映、未解決thread・mergeability・status確認
+1. PR #120の差分・review thread・mergeability・status確認
+2. 人間・法務・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビュー
+3. レビュー指摘反映と再確認
 4. 問題がなければPRマージ・Issue完了・branch削除確認
 5. データ分類ごとの具体的保持期間・再確認期限・削除SLA
 6. 実データ候補のファイル・項目単位第三者権利調査
