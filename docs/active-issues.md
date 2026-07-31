@@ -6,7 +6,7 @@
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/119
   - PR: https://github.com/mizzz-ivr/RouteGarage/pull/120
   - Branch: `docs/issue-119-location-privacy-capture`
-  - Status: In Progress / PR #120レビュー待ち
+  - Status: In Progress / PR #120人間レビュー待ち
   - Scope: 機微地点・機微パターン分類、プライバシー変換、共有前プレビュー、Web印刷、iOS / Androidキャプチャ保護、失敗時フォールバック、テストマトリクス
   - Current Decision: 要件定義のみ。ぼかし具体値、アルゴリズム、ライブラリ、対象OS、実装は未確定
   - Data Action: 実位置情報・実走行履歴を取得・保存・変換しない
@@ -91,19 +91,22 @@
 ## Review Status
 
 - Issue #119: Open
-- PR #120: Open / mergeability確認中
+- PR #120: Open / mergeable
+- `main`比較: 9 commits / 6 files / behind 0
+- 変更範囲: docsのみ
 - 要件文書・作業ログ・AIプロンプトログ: 作成済み
 - Source of Truth同期: 完了
 - 公式資料確認: Expo / Android / iOS / Web印刷を確認済み
+- PR #120 review thread: 0件
+- PR #120 submitted review: 0件
+- GitHub Actions / commit status: workflow・status checkなし
 - Codexレビュー: 利用上限のため未実施
-- PR #120 review thread: 確認予定
-- GitHub Actions / commit status: 確認予定
 - 実装・実データ・外部送信: なし
 - 人間・法務・運用・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビュー: 未実施
 
 ## Upcoming
 
-1. PR #120の差分・review thread・mergeability・status確認
+1. AI支援セルフレビュー結果をPR #120へ参考コメントとして記録
 2. 人間・法務・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビュー
 3. レビュー指摘反映と再確認
 4. 問題がなければPRマージ・Issue完了・branch削除確認
