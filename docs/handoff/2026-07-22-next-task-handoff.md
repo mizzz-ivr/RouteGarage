@@ -6,25 +6,38 @@
 - Phase: Phase 1 / Requirements Definition
 - PR #120は2026-07-31にマージ済み。
 - Issue #119はcompleted。
-- Issue #121として、JARTIC静的レイヤーの保持期間・再確認期限・削除SLAの内部暫定基準を定義中。
+- Issue #121 / PR #123として、JARTIC静的レイヤーの保持期間・再確認期限・削除SLAの内部暫定基準をレビュー中。
 - 数値は法定期間、JARTIC要求値、契約値、本番SLAではない。
 - 実データ取得・保存・変換、Next.js / Expo / Maps実装、provider採用、APIキー、外部問い合わせは行っていない。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #121: https://github.com/mizzz-ivr/RouteGarage/issues/121
+- PR #123: https://github.com/mizzz-ivr/RouteGarage/pull/123
 - Branch: `docs/issue-121-retention-sla-baseline`
 - Main document: `docs/requirements/jartic-static-layer-retention-recheck-deletion-sla-baseline.md`
 - Base requirements:
   - `docs/requirements/jartic-static-layer-data-retention-deletion-requirements.md`
   - `docs/requirements/jartic-static-layer-data-retention-deletion-review-fixes.md`
 
+## PR Status
+
+- State: Open
+- Mergeable: true
+- 変更範囲: docsのみ
+- 未解決review thread: 0件
+- AI支援セルフレビュー: COMMENTで記録済み / 文書整合性ブロッカーなし
+- Codex自動レビュー: 利用上限のため未実施
+- GitHub Actions / commit status: workflow・status checkなし
+- 人間・法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
+
+AI支援セルフレビューを、人間レビュー・法務判断・本番SLA承認の完了とは扱わない。
+
 ## Previous Completion
 
 - Issue #119 / PR #120
   - 生活拠点ぼかし・共有出力・外部キャプチャ保護要件
   - Merge commit: `8c3fc97cdd10dc3ce5ba0f78c7cee41a0e2c3a5b`
-  - Issue: completed
 - Issue #117 / PR #118
   - PR #116の保持・削除レビュー指摘対応
   - Merge commit: `f452af33b9677c2b66d8b160f0b913dec57e54fe`
@@ -169,19 +182,15 @@ PRマージ・Issue Closeは、provider採用、契約、実データ公開、�
   - 無料Issue上限により個別Linear Issueは作成しない。
   - GitHub Issue #121を実行タスクの正本とする。
 - Notion Hub: https://app.notion.com/p/3ad7322f39fa81e9be8fe370b4140720
-  - Issue #121 / PRを現在タスクとして同期する。
+  - Issue #121 / PR #123を現在タスクとして同期する。
 
 ## Remaining Tasks
 
-1. Source of Truth差分を確認する。
-2. `main`比較、changed files、behindを確認する。
-3. PRを作成する。
-4. review thread、mergeability、workflow/statusを確認する。
-5. AI支援セルフレビューをCOMMENTで記録する。
-6. 人間・法務・運用・安全・セキュリティ・プライバシーレビューを受ける。
-7. 暫定値の妥当性・実現性に関する指摘を反映する。
-8. 問題がなければPRマージ・Issue完了・branch削除を確認する。
-9. 後続で実データ候補のファイル・項目単位第三者権利調査を開始する。
+1. PR #123の人間・法務・運用・安全・セキュリティ・プライバシーレビューを受ける。
+2. 暫定値の妥当性・実現性に関する指摘を反映する。
+3. mergeability、workflow/status、未解決review threadを再確認する。
+4. 問題がなければPRマージ・Issue完了・branch削除を確認する。
+5. 後続で実データ候補のファイル・項目単位第三者権利調査を開始する。
 
 ## Notes
 
