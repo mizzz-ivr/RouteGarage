@@ -7,6 +7,7 @@
 - Issue #117は`completed`。
 - Issue #119を作成し、生活拠点ぼかし・共有出力・外部キャプチャ保護要件を定義した。
 - PR #120を作成し、要件文書、作業ログ、AIプロンプトログ、Source of Truthをレビュー可能な状態へ同期した。
+- PR #120は`open / mergeable`、review thread 0件、workflow・commit status checkなし。
 - Codexレビューは利用上限のため実施できていない。
 - 実位置情報・実走行履歴、実装コード、provider採用、APIキー取得、外部問い合わせは扱っていない。
 - JARTIC Jシステム / VICS・HEREへの問い合わせは未承認でNo-Go。
@@ -255,22 +256,23 @@ Issue #119では要件と検証ゲートだけを定義する。
 ## Review Status
 
 - Issue #119: Open
-- PR #120: Open / レビュー待ち
-- Branch: 作成済み
-- 要件文書・作業ログ・AIプロンプトログ: 作成済み
-- Current Status / Active Issues / Handoff: 同期済み
+- PR #120: Open / mergeable
+- `main`比較: 9 commits / 6 files / behind 0
+- 変更範囲: docsのみ
+- PR #120 review thread: 0件
+- PR #120 submitted review: 0件
+- GitHub Actions / commit status: workflow・status checkなし
 - Codexレビュー: 利用上限のため未実施
 - 人間・法務・運用・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビュー: 未実施
 
 ## Remaining Tasks
 
-1. PR #120の差分・未解決review thread・mergeability・workflow/statusを確認する。
-2. AI支援セルフレビュー結果をPRへ記録する。
-3. 人間・法務・運用・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビューを受ける。
-4. 指摘があれば同一branchで修正する。
-5. 問題がなければPRをマージする。
-6. Issue #119のcompletedとbranch削除を確認する。
-7. 後続候補として具体的保持期間・削除SLA、第三者権利調査、公開規約論点を開始する。
+1. AI支援セルフレビュー結果をPR #120へ参考コメントとして記録する。
+2. 人間・法務・運用・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビューを受ける。
+3. 指摘があれば同一branchで修正する。
+4. 問題がなければPRをマージする。
+5. Issue #119のcompletedとbranch削除を確認する。
+6. 後続候補として具体的保持期間・削除SLA、第三者権利調査、公開規約論点を開始する。
 
 ## 注意事項
 
