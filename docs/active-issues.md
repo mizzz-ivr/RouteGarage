@@ -4,8 +4,9 @@
 
 - Issue #121: JARTIC静的レイヤーの保持期間・再確認期限・削除SLA暫定基準を定義する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/121
+  - PR: https://github.com/mizzz-ivr/RouteGarage/pull/123
   - Branch: `docs/issue-121-retention-sla-baseline`
-  - Status: In Progress / PR作成前
+  - Status: In Progress / PR #123人間レビュー待ち
   - Main document: `docs/requirements/jartic-static-layer-retention-recheck-deletion-sla-baseline.md`
   - Scope: データ分類別の暫定保持上限、月次・規約・権利の再確認期限、表示停止・隔離・削除SLA、法的保全再確認、Go / No-Go判定
   - Current Decision: 数値はRouteGarage内部の暫定候補。法定期間、JARTIC要求値、契約値、本番SLAとして確定しない
@@ -105,7 +106,6 @@
 
 - Issue #119 / PR #120: 生活拠点ぼかし・共有出力・外部キャプチャ保護要件
   - Merge commit: `8c3fc97cdd10dc3ce5ba0f78c7cee41a0e2c3a5b`
-  - Issue: completed
 - Issue #117 / PR #118: PR #116の保持・削除レビュー指摘対応
   - Merge commit: `f452af33b9677c2b66d8b160f0b913dec57e54fe`
 - Issue #115 / PR #116: JARTIC静的レイヤーの保持・削除要件
@@ -118,25 +118,25 @@
 ## Review Status
 
 - Issue #121: Open
-- Branch: 作成済み
-- 要件文書・作業ログ・AIプロンプトログ: 作成済み
-- Source of Truth: 更新中
-- 公式資料: JARTIC公開ページ・利用規約、個人情報保護委員会を確認済み
+- PR #123: Open / mergeable
+- `main`比較: 6 commits / 6 files / behind 0（PR作成時点）
+- 変更範囲: docsのみ
+- 未解決review thread: 0件
+- AI支援セルフレビュー: COMMENTで記録済み / 文書整合性ブロッカーなし
+- Codex自動レビュー: 利用上限のため未実施
+- GitHub Actions / commit status: workflow・status checkなし
 - 実装・実データ・外部送信: なし
 - 人間・法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
 
 ## Upcoming
 
-1. Source of Truth同期を完了する
-2. 差分・ファイル数・behindを確認する
-3. PRを作成する
-4. review thread、mergeability、workflow/statusを確認する
-5. 人間・法務・運用・安全・セキュリティ・プライバシーレビュー
-6. 暫定値の妥当性・実現性を評価し、指摘を反映する
-7. 問題がなければPRマージ・Issue完了・branch削除確認
-8. 実データ候補のファイル・項目単位第三者権利調査
-9. 公開利用規約・プライバシーポリシー論点整理
-10. provider選定ADR・基本設計
+1. PR #123の人間・法務・運用・安全・セキュリティ・プライバシーレビュー
+2. 暫定値の妥当性・実現性評価と指摘反映
+3. review thread、mergeability、workflow/status再確認
+4. 問題がなければPRマージ・Issue完了・branch削除確認
+5. 実データ候補のファイル・項目単位第三者権利調査
+6. 公開利用規約・プライバシーポリシー論点整理
+7. provider選定ADR・基本設計
 
 ## Cross-Cutting Gates
 
