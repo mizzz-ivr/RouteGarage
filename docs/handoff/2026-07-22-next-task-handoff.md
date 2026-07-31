@@ -5,14 +5,16 @@
 - Repository: `mizzz-ivr/RouteGarage`
 - PR #118は2026-07-31にマージ済み。
 - Issue #117は`completed`。
-- Open Issueが0件だったため、既存の後続候補から生活拠点ぼかし・外部キャプチャ保護を次タスクとして選定した。
-- Issue #119を作成し、要件文書、作業ログ、AIプロンプトログ、Source of Truthを更新中。
+- Issue #119を作成し、生活拠点ぼかし・共有出力・外部キャプチャ保護要件を定義した。
+- PR #120を作成し、要件文書、作業ログ、AIプロンプトログ、Source of Truthをレビュー可能な状態へ同期した。
+- Codexレビューは利用上限のため実施できていない。
 - 実位置情報・実走行履歴、実装コード、provider採用、APIキー取得、外部問い合わせは扱っていない。
 - JARTIC Jシステム / VICS・HEREへの問い合わせは未承認でNo-Go。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #119: https://github.com/mizzz-ivr/RouteGarage/issues/119
+- PR #120: https://github.com/mizzz-ivr/RouteGarage/pull/120
 - Branch: `docs/issue-119-location-privacy-capture`
 - Phase: Phase 1 / Requirements Definition
 - Main document: `docs/requirements/location-privacy-blur-capture-protection-requirements.md`
@@ -38,20 +40,9 @@ PRマージ・Issue Closeは、Google Maps Platform / JARTIC採用、実デー�
 
 ## Task Selection
 
-次候補を比較した。
+具体的保持期間・削除SLAは、provider、契約、権利台帳、法務判断、バックアップ構成への依存が大きいため、現時点で具体値を確定しない。
 
-### 具体的保持期間・削除SLA
-
-- provider、契約、権利台帳、法務判断、バックアップ構成への依存が大きい。
-- 現時点で具体値を決めると、既存のNo-Go方針に反する可能性がある。
-
-### 生活拠点ぼかし・外部キャプチャ保護
-
-- 既存の位置情報ポリシーとIssue #113で後続Issue化されている。
-- 実装・実データなしで要件境界を整理できる。
-- Web / iOS / Androidの能力差を実装前に定義する安全上の優先度が高い。
-
-採用: 生活拠点ぼかし・外部キャプチャ保護
+生活拠点ぼかし・外部キャプチャ保護は、既存の位置情報ポリシーとIssue #113で後続Issue化されており、実装・実データなしで安全境界を定義できるため優先した。
 
 ## Current Decision
 
@@ -97,8 +88,6 @@ Issue #119では要件と検証ゲートだけを定義する。
 単純な座標丸め・円表示だけで安全と扱わない。
 
 ### 3. プライバシー変換
-
-後続設計候補:
 
 - 機微地点周辺の経路除去
 - 端点切り詰め
@@ -258,32 +247,30 @@ Issue #119では要件と検証ゲートだけを定義する。
 ## External Workspaces
 
 - Linear Project: https://linear.app/mizzzjp/project/routegarage-71286ad9056c
+  - Issue #119 / PR #120へ同期済み
   - 無料Issue上限のためGitHub Issue #119を実行タスクの正本とする
 - Notion Hub: https://app.notion.com/p/3ad7322f39fa81e9be8fe370b4140720
-  - Issue #119 / PR作成後の状態を同期対象とする
+  - Issue #119 / PR #120、要件・レビューゲートへ同期済み
 
 ## Review Status
 
 - Issue #119: Open
+- PR #120: Open / レビュー待ち
 - Branch: 作成済み
-- 要件文書: 作成済み
-- 作業ログ: 作成済み
-- AIプロンプトログ: 作成済み
-- Current Status / Active Issues / Handoff: 本作業で同期
-- PR: 未作成
+- 要件文書・作業ログ・AIプロンプトログ: 作成済み
+- Current Status / Active Issues / Handoff: 同期済み
+- Codexレビュー: 利用上限のため未実施
 - 人間・法務・運用・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビュー: 未実施
 
 ## Remaining Tasks
 
-1. branch差分とmain追従状態を確認する。
-2. PRを日本語で作成する。
-3. PRへCodexレビューを依頼する。利用上限の場合は明記する。
-4. 人間・法務・運用・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビューを受ける。
-5. 指摘があれば同一branchで修正する。
-6. 未解決review thread 0件、mergeability、workflow/statusを確認する。
-7. 問題がなければPRをマージする。
-8. Issue #119のcompletedとbranch削除を確認する。
-9. 後続候補として具体的保持期間・削除SLA、第三者権利調査、公開規約論点を開始する。
+1. PR #120の差分・未解決review thread・mergeability・workflow/statusを確認する。
+2. AI支援セルフレビュー結果をPRへ記録する。
+3. 人間・法務・運用・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビューを受ける。
+4. 指摘があれば同一branchで修正する。
+5. 問題がなければPRをマージする。
+6. Issue #119のcompletedとbranch削除を確認する。
+7. 後続候補として具体的保持期間・削除SLA、第三者権利調査、公開規約論点を開始する。
 
 ## 注意事項
 
