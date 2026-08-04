@@ -4,8 +4,9 @@
 
 - Issue #124: 断面交通量情報の項目単位第三者権利と位置表示境界を整理する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/124
+  - PR: https://github.com/mizzz-ivr/RouteGarage/pull/125
   - Branch: `docs/issue-124-section-traffic-rights`
-  - Status: In Progress / PR作成前
+  - Status: In Progress / PR #125人間レビュー待ち
   - Main document: `docs/registers/jartic-section-traffic-volume-rights-preflight.md`
   - Base register: `docs/registers/jartic-open-data-third-party-rights-register.md`
   - Scope: 項目群、上流由来、第三者権利候補、交通管理リンク・地点位置・DRM依存、利用方法別No-Go、追加証跡
@@ -79,19 +80,23 @@
 ## Review Status
 
 - Issue #124: Open
-- Branch: 作成済み
+- PR #125: Open / mergeable
+- PR作成時の`main`比較: 6 commits / 6 files / behind 0
 - 変更範囲: docsのみ
+- 未解決review thread: 0件
+- AI支援セルフレビュー: COMMENTで記録済み / 文書整合性ブロッカーなし
+- Codex自動レビュー: コメントなし / 未実施
+- GitHub Actions / commit status: workflow・status checkなし
 - 実データ・有料データ・非公開証跡: なし
 - 実装・外部送信: なし
-- PR: 未作成
-- 人間・法務・運用・安全・セキュリティレビュー: 未実施
+- 人間・法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
 
 ## Upcoming
 
-1. Source of Truth・handoffの同期を完了する。
-2. `main`との差分を確認する。
-3. PRを作成してラベル・レビュー状態を確認する。
-4. 人間・法務・運用・安全・セキュリティレビューを受ける。
+1. PR #125の人間・法務・運用・安全・セキュリティ・プライバシーレビューを受ける。
+2. 公開資料の読み取り、項目群、No-Go境界に関する指摘を反映する。
+3. 最新headのreview thread、mergeability、workflow/statusを再確認する。
+4. 問題がなければPRマージ・Issue完了・branch削除確認を行う。
 5. 追加証跡取得・問い合わせ・購入を別Issueで承認するか判断する。
 6. 次の権利調査対象を選定する。
 7. 公開利用規約・プライバシーポリシー論点を整理する。
