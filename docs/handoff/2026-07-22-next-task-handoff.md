@@ -6,18 +6,33 @@
 - Phase: Phase 1 / Requirements Definition
 - PR #123は2026-08-04にマージ済み。
 - Issue #121はcompleted。
-- Issue #124として、一般道路の「断面交通量情報」の項目単位第三者権利・位置表示境界を公開資料から予備調査中。
+- Issue #124 / PR #125として、一般道路の「断面交通量情報」の項目単位第三者権利・位置表示境界を公開資料から予備調査中。
 - 現在判定は`調査中 / No-Go`。
 - 実データ取得、有料データ購入、外部問い合わせ、契約、実装は行っていない。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #124: https://github.com/mizzz-ivr/RouteGarage/issues/124
+- PR #125: https://github.com/mizzz-ivr/RouteGarage/pull/125
 - Branch: `docs/issue-124-section-traffic-rights`
 - Main document: `docs/registers/jartic-section-traffic-volume-rights-preflight.md`
 - Base register: `docs/registers/jartic-open-data-third-party-rights-register.md`
 - Work log: `docs/logs/2026-08-04-issue-124.md`
 - AI prompt log: `docs/ai-prompts/2026-08-04-issue-124-section-traffic-rights.md`
+
+## PR Status
+
+- State: Open
+- Mergeable: true
+- PR作成時の`main`比較: 6 commits / 6 files / behind 0
+- 変更範囲: docsのみ
+- 未解決review thread: 0件
+- AI支援セルフレビュー: COMMENTで記録済み / 文書整合性ブロッカーなし
+- Codex自動レビュー: コメントなし / 未実施
+- GitHub Actions / commit status: workflow・status checkなし
+- 人間・法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
+
+AI支援セルフレビューを、権利確認、法務判断、利用許諾、データ採用の完了とは扱わない。
 
 ## Previous Completion
 
@@ -195,18 +210,16 @@ PRマージ・Issue Closeは、provider採用、契約、実データ公開、�
   - 無料Issue上限により個別Linear Issueは作成しない。
   - GitHub Issue #124を実行タスクの正本とする。
 - Notion Hub: https://app.notion.com/p/3ad7322f39fa81e9be8fe370b4140720
-  - Issue #124を現在タスクとして同期する。
+  - Issue #124 / PR #125を現在タスクとして同期する。
 
 ## Remaining Tasks
 
-1. Source of Truth同期を完了する。
-2. `main`との差分を確認する。
-3. PRを作成する。
-4. review thread、mergeability、workflow/statusを確認する。
-5. AI支援セルフレビューを参考コメントとして記録する。
-6. 人間・法務・運用・安全・セキュリティレビューを受ける。
-7. 追加証跡・問い合わせ・購入の別Issue化を判断する。
-8. 次のデータセット調査へ進む。
+1. PR #125の人間・法務・運用・安全・セキュリティ・プライバシーレビューを受ける。
+2. 公開資料の読み取り、項目群、No-Go境界に関する指摘を反映する。
+3. 最新headのmergeability、workflow/status、未解決review threadを再確認する。
+4. 問題がなければPRマージ・Issue完了・branch削除を確認する。
+5. 追加証跡・問い合わせ・購入の別Issue化を判断する。
+6. 次のデータセット調査へ進む。
 
 ## Notes
 
