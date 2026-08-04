@@ -1,284 +1,200 @@
-# Handoff（2026-07-31 / Issue #119）
+# Handoff（2026-07-31 / Issue #121）
 
 ## Summary
 
 - Repository: `mizzz-ivr/RouteGarage`
-- PR #118は2026-07-31にマージ済み。
-- Issue #117は`completed`。
-- Issue #119を作成し、生活拠点ぼかし・共有出力・外部キャプチャ保護要件を定義した。
-- PR #120を作成し、要件文書、作業ログ、AIプロンプトログ、Source of Truthをレビュー可能な状態へ同期した。
-- PR #120は`open / mergeable`、review thread 0件、workflow・commit status checkなし。
-- Codexレビューは利用上限のため実施できていない。
-- 実位置情報・実走行履歴、実装コード、provider採用、APIキー取得、外部問い合わせは扱っていない。
-- JARTIC Jシステム / VICS・HEREへの問い合わせは未承認でNo-Go。
+- Phase: Phase 1 / Requirements Definition
+- PR #120は2026-07-31にマージ済み。
+- Issue #119はcompleted。
+- Issue #121 / PR #123として、JARTIC静的レイヤーの保持期間・再確認期限・削除SLAの内部暫定基準をレビュー中。
+- 数値は法定期間、JARTIC要求値、契約値、本番SLAではない。
+- 実データ取得・保存・変換、Next.js / Expo / Maps実装、provider採用、APIキー、外部問い合わせは行っていない。
 
 ## Current Issue / PR / Branch
 
-- Issue #119: https://github.com/mizzz-ivr/RouteGarage/issues/119
-- PR #120: https://github.com/mizzz-ivr/RouteGarage/pull/120
-- Branch: `docs/issue-119-location-privacy-capture`
-- Phase: Phase 1 / Requirements Definition
-- Main document: `docs/requirements/location-privacy-blur-capture-protection-requirements.md`
+- Issue #121: https://github.com/mizzz-ivr/RouteGarage/issues/121
+- PR #123: https://github.com/mizzz-ivr/RouteGarage/pull/123
+- Branch: `docs/issue-121-retention-sla-baseline`
+- Main document: `docs/requirements/jartic-static-layer-retention-recheck-deletion-sla-baseline.md`
+- Base requirements:
+  - `docs/requirements/jartic-static-layer-data-retention-deletion-requirements.md`
+  - `docs/requirements/jartic-static-layer-data-retention-deletion-review-fixes.md`
+
+## PR Status
+
+- State: Open
+- Mergeable: true
+- 変更範囲: docsのみ
+- 未解決review thread: 0件
+- AI支援セルフレビュー: COMMENTで記録済み / 文書整合性ブロッカーなし
+- Codex自動レビュー: 利用上限のため未実施
+- GitHub Actions / commit status: workflow・status checkなし
+- 人間・法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
+
+AI支援セルフレビューを、人間レビュー・法務判断・本番SLA承認の完了とは扱わない。
 
 ## Previous Completion
 
+- Issue #119 / PR #120
+  - 生活拠点ぼかし・共有出力・外部キャプチャ保護要件
+  - Merge commit: `8c3fc97cdd10dc3ce5ba0f78c7cee41a0e2c3a5b`
 - Issue #117 / PR #118
-  - PR #116の保持・削除レビュー指摘を反映
+  - PR #116の保持・削除レビュー指摘対応
   - Merge commit: `f452af33b9677c2b66d8b160f0b913dec57e54fe`
-  - Issue: completed
-  - PR #116 review thread: 12件すべて解決済み
 - Issue #115 / PR #116
-  - JARTIC静的レイヤー候補の保持・削除要件
+  - JARTIC静的レイヤーの保持・削除要件
   - Merge commit: `0c1b67f5a849a74f90e00ce7f9f1c338ccacbfe5`
 - Issue #113 / PR #114
   - JARTIC静的レイヤーの出典・加工・鮮度・安全・プライバシー表示要件
 - Issue #111 / PR #112
   - JARTICオープンデータ第三者権利台帳
-- Issue #109 / PR #110
-  - JARTIC静的レイヤー利用境界
 
-PRマージ・Issue Closeは、Google Maps Platform / JARTIC採用、実データ公開、外部問い合わせ、実装開始の承認ではない。
+PRマージ・Issue Closeは、provider採用、契約、実データ公開、外部問い合わせ、実装開始の承認ではない。
 
-## Task Selection
-
-具体的保持期間・削除SLAは、provider、契約、権利台帳、法務判断、バックアップ構成への依存が大きいため、現時点で具体値を確定しない。
-
-生活拠点ぼかし・外部キャプチャ保護は、既存の位置情報ポリシーとIssue #113で後続Issue化されており、実装・実データなしで安全境界を定義できるため優先した。
-
-## Current Decision
-
-Issue #119では要件と検証ゲートだけを定義する。
-
-次を保留する。
-
-- ぼかし距離・時間・訪問回数・滞在時間の具体値
-- 生活拠点・反復訪問の検出アルゴリズム
-- 経路切り詰め・粗粒度化方式
-- 再推定リスクの合格基準
-- Next.js / Expo / Maps SDK実装
-- `expo-screen-capture`等のライブラリ採用・導入
-- 対象iOS / Androidバージョン・端末
-- DB・API・認証・ストレージ・監視
-- 実位置情報・実走行履歴の取得・保存・変換
-- provider採用、契約、APIキー取得、外部問い合わせ
-- 法的助言・プライバシーポリシー最終文言
-
-## Issue #119 Requirements
-
-### 1. 位置分類
-
-- `EXACT_PRIVATE`: 正確な現在位置、原GPS、正確な開始終了地点、原走行軌跡
-- `SENSITIVE_DERIVED`: 生活拠点候補、反復訪問、長時間滞在、推定自宅・職場
-- `PRIVACY_REDUCED`: 承認済み変換後の経路・地域・地点
-- `PUBLIC_NON_LOCATION`: 位置を含まない公開可能な概要
-
-分類不能時は`EXACT_PRIVATE`相当とする。
-
-### 2. 再推定リスク
-
-次を単独・組合せで評価する。
-
-- 開始・終了地点
-- 道路形状・一本道・袋小路
-- 反復訪問・長時間滞在
-- 時刻・曜日
-- 複数走行記録の共通端点
-- 地図中心・ズーム・地名・ランドマーク
-- EXIF・説明文・施設名・プロフィール・車両情報
-
-単純な座標丸め・円表示だけで安全と扱わない。
-
-### 3. プライバシー変換
-
-- 機微地点周辺の経路除去
-- 端点切り詰め
-- 地域・道路区分への粗粒度化
-- 複数点の集約
-- 公開用経路と本人用経路の分離
-- 表示中心・ズーム・ラベルの安全化
-- EXIF・位置メタデータ除去
-
-正確な開始・終了地点を公開しない。
-
-複数記録を組み合わせても生活拠点を推定しにくいことを確認する。
-
-変換後に経路の公開価値が成立しない場合は、位置を含まない概要だけを候補とする。
-
-### 4. 具体値
-
-ぼかし距離・時間・訪問回数等は本Issueで確定しない。
-
-後続設計では、都市・郊外・過疎地域、道路トポロジー、複数記録の再推定、公開範囲、共有解像度、合成・匿名データによる攻撃者視点評価を用いる。
-
-具体値には、プロダクト、プライバシー、セキュリティ、法務の人間承認を必要とする。
-
-### 5. Web
-
-- OSスクリーンショット・画面収録の確実な抑止を前提にしない。
-- 公開・共有可能画面は通常表示の時点でプライバシーセーフにする。
-- 右クリック禁止、キー操作禁止、透かし、注意文を最低保護基準の代替にしない。
-- 印刷・PDFでは印刷専用表示または`@media print`で機微情報を除外する。
-
-### 6. iOS / Android
-
-独立能力:
-
-1. キャプチャ抑止
-2. キャプチャ検知
-3. アプリスイッチャー・バックグラウンド保護
-
-検知できても抑止済みとは扱わない。
-
-公式API・ライブラリが存在しても、対象OS・端末・画面状態・ミラーリング・画面共有・バックグラウンドの実機検証前に保護済みと判断しない。
-
-### 7. フォールバック
-
-1. 精密位置・機微情報を非表示
-2. 承認済み`PRIVACY_REDUCED`へ切替
-3. 位置を含まない概要だけ表示
-4. 画面・共有・印刷・エクスポートをブロック
-
-警告表示だけで精密情報を継続表示しない。
-
-### 8. 共有前プレビュー
-
-最低限次を確認する。
-
-- 出力種別・公開範囲
-- 変換後の地図・経路・地点
-- マスクされた対象
-- 表示中心・ズーム・地名・時刻粒度
-- 帰属・対象時点・参考情報
-- プライバシー変換版
-- 再推定リスクがゼロではない旨
-
-プレビューと実出力のデータ版・変換版・描画条件が不一致なら出力No-Go。
-
-### 9. URL・OGP・印刷・エクスポート
-
-- URL、OGP、サムネイル、HTML、クライアントデータへ原座標を含めない。
-- 印刷・PDFへ精密位置・原走行軌跡を含めない。
-- 一般エクスポートへ`EXACT_PRIVATE`・`SENSITIVE_DERIVED`を含めない。
-- 削除・取消・公開範囲変更を共有URL・OGP・キャッシュへ伝播する。
-
-### 10. 監査・データ最小化
-
-保存候補:
-
-- 不透明な内部ID
-- 公開範囲
-- プライバシー分類
-- 変換ポリシー版
-- プレビュー・実出力一致結果
-- キャプチャ能力状態
-- 対象OS・アプリ・ブラウザ版
-- 結果・失敗理由区分・参照ID
-
-保存禁止:
-
-- 正確な緯度・経度
-- 原走行軌跡
-- 生活拠点候補の座標・名称
-- 非変換画像
-- 位置付きEXIF
-- 復元可能な位置断片
-
-## Official References
+## Official Sources Checked
 
 確認日: 2026-07-31
 
-- Expo ScreenCapture: https://docs.expo.dev/versions/latest/sdk/screen-capture/
-- Android `FLAG_SECURE`: https://developer.android.com/reference/android/view/WindowManager.LayoutParams#FLAG_SECURE
-- iOS `UISceneCaptureState`: https://developer.apple.com/documentation/uikit/uiscenecapturestate
-- iOS capture notification: https://developer.apple.com/documentation/uikit/uiscreen/captureddidchangenotification
-- Web printing: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Media_queries/Printing
+### JARTIC
 
-公式APIの存在を完全保護保証として扱わない。
+- https://www.jartic.or.jp/service/opendata/
+- https://www.jartic.or.jp/d/opendata/riyou_kiyaku.pdf
 
-## Test Matrix
+確認事項:
 
-### データ・再推定
+- 各情報は毎月月初に更新される。
+- 更新前の情報は公開ページから取得できなくなる。
+- 更新が遅れる場合がある。
+- 出典表示と加工表示が必要。
+- 第三者権利は利用者責任で確認する。
+- データ・利用規約は変更、移転、削除、改定される場合がある。
+- 一律の保存期間・削除SLAは記載されていない。
 
-- 単一記録の開始・終了・道路形状
-- 複数記録の共通端点・時間帯
-- 都市・郊外・過疎地域
-- 一本道・袋小路・単独施設
-- 短距離走行
-- EXIF・地名・説明・時刻・ID
-- 表示中心・ズーム・サムネイル
+### 個人情報保護委員会
 
-### Web
+- https://www.ppc.go.jp/personalinfo/legal/guidelines_tsusoku/
+- https://www.ppc.go.jp/personalinfo/faq/APPI_QA/
+- https://www.ppc.go.jp/news/careful_information/data_syokyo/
 
-- 通常表示
-- 印刷プレビュー
-- PDF保存
-- 印刷CSS無効・読込失敗
-- JavaScript無効・イベント未発火
-- OGP・検索・キャッシュ
+確認事項:
 
-### iOS / Android
+- 個人情報に一律の保存期間は定められていない。
+- 利用目的に応じて保存期間を設定する。
+- 不要になった場合は必要以上に長期化させず、復元不可能な方法で消去する考え方が示されている。
 
-- スクリーンショット
-- 画面収録・画面共有
-- ミラーリング・外部表示候補
-- アプリスイッチャー・最近使ったアプリ
-- バックグラウンド・中断
-- マルチウィンドウ候補
-- 保護API利用不可・失敗
-- アプリ再起動・画面遷移
+本IssueはJARTIC公開データを主対象とし、個人利用者の位置情報・走行履歴・アカウント情報の最終保持期間を決定しない。
 
-### 共有・取消
+## Period Categories
 
-- プレビューと出力の一致
-- 公開範囲変更後の再プレビュー
-- 削除・取消後のURL・OGP・キャッシュ停止
-- 帰属・対象時点・安全注意の維持
+- `PROVISIONAL_OPERATIONAL_LIMIT`: RouteGarage内部の暫定保持上限
+- `RECHECK_DEADLINE`: 規約・権利・公開版・例外の再確認期限
+- `RESPONSE_SLA`: 表示停止・隔離・計画承認等の応答期限
+- `DELETION_COMPLETION_SLA`: 全保存先の削除完了期限
+- `LEGAL_MINIMUM`: 法令または法務確認済み最低保持期間
+- `LEGAL_HOLD`: 法務承認済み限定保全
 
-実利用者データを使用せず、承認済みの合成・匿名データを使用する。
+内部暫定値を法定期間・契約期間・JARTIC要求値として扱わない。
+
+## Provisional Retention Baseline
+
+| 分類 | 内部暫定候補 |
+| --- | --- |
+| 取得原本 | 取得から90日、現行版と直前2公開サイクルまで |
+| 説明書・規約スナップショット | 最終利用または関連削除完了から365日 |
+| 正規化・加工データ | 親の早い期限、最大90日 |
+| 表示用データ | 現行承認版のみ。旧版アクティブ保持0日 |
+| ロールバック隔離 | 最大7日 |
+| 履歴 | 初期値は保持しない。個別承認時最大90日 |
+| 一時ファイル | 処理終了から24時間、絶対上限72時間 |
+| キャッシュ・インデックス | TTL最大24時間 |
+| 最小監査メタデータ | 365日 |
+| 削除墓標・再取得拒否 | 初回最大365日、90日ごと再確認 |
+| 削除完了証跡 | 365日 |
+| バックアップ実失効 | 削除確定から35日以内 |
+
+有効保持上限は、契約・利用規約、第三者権利、安全・プライバシー、本書の暫定値、保存目的終了のうち最も早い期限とする。
+
+## Recheck Baseline
+
+- 取得・公開判定前: 毎回
+- JARTIC月次更新検知後: 3営業日以内
+- 毎月7日までに更新確認不能: `UPDATE_DELAYED`
+- 利用規約: 取得前毎回、定期7日ごと
+- 第三者権利: 公開判定前毎回、最終確認から最大30日
+- 全権利台帳棚卸し: 90日ごと
+- 通常例外・法的保全: 30日ごと
+
+## Deletion SLA Baseline
+
+### Standard Confirmed Deletion
+
+- 新規配信・再取得・再生成停止: 15分以内
+- `DELETION_PENDING`: 4時間以内
+- 削除計画承認: 1営業日以内
+- オンライン本体・派生物削除: 3営業日以内
+- 外部保存先削除確認: 7暦日以内
+- バックアップを含む削除完了: 35暦日以内
+
+### Personal Data / Exact Location / Secret Contamination
+
+- 新規配信停止: 15分以内
+- アクセス遮断・隔離: 1時間以内
+- 影響範囲特定: 4時間以内
+- オンライン削除: 24時間以内
+- 外部保存先削除: 72時間以内
+- バックアップ実失効: 35日以内または承認済みのより短い期限
+- 法務・セキュリティ・プライバシーへのエスカレーション: 即時
+
+## Legal Hold
+
+- 法務承認者、目的、範囲、開始・終了条件、再確認日、アクセス可能者、解除後削除計画を必須とする。
+- 30日ごとに法務再確認する。
+- 初回保全期間の内部候補は最大90日。
+- 解除後4時間以内に削除義務を再判定する。
+- 1営業日以内に削除処理を再開する。
+- 元期限超過時は`DELETION_OVERDUE`として即時エスカレーションする。
+
+## No-Go Gates
+
+- provider・契約・第三者権利の上限を確認できない。
+- 法的最低保持期間の根拠・承認がない。
+- 規約・権利・公開版を期限内に確認できない。
+- 外部CDNを1時間以内に無効化できない。
+- 外部保存先を7日以内に削除確認できない。
+- バックアップを35日以内に実失効確認できない。
+- 削除予定日時だけで完了証跡を発行する。
+- `LEGAL_HOLD`に期限・再確認日・解除後削除計画がない。
+- 個人情報・正確位置・秘密情報混入時の緊急SLAを満たせない。
+- AIだけで法務・プライバシー判断を確定する。
 
 ## Source of Truth Files
 
-- `docs/requirements/location-privacy-blur-capture-protection-requirements.md`
+- `docs/requirements/jartic-static-layer-retention-recheck-deletion-sla-baseline.md`
 - `docs/current-status.md`
 - `docs/active-issues.md`
 - `docs/handoff/2026-07-22-next-task-handoff.md`
-- `docs/logs/2026-07-31-issue-119.md`
-- `docs/ai-prompts/2026-07-31-issue-119-location-privacy-capture.md`
+- `docs/logs/2026-07-31-issue-121.md`
+- `docs/ai-prompts/2026-07-31-issue-121-retention-sla-baseline.md`
 
 ## External Workspaces
 
 - Linear Project: https://linear.app/mizzzjp/project/routegarage-71286ad9056c
-  - Issue #119 / PR #120へ同期済み
-  - 無料Issue上限のためGitHub Issue #119を実行タスクの正本とする
+  - 無料Issue上限により個別Linear Issueは作成しない。
+  - GitHub Issue #121を実行タスクの正本とする。
 - Notion Hub: https://app.notion.com/p/3ad7322f39fa81e9be8fe370b4140720
-  - Issue #119 / PR #120、要件・レビューゲートへ同期済み
-
-## Review Status
-
-- Issue #119: Open
-- PR #120: Open / mergeable
-- `main`比較: 9 commits / 6 files / behind 0
-- 変更範囲: docsのみ
-- PR #120 review thread: 0件
-- PR #120 submitted review: 0件
-- GitHub Actions / commit status: workflow・status checkなし
-- Codexレビュー: 利用上限のため未実施
-- 人間・法務・運用・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビュー: 未実施
+  - Issue #121 / PR #123を現在タスクとして同期する。
 
 ## Remaining Tasks
 
-1. AI支援セルフレビュー結果をPR #120へ参考コメントとして記録する。
-2. 人間・法務・運用・安全・セキュリティ・プライバシー・アクセシビリティ・各プラットフォームレビューを受ける。
-3. 指摘があれば同一branchで修正する。
-4. 問題がなければPRをマージする。
-5. Issue #119のcompletedとbranch削除を確認する。
-6. 後続候補として具体的保持期間・削除SLA、第三者権利調査、公開規約論点を開始する。
+1. PR #123の人間・法務・運用・安全・セキュリティ・プライバシーレビューを受ける。
+2. 暫定値の妥当性・実現性に関する指摘を反映する。
+3. mergeability、workflow/status、未解決review threadを再確認する。
+4. 問題がなければPRマージ・Issue完了・branch削除を確認する。
+5. 後続で実データ候補のファイル・項目単位第三者権利調査を開始する。
 
-## 注意事項
+## Notes
 
 - AI生成内容は人間レビュー必須。
-- 法的助言・プライバシー影響評価の最終結論ではない。
-- 公式APIの存在を完全保護保証として扱わない。
-- 実位置情報・実走行履歴・実装・外部送信は行っていない。
-- ぼかし距離等の具体値を確定していない。
-- 仕様・法務判断・技術検証確定前に実装しない。
+- 90日、365日、35日等は内部暫定候補であり、法定期間・JARTIC要求値・契約値ではない。
+- 実データ・実装・外部送信は行っていない。
+- 仕様・契約・法務判断・技術構成確定前に実装しない。
