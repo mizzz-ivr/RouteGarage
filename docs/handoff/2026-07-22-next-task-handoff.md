@@ -24,15 +24,16 @@
 
 - State: Open
 - Mergeable: true
-- PR作成時の`main`比較: 6 commits / 6 files / behind 0
+- 最終想定`main`比較: 13 commits / 6 files / behind 0
 - 変更範囲: docsのみ
-- 未解決review thread: 0件
-- AI支援セルフレビュー: COMMENTで記録済み / 文書整合性ブロッカーなし
-- Codex自動レビュー: コメントなし / 未実施
+- Codexレビュー: P2指摘1件を反映済み
+- Codex P2対応: プレフライトレコードの再確認期限を2026-09-03へ具体化
+- Codex review thread: 1件解決済み / 未解決0件
+- AI支援セルフレビュー: COMMENTで記録済み
 - GitHub Actions / commit status: workflow・status checkなし
 - 人間・法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
 
-AI支援セルフレビューを、権利確認、法務判断、利用許諾、データ採用の完了とは扱わない。
+AI支援セルフレビューとCodex指摘対応を、権利確認、法務判断、利用許諾、データ採用の完了とは扱わない。
 
 ## Previous Completion
 
@@ -141,6 +142,14 @@ PRマージ・Issue Closeは、provider採用、契約、実データ公開、�
 | Google Maps Datasetsアップロード | No-Go |
 
 `条件付き候補`は許可ではない。
+
+## Recheck Deadline
+
+- 確認日: 2026-08-04
+- 再確認期限: 2026-09-03
+- 根拠: 第三者権利台帳を最終確認から最大30暦日以内に再確認する
+- 前倒し条件: JARTICまたは関係団体の公開資料変更検知時
+- 期限超過時: `失効・再確認必要 / No-Go`
 
 ## Missing Evidence
 
