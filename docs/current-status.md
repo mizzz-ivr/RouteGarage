@@ -6,12 +6,13 @@
 - 開発フェーズ: Phase 1 / Requirements Definition
 - 開発手法: ウォーターフォール
 - AI生成物: 人間レビュー必須
-- 現在の主目的: Issue #124として、一般道路の「断面交通量情報」の項目単位第三者権利と位置表示境界を公開資料から予備調査する
+- 現在の主目的: Issue #124 / PR #125として、一般道路の「断面交通量情報」の項目単位第三者権利と位置表示境界を公開資料から予備調査する
 - 実装、実データ取得、有料データ購入、provider採用、APIキー取得、契約、外部問い合わせ: 未実施
 
 ## 進行中
 
 - Issue #124: https://github.com/mizzz-ivr/RouteGarage/issues/124
+- PR #125: https://github.com/mizzz-ivr/RouteGarage/pull/125
 - Branch: `docs/issue-124-section-traffic-rights`
 - Main document: `docs/registers/jartic-section-traffic-volume-rights-preflight.md`
 - Base register: `docs/registers/jartic-open-data-third-party-rights-register.md`
@@ -23,12 +24,17 @@
 ## 実行状態
 
 - Issue #124: Open
+- PR #125: Open / mergeable / 人間レビュー待ち
 - Branch: 作成済み
 - 項目単位予備調査: 作成済み
 - 作業ログ・AIプロンプトログ: 作成済み
-- Source of Truth: 更新中
-- PR: 未作成
-- 人間・法務・運用・安全・セキュリティレビュー: 未実施
+- Source of Truth: 同期済み
+- PR作成時の`main`比較: 6 commits / 6 files / behind 0
+- 未解決review thread: 0件
+- AI支援セルフレビュー: COMMENTで記録済み / 文書整合性ブロッカーなし
+- Codex自動レビュー: コメントなし / 未実施
+- GitHub Actions / commit status: workflow・status checkなし
+- 人間・法務・運用・安全・セキュリティ・プライバシーレビュー: 未実施
 
 ## 直近の完了済み
 
@@ -47,7 +53,7 @@
 | データセット | 状態 | 公開判定 | 補足 |
 | --- | --- | --- | --- |
 | 交通規制情報 | 未着手 | No-Go | ファイル・項目調査未実施 |
-| 断面交通量情報 | 調査中 | No-Go | Issue #124で公開資料プレフライト実施中 |
+| 断面交通量情報 | 調査中 | No-Go | Issue #124 / PR #125で公開資料プレフライトをレビュー中 |
 | 交通量データ（国土交通省） | 未着手 | No-Go | API規約・項目調査未実施 |
 | 交差点制御情報 | 未着手 | No-Go | 交通管理リンク・位置情報依存の調査未実施 |
 
@@ -119,10 +125,10 @@
 
 ## 未完了・次の優先作業
 
-1. Issue #124のSource of Truth更新を完了する。
-2. `main`との差分を確認しPRを作成する。
-3. 人間・法務・運用・安全・セキュリティレビューを受ける。
-4. 指摘反映後、断面交通量情報のプレフライト状態を確定する。
+1. PR #125の人間・法務・運用・安全・セキュリティ・プライバシーレビューを受ける。
+2. 公開資料の読み取り、項目群、No-Go境界に関する指摘を反映する。
+3. 最新headのreview thread、mergeability、workflow/statusを再確認する。
+4. 問題がなければPRマージ・Issue完了・branch削除確認を行う。
 5. 追加証跡取得・問い合わせ・購入の要否を別Issueで判断する。
 6. 次のデータセットとして交差点制御情報または交通規制情報を調査する。
 7. 公開利用規約・プライバシーポリシー論点を整理する。
