@@ -1,224 +1,227 @@
-# Handoff（2026-08-05 / Issue #126）
+# Handoff（2026-08-05 / Issue #128）
 
 ## Summary
 
 - Repository: `mizzz-ivr/RouteGarage`
 - Phase: Phase 1 / Requirements Definition
-- PR #125は2026-08-05にマージ済み、Issue #124はcompleted。
-- Issue #126 / PR #127として、JARTIC交通規制情報の項目単位権利・意味・鮮度・安全表示境界をレビュー中。
-- 現在判定は`調査中 / No-Go`。
-- 公式説明書Ver k_2.1は公開確認・一部予備レビュー済み。
-- 全96ページの項目別レビュー、説明書ハッシュ、作成基準日等データ、実ファイルは未確認。
-- 実データ取得、外部問い合わせ、契約、実装は行っていない。
+- PR #127はマージ済み、Issue #126はcompleted。
+- 現在はIssue #128として、行きたいスポット保存・ドライブプラン作成機能をMVPへ追加する要件を定義中。
+- 本機能は外部provider・本格ナビ・リアルタイム交通情報に依存しない出発前計画機能。
+- 実位置情報、実走行履歴、実スポットデータ、実装、provider契約、外部問い合わせは扱っていない。
 
-## Current Issue / PR / Branch
+## Current Issue / Branch
 
-- Issue #126: https://github.com/mizzz-ivr/RouteGarage/issues/126
-- PR #127: https://github.com/mizzz-ivr/RouteGarage/pull/127
-- Branch: `docs/issue-126-traffic-regulation-rights-safety`
-- Main document: `docs/registers/jartic-traffic-regulation-rights-safety-preflight.md`
-- Base register: `docs/registers/jartic-open-data-third-party-rights-register.md`
-- Work log: `docs/logs/2026-08-05-issue-126.md`
-- AI prompt log: `docs/ai-prompts/2026-08-05-issue-126-traffic-regulation-rights-safety.md`
+- Issue #128: https://github.com/mizzz-ivr/RouteGarage/issues/128
+- Branch: `docs/issue-128-drive-plan-requirements`
+- Main document: `docs/requirements/want-to-go-spots-and-drive-plan-requirements.md`
+- MVP source: `docs/requirements/mvp-requirements.md`
+- Screen list: `docs/screen-design/screen-list.md`
+- Screen flow: `docs/screen-design/screen-flow.md`
+- Work log: `docs/logs/2026-08-05-issue-128.md`
+- AI prompt log: `docs/ai-prompts/2026-08-05-issue-128-drive-plan-requirements.md`
 
-## PR Status
+## Current Status
 
-- State: Open
-- Mergeable: true
-- PR作成時`main`比較: 6 commits / 6 files / behind 0
-- 変更範囲: docsのみ
-- AI支援セルフレビュー: COMMENTで記録済み
-- Codex自動レビュー: P2指摘2件を反映・返信・解決済み
-- 未解決review thread: 0件
-- GitHub Actions / commit status: workflow・status checkなし
-- 人間の必須レビュー: 未実施
+- Issue #128: Open
+- Branch: 作成済み
+- Main requirements: 作成済み
+- MVP requirements: 更新済み
+- Screen list: SCR-21〜24追加済み
+- Screen flow: 保存・計画・公開・走行記録導線追加済み
+- Source of Truth: 更新済み
+- PR: 未作成
+- Review: 未実施
+- Implementation: 未着手
 
-AI支援セルフレビューとCodex指摘対応を、権利確認、法務判断、交通規制解釈、データ品質保証、データ採用の完了とは扱わない。
+## Product Goal
 
-## Codex Review Fixes
+スポット探索と走行記録の間に、次の出発前計画機能を追加する。
 
-### P2: 公開済み説明書の状態
+1. 気になるスポットを保存する。
+2. 保存したスポットを複数地点のプランへ追加する。
+3. 地点順・予定・メモを手動で整理する。
+4. 公開前に生活拠点・正確位置・個人情報を確認する。
+5. 完了後に走行記録の入力補助として参照する。
 
-修正前は正式説明書のURL・版を未確定扱いしていた。
+## Responsibility Boundaries
 
-修正後:
+### 行きたいスポット
 
-- 公式PDF URLを記録
-- 文書名、版`k_2.1`、改訂日2025-01-20、96ページを既知証跡として記録
-- 一部予備レビュー済みとした
-- 全96ページ、別記、全項目・全コードのレビューと文書ハッシュ登録は未完了として分離
+- 個人用ブックマーク。
+- 元スポットの複製公開機能ではない。
+- 個人メモは所有者限定。
 
-### P2: Go解除条件のレビュー領域
+### ドライブプラン
 
-次の全領域へ統一した。
+- 出発前の予定表。
+- 地点、順序、予定日、時刻、滞在予定、メモを管理。
+- 通行可能性・交通規制適合性・安全を保証しない。
 
-- プロダクト
-- 法務
-- 運用
-- 安全
-- セキュリティ
-- プライバシー
-- 交通情報・ナビゲーション領域
-- プロジェクト責任者
+### 走行記録
 
-## Previous Completion
+- 実際の走行実績。
+- 計画値を実績値へ自動変換しない。
+- プラン削除で連鎖削除しない。
 
-- Issue #124 / PR #125
-  - 断面交通量情報の項目単位第三者権利・位置表示境界
-  - Merge commit: `c12541038852f84e49614c1cebafbe31c4059260`
-  - 結論: `調査中 / No-Go`
-- Issue #121 / PR #123
-  - JARTIC静的レイヤーの保持期間・再確認期限・削除SLA暫定基準
-  - Merge commit: `bc4489fdcff1a9bfad25f12029a0d3fe201763d3`
-- Issue #119 / PR #120
-  - 生活拠点ぼかし・共有出力・外部キャプチャ保護要件
-- Issue #115 / PR #116
-  - JARTIC静的レイヤー保持・削除要件
-- Issue #113 / PR #114
-  - 出典・加工・鮮度・安全・プライバシー表示要件
-- Issue #111 / PR #112
-  - JARTICオープンデータ第三者権利台帳
+## State Model
 
-PRマージ・Issue Closeは、provider採用、契約、実データ公開、外部問い合わせ、実装開始の承認ではない。
+### Plan State
 
-## Official Manual
+- `DRAFT`
+- `CONFIRMED`
+- `COMPLETED`
+- `CANCELED`
 
-- 文書: 交通規制情報（拡張版標準フォーマット）説明書
-- URL: https://www.jartic.or.jp/d/opendata/typeD_kisei_73_k_2.1.pdf
-- 版: `k_2.1`
-- 改訂日: 2025-01-20
-- ページ数: 96ページ
-- 状態: 公開済み / 一部予備レビュー済み / 全項目レビュー未完了
-- 文書ハッシュ: 未登録
+### Publication State
 
-予備レビュー確認事項:
-
-- 最大73規制種別・170項目へ集約すると説明される。
-- CSV仕様と都道府県警察ごとのファイル構成が定義される。
-- 点・線・面規制、方向、対象、曜日等のコード表と座標登録方法がある。
-- データ更新区分コードにより差分抽出へ対応すると説明される。
-- 実際の規制との不一致や未記録規制があり得るため、道路標識・道路標示に従うよう明記される。
-
-## Current Decision
-
-交通規制情報全体を`調査中 / No-Go`とする。
-
-### 概念上の項目群
-
-- 識別・版管理
-- 規制内容
-- 位置・範囲
-- 方向・適用関係
-- 時間・有効性
-- 根拠・管理
-
-公式説明書に具体項目はあるが、全体レビュー・実ファイル照合未完了のためRouteGarageの確定仕様にはしない。
-
-### 独立安全ゲート
-
-- 権利
-- フォーマット版
-- 鮮度
-- 意味
-- 位置・範囲
-- 方向
-- 対象車両・例外
-- 時間・有効性
-- 重複・矛盾・廃止
-- 表示可否
-- ルート探索・通行可否判定への利用可否
-- 停止状態
+- `PRIVATE`
+- `PUBLIC_REVIEW_REQUIRED`
+- `PUBLIC`
+- `STOPPED`
 
 `STOPPED`を最優先する。
 
-## Current Use Decisions
+## Main Functional Requirements
 
-| 利用方法 | 現在判定 |
-| --- | --- |
-| ZIP / CSV取得 | No-Go |
-| 原本・正規化保存 | No-Go |
-| 統計集計 | 将来の条件付き候補だが現在No-Go |
-| 参考一覧表示 | No-Go |
-| 地図・ルート表示 | No-Go |
-| ルート探索・通行可否判定 | No-Go |
-| 安全運転支援 | No-Go |
-| 履歴保存・公開 | No-Go |
-| CSV / GeoJSON等エクスポート | No-Go |
-| 外部Mapsデータセット登録 | No-Go |
+### 行きたいスポット
 
-`条件付き候補`は許可ではない。
+- 閲覧可能なスポットの保存・解除。
+- 同一スポットの有効保存は1件。
+- 一覧、絞り込み、並び替え。
+- 個人メモ。
+- ドライブプランへの追加。
+- 元スポット停止時の古い本文・位置・画像非表示。
 
-## Safety No-Go
+### ドライブプラン
 
-- 説明書が公開済みであることだけで実データ利用をGoにしない。
-- 月次データを現在有効・リアルタイムな規制として案内しない。
-- 方向不明を両方向へ拡張しない。
-- 対象車両不明を全車両へ拡張しない。
-- 終了日時不明を無期限へ拡張しない。
-- 位置不明を近隣道路へスナップしない。
-- 欠損・矛盾を推定補完してルート探索へ使わない。
-- 現地標識・道路標示・警察官等の指示よりアプリを優先させない。
-- 表示用途の承認をルート用途へ流用しない。
+- 作成、編集、削除、複製。
+- RouteGarageスポット・自由入力地点。
+- 地点の手動並び替え。
+- 予定日・時刻・滞在予定・メモ。
+- 非公開初期値。
+- 公開前レビュー。
+- 完了後の走行記録作成導線。
 
-## Recheck Deadline
+## Provider Independence
 
-- 確認日: 2026-08-05
-- 再確認期限: 2026-09-04
-- 前倒し条件: JARTIC、警察庁、関連公開資料の変更検知時
-- 期限超過時: `失効・再確認必要 / No-Go`
+- 地点順はユーザーが手動決定。
+- 距離・時間は必須にしない。
+- 手入力値と外部計算値の由来を分離。
+- 外部計算値の失効時に手入力値へ偽装しない。
+- provider停止時も、依存しない手動計画部分を縮退利用可能とする候補。
 
-## Missing Evidence
+## Spot Reference Integrity
 
-- 公式説明書PDFのハッシュと取得日時
-- 全96ページ、別記1・別記2の項目別レビュー
-- 作成基準日等データの構造・版・ハッシュ
-- 対象月・都道府県・原本ファイル・原本ハッシュ
-- 実項目名、型、必須・任意、欠損・不明値の実ファイル照合
-- 規制種別、位置、方向、対象、期間、例外の全定義と適用規則
-- 更新・廃止・訂正・重複・矛盾の扱い
-- 項目別の第三者権利・原典
-- 表示・ルート探索・公衆送信・再配布条件
-- 交通情報提供指針との適用関係
+- 元スポット本文・画像・正確位置を恒久スナップショットとして再公開しない。
+- 表示時に元スポットの現在状態を確認する。
+- 非公開・削除・権利停止・安全停止時は公開表示を停止する。
+- プラン経由で失った閲覧権限を復活させない。
+- ユーザー固有メモと元スポット由来情報を分離する。
 
-外部問い合わせ・実データ取得は別Issueで承認後に行う。
+## Safety / Privacy Gates
 
-## Go Candidate Preconditions
+- 作成・編集・並び替えは停車中または出発前。
+- 走行中操作を促さない。
+- プランは運転指示ではない。
+- 現地標識・道路標示・警察官等の指示を優先。
+- 自宅・勤務先・車両保管場所等を正確位置で公開しない。
+- 自由入力地点は公開前レビュー対象。
+- 公開初期値は`PRIVATE`。
+- 外部共有・画像化時も生活拠点保護を継承。
 
-1. 対象都道府県・対象月・利用目的を人間が承認する。
-2. 公式説明書全体・作成基準日等データを確認し、版・ハッシュを登録する。
-3. 取得前の非公開保管、保持、削除、アクセス権を承認する。
-4. 実ファイルの原本ハッシュと系譜を登録する。
-5. 項目・コード・欠損・不明値・版互換性を確認する。
-6. 項目別の上流由来と第三者権利を確認する。
-7. 位置・方向・対象・期間・例外の完全性と矛盾検査を定義する。
-8. 月次スナップショットを現在情報と分離する。
-9. 表示用途、ルート用途、安全運転支援用途を別々に承認する。
-10. 全必須レビュー領域が承認する。
+## Added / Updated Screens
 
-一つでも不明ならNo-Goを維持する。
+### Added
 
-## Source of Truth Files
+- SCR-21 行きたいスポット一覧
+- SCR-22 ドライブプラン一覧
+- SCR-23 ドライブプラン作成/編集
+- SCR-24 ドライブプラン詳細/公開前確認
 
-- `docs/registers/jartic-traffic-regulation-rights-safety-preflight.md`
-- `docs/registers/jartic-open-data-third-party-rights-register.md`
-- `docs/current-status.md`
-- `docs/active-issues.md`
-- `docs/handoff/2026-07-22-next-task-handoff.md`
-- `docs/logs/2026-08-05-issue-126.md`
-- `docs/ai-prompts/2026-08-05-issue-126-traffic-regulation-rights-safety.md`
+### Updated
+
+- SCR-05 ホーム: 最新プラン導線
+- SCR-07 ルート閲覧詳細: プラン参照追加候補
+- SCR-09 走行記録作成: 完了プラン入力補助
+- SCR-12 スポット詳細: 行きたい保存/解除、プラン追加
+
+## Out of Scope
+
+- ターンバイターンナビ、音声案内
+- 自動ルート最適化、推奨経路、リアルタイム再探索
+- 通行可能性・交通規制適合性の保証
+- GPS高頻度トラッキング
+- 複数ユーザーのリアルタイム共同編集
+- 外部カレンダー・SNS・メッセージ共有
+- provider選定、APIキー、契約
+- DB / API / UI / Infra実装
+
+## Test Focus
+
+### Normal
+
+- 保存・解除、一覧、プラン追加。
+- 手動地点追加・並び替え。
+- 状態遷移。
+- 公開前レビュー。
+- 複製。
+- 走行記録への参照。
+
+### Error
+
+- 非公開スポット保存。
+- 他ユーザープラン編集。
+- 元スポット停止後の古い情報公開。
+- 地点0件で確定。
+- 中止プラン公開。
+- provider値と手入力値の混同。
+- 生活拠点の無確認公開。
+
+### Boundary
+
+- 地点0 / 1 / 20 / 21件。
+- 重複地点。
+- 予定日なし・過去日・日跨ぎ。
+- 文字数上限。
+- 公開直後の元スポット停止。
+- 並び替えと削除の競合。
+
+### Regression
+
+- 本格ナビ対象外。
+- 走行中操作禁止。
+- 非公開既定・生活拠点ぼかし。
+- 元データ停止時の表示停止・削除伝播。
+- 走行記録・スポット投稿との責務分離。
+
+## Review Required
+
+- プロダクト
+- UX
+- 安全
+- セキュリティ
+- プライバシー
+- 運用
+- データ・API設計
+- プロジェクト責任者
+
+AI生成内容だけで承認・実装開始へ進まない。
 
 ## Remaining Tasks
 
-1. PR #127の必須レビューを受ける。
-2. 公式説明書・公開資料・安全No-Go境界に関する指摘を反映する。
-3. 最新headのmergeability、workflow/status、未解決review threadを再確認する。
-4. 問題がなければPRマージ・Issue完了・branch削除を確認する。
-5. 公式説明書全体・作成基準日等データ・実ファイル確認を別Issueで承認するか判断する。
-6. 次のデータセット調査へ進む。
+1. `main`との差分と変更範囲を確認する。
+2. PRを作成する。
+3. AI支援セルフレビュー・Codexレビューを実施する。
+4. 指摘を全関連文書へ反映する。
+5. 人間の必須レビューを受ける。
+6. 問題がなければPRマージ・Issue完了を確認する。
+7. データモデル・API境界の基本設計を後続Issueとして評価する。
 
-## Notes
+## Do Not Proceed
 
-- AI生成内容は人間レビュー必須。
-- 本書は法的助言、権利確認、交通規制解釈、利用許諾ではない。
-- 実データ、非公開証跡、実装、外部送信は扱っていない。
-- 仕様・契約・法務判断・技術構成確定前に実装しない。
+- 実位置情報・実走行履歴・実スポットデータ取得
+- 公開Repositoryへの非公開データ保存
+- provider採用・APIキー取得・契約
+- 自動最適化・通行可否判定実装
+- Next.js / Expo / DB / API / Auth / Maps / Infra実装
+- 外部問い合わせ・外部共有
