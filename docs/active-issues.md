@@ -4,8 +4,9 @@
 
 - Issue #126: 交通規制情報の項目単位権利・安全表示境界を整理する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/126
+  - PR: https://github.com/mizzz-ivr/RouteGarage/pull/127
   - Branch: `docs/issue-126-traffic-regulation-rights-safety`
-  - Status: In Progress / PR作成前
+  - Status: In Progress / PR #127人間レビュー待ち
   - Main document: `docs/registers/jartic-traffic-regulation-rights-safety-preflight.md`
   - Base register: `docs/registers/jartic-open-data-third-party-rights-register.md`
   - Scope: 上流由来、権利候補、概念上の項目群、鮮度、位置・方向・対象・期間・例外、表示・ルート利用No-Go
@@ -96,6 +97,19 @@
 - 表示・ルート探索・再配布条件が未確認である。
 - 人間・法務・運用・安全・セキュリティ・プライバシー・交通情報領域の承認がない。
 
+## Review Status
+
+- Issue #126: Open
+- PR #127: Open / mergeable
+- PR作成時`main`比較: 6 commits / 6 files / behind 0
+- 変更範囲: docsのみ
+- AI支援セルフレビュー: COMMENTで記録済み / 文書整合性ブロッカーなし
+- Codex自動レビュー: 現時点でコメント・指摘なし
+- 未解決review thread: 0件
+- GitHub Actions / commit status: workflow・status checkなし
+- 実データ・正式説明書・非公開証跡・実装・外部送信: なし
+- 人間・法務・運用・安全・セキュリティ・プライバシー・交通情報領域レビュー: 未実施
+
 ## Recently Completed
 
 - Issue #124 / PR #125: 断面交通量情報の項目単位第三者権利・位置表示境界
@@ -110,14 +124,13 @@
 
 ## Upcoming
 
-1. `main`との差分・変更範囲を確認する。
-2. PRを作成し、CodexレビューとAI支援セルフレビューを行う。
-3. 指摘をSource of Truthへ反映する。
-4. 人間・法務・運用・安全・セキュリティ・プライバシー・交通情報領域レビューを受ける。
-5. 問題がなければPRマージ・Issue完了・branch削除を確認する。
-6. 正式説明書・実ファイル取得の承認要否を別Issueで判断する。
-7. 交差点制御情報または国交省交通量データのプレフライトへ進む。
-8. 公開利用規約・プライバシーポリシー論点を整理する。
+1. PR #127の人間・法務・運用・安全・セキュリティ・プライバシー・交通情報領域レビューを受ける。
+2. 公開資料の読み取り、項目群、安全No-Go境界に関する指摘を反映する。
+3. 最新headのreview thread、mergeability、workflow/statusを再確認する。
+4. 問題がなければPRマージ・Issue完了・branch削除を確認する。
+5. 正式説明書・実ファイル取得の承認要否を別Issueで判断する。
+6. 交差点制御情報または国交省交通量データのプレフライトへ進む。
+7. 公開利用規約・プライバシーポリシー論点を整理する。
 
 ## Cross-Cutting Gates
 
