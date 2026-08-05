@@ -6,25 +6,33 @@
 - Phase: Phase 1 / Requirements Definition
 - PR #125は2026-08-05にマージ済み。
 - Issue #124はcompleted。
-- Issue #126として、JARTIC交通規制情報の項目単位権利・意味・鮮度・安全表示境界を公開資料から予備調査中。
+- Issue #126 / PR #127として、JARTIC交通規制情報の項目単位権利・意味・鮮度・安全表示境界を公開資料から予備調査中。
 - 現在判定は`調査中 / No-Go`。
 - 実データ取得、正式説明書取得、外部問い合わせ、契約、実装は行っていない。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #126: https://github.com/mizzz-ivr/RouteGarage/issues/126
+- PR #127: https://github.com/mizzz-ivr/RouteGarage/pull/127
 - Branch: `docs/issue-126-traffic-regulation-rights-safety`
 - Main document: `docs/registers/jartic-traffic-regulation-rights-safety-preflight.md`
 - Base register: `docs/registers/jartic-open-data-third-party-rights-register.md`
 - Work log: `docs/logs/2026-08-05-issue-126.md`
 - AI prompt log: `docs/ai-prompts/2026-08-05-issue-126-traffic-regulation-rights-safety.md`
 
-## Current Status
+## PR Status
 
-- Issue #126: Open
-- PR: 未作成
+- State: Open
+- Mergeable: true
+- PR作成時`main`比較: 6 commits / 6 files / behind 0
 - 変更範囲: docsのみ
+- AI支援セルフレビュー: COMMENTで記録済み / 文書整合性ブロッカーなし
+- Codex自動レビュー: 現時点でコメント・指摘なし
+- 未解決review thread: 0件
+- GitHub Actions / commit status: workflow・status checkなし
 - 人間・法務・運用・安全・セキュリティ・プライバシー・交通情報領域レビュー: 未実施
+
+AI支援セルフレビューを、権利確認、法務判断、交通規制解釈、データ品質保証、データ採用の完了とは扱わない。
 
 ## Previous Completion
 
@@ -199,14 +207,12 @@ PRマージ・Issue Closeは、provider採用、契約、実データ公開、�
 
 ## Remaining Tasks
 
-1. `main`との差分・変更範囲を確認する。
-2. PRを作成する。
-3. Codexレビュー・AI支援セルフレビューを実施する。
-4. 指摘をSource of Truthへ反映する。
-5. 人間・法務・運用・安全・セキュリティ・プライバシー・交通情報領域レビューを受ける。
-6. 問題がなければPRマージ・Issue完了・branch削除を確認する。
-7. 正式説明書・実ファイル取得を別Issueで承認するか判断する。
-8. 次のデータセット調査へ進む。
+1. PR #127の人間・法務・運用・安全・セキュリティ・プライバシー・交通情報領域レビューを受ける。
+2. 公開資料の読み取り、項目群、安全No-Go境界に関する指摘を反映する。
+3. 最新headのmergeability、workflow/status、未解決review threadを再確認する。
+4. 問題がなければPRマージ・Issue完了・branch削除を確認する。
+5. 正式説明書・実ファイル取得を別Issueで承認するか判断する。
+6. 次のデータセット調査へ進む。
 
 ## Notes
 
