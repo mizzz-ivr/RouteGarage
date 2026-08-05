@@ -4,15 +4,16 @@
 
 - Issue #128: 行きたいスポット保存・ドライブプラン作成機能の要件を定義する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/128
+  - PR: https://github.com/mizzz-ivr/RouteGarage/pull/129
   - Branch: `docs/issue-128-drive-plan-requirements`
-  - Status: In Progress / PR作成前
+  - Status: In Progress / PR #129人間レビュー待ち
   - Main document: `docs/requirements/want-to-go-spots-and-drive-plan-requirements.md`
   - MVP source: `docs/requirements/mvp-requirements.md`
   - Screen source: `docs/screen-design/screen-list.md`
   - Flow source: `docs/screen-design/screen-flow.md`
   - Implementation: 未着手
 
-## Issue #128 Scope
+## Feature Scope
 
 ### 行きたいスポット
 
@@ -35,9 +36,8 @@
 
 ## Current Decisions
 
-- 行きたいスポットとドライブプランを別責務にする。
-- ドライブプランと走行記録を別エンティティにする。
-- プランは出発前の予定表であり、運転指示・通行保証ではない。
+- 行きたいスポット、ドライブプラン、走行記録を別責務にする。
+- プランを運転指示・通行可能性の保証として扱わない。
 - 地点順は手動で決め、自動最適化しない。
 - 距離・時間は必須にしない。
 - 手入力値と将来provider計算値を区別する。
@@ -58,7 +58,7 @@
 - 走行中操作を促さない。
 - 自宅・勤務先・車両保管場所等の正確位置を公開しない。
 - 自由入力地点は公開前レビュー対象。
-- 外部共有・画像化時も生活拠点ぼかしを継承する。
+- 外部共有・画像化時も生活拠点保護を継承する。
 - 元スポット停止時は依存する公開表示・再生成を停止する。
 - 現地標識・道路標示・警察官・道路管理者等の指示を優先する。
 
@@ -82,37 +82,34 @@
 - provider選定・APIキー取得・契約
 - DB / API / UI / Infra実装
 
-## Review Status
+## PR #129 Review Status
 
-- Issue #128: Open
-- Branch: 作成済み
-- Main requirements: 作成済み
-- MVP requirements: 統合済み
-- Screen list / flow: 更新済み
-- Work log / AI prompt log: 作成済み
-- PR: 未作成
-- AI支援セルフレビュー: 未実施
-- Codexレビュー: 未実施
+- State: Open
+- Mergeable: true
+- Draft: false
+- PR作成時`main`比較: 9 commits / 9 files / behind 0
+- 変更範囲: docsのみ
+- AI支援セルフレビュー: COMMENTで記録済み
+- Codex自動レビュー: 現時点で指摘なし
+- 未解決review thread: 0件
+- GitHub Actions / commit status: workflow・status checkなし
 - 人間レビュー: 未実施
 
 ## Recently Completed
 
 - Issue #126 / PR #127: 交通規制情報の項目単位権利・安全表示境界
-  - Status: merged / completed
-  - Decision: `調査中 / No-Go`
 - Issue #124 / PR #125: 断面交通量情報の項目単位第三者権利・位置表示境界
-- Issue #121 / PR #123: JARTIC静的レイヤーの保持期間・再確認期限・削除SLA
-- Issue #119 / PR #120: 生活拠点ぼかし・共有出力・外部キャプチャ保護要件
+- Issue #121 / PR #123: JARTIC静的レイヤー保持期間・再確認期限・削除SLA
+- Issue #119 / PR #120: 生活拠点ぼかし・共有出力・外部キャプチャ保護
 
 ## Upcoming
 
-1. `main`との差分を確認する。
-2. PRを作成する。
-3. AI支援セルフレビュー・Codexレビューを実施する。
-4. 指摘を全Source of Truthへ反映する。
-5. 人間・プロダクト・UX・安全・セキュリティ・プライバシー・運用レビューを受ける。
-6. 問題がなければPRマージ・Issue完了を確認する。
-7. 後続のデータモデル・API境界設計を別Issue化する。
+1. Codexレビューの追加指摘を再確認する。
+2. 指摘があれば要件・MVP・画面・Source of Truthへ反映する。
+3. 最新headの差分、mergeability、workflow/statusを再確認する。
+4. 人間・プロダクト・UX・安全・セキュリティ・プライバシー・運用レビューを受ける。
+5. 問題がなければPR #129をマージし、Issue #128完了を確認する。
+6. 後続のデータモデル・API境界設計を別Issue化する。
 
 ## Cross-Cutting Gates
 
@@ -120,4 +117,5 @@
 - 実利用者の位置・走行履歴を要件テストへ使用しない。
 - 公開Repositoryへ位置情報・非公開データを保存しない。
 - PRマージをprovider採用・実装開始・外部送信承認と扱わない。
+- CI workflow/statusがないためCI通過とは扱わない。
 - AI生成物は人間レビュー必須。
