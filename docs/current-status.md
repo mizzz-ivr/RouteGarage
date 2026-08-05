@@ -6,69 +6,58 @@
 - 開発フェーズ: Phase 1 / Requirements Definition
 - 開発手法: ウォーターフォール
 - AI生成物: 人間レビュー必須
-- 現在の主目的: Issue #128として、行きたいスポット保存・ドライブプラン作成機能の要件を定義する
+- 現在の主目的: 行きたいスポット保存・ドライブプラン作成機能の要件レビュー
 - 実装、実データ取得、provider採用、APIキー取得、契約、外部問い合わせ: 未実施
 
-## 進行中
+## Current Issue / PR
 
 - Issue #128: https://github.com/mizzz-ivr/RouteGarage/issues/128
+- PR #129: https://github.com/mizzz-ivr/RouteGarage/pull/129
 - Branch: `docs/issue-128-drive-plan-requirements`
 - Main document: `docs/requirements/want-to-go-spots-and-drive-plan-requirements.md`
 - MVP source: `docs/requirements/mvp-requirements.md`
 - Screen source: `docs/screen-design/screen-list.md`
 - Flow source: `docs/screen-design/screen-flow.md`
-- Current Decision: 行きたいスポット・ドライブプランをWeb MVPへ追加する要件候補としてレビュー中
 
-## 実行状態
+## PR Status
 
-- Issue #128: Open
-- Branch: 作成済み
-- 機能要件文書: 作成済み
-- MVP要件: 統合済み
-- 画面一覧: SCR-21〜24を追加済み
-- 画面遷移: 保存・計画・公開・走行記録導線を追加済み
-- 作業ログ・AIプロンプトログ: 作成済み
-- PR: 未作成
-- 実装: 未着手
-- 人間・プロダクト・UX・安全・セキュリティ・プライバシー・運用レビュー: 未実施
+- State: Open
+- Mergeable: true
+- Draft: false
+- PR作成時`main`比較: 9 commits / 9 files / behind 0
+- 変更範囲: docsのみ
+- AI支援セルフレビュー: COMMENTで記録済み
+- Codex自動レビュー: 現時点で指摘なし
+- 未解決review thread: 0件
+- GitHub Actions / commit status: workflow・status checkなし
+- 人間レビュー: 未実施
 
-## 直近の完了済み
+CI通過とは扱わない。人間レビュー完了前にマージ・実装へ進まない。
 
-- Issue #126 / PR #127: 交通規制情報の項目単位権利・安全表示境界
-  - 状態: merged / completed
-  - 結論: 交通規制情報は`調査中 / No-Go`
-- Issue #124 / PR #125: 断面交通量情報の項目単位第三者権利・位置表示境界
-  - Merge commit: `c12541038852f84e49614c1cebafbe31c4059260`
-  - 結論: `調査中 / No-Go`
-- Issue #121 / PR #123: JARTIC静的レイヤーの保持期間・再確認期限・削除SLA暫定基準
-- Issue #119 / PR #120: 生活拠点ぼかし・共有出力・外部キャプチャ保護要件
-- Issue #117 / PR #118: 保持・削除レビュー指摘対応
-- Issue #115 / PR #116: JARTIC静的レイヤー保持・削除要件
-- Issue #113 / PR #114: 出典・加工・鮮度・安全・プライバシー表示要件
-- Issue #111 / PR #112: JARTICオープンデータ第三者権利台帳
+## Feature Decision
 
-## 追加するユーザー価値
+行きたいスポット保存とドライブプラン作成をWeb MVPへ追加する要件候補とする。
 
 ### 行きたいスポット
 
-- スポット詳細から保存・解除できる。
-- 保存済みスポットを一覧・絞り込み・並び替えできる。
-- 所有者だけが閲覧する個人メモを設定できる。
-- 保存済みスポットをドライブプランへ追加できる。
-- 元スポット停止時に古い本文・位置・画像を表示し続けない。
+- スポット詳細から保存・解除
+- 一覧、絞り込み、並び替え
+- 所有者限定の個人メモ
+- ドライブプランへの追加
+- 元スポット停止時の古い本文・位置・画像の非表示
 
 ### ドライブプラン
 
-- タイトル、予定日、概要メモを持つ。
-- RouteGarageスポット・自由入力地点を追加できる。
-- 地点順を手動で並び替える。
-- `DRAFT` / `CONFIRMED` / `COMPLETED` / `CANCELED`を管理する。
-- 公開初期値は`PRIVATE`とする。
-- 公開時は`PUBLIC_REVIEW_REQUIRED`を経由する。
-- 非公開下書きとして複製できる。
-- 完了後に走行記録作成の入力補助へ接続する。
+- タイトル、予定日、概要メモ
+- RouteGarageスポット・自由入力地点
+- 地点の追加・削除・手動並び替え
+- `DRAFT` / `CONFIRMED` / `COMPLETED` / `CANCELED`
+- `PRIVATE`を既定とする公開範囲
+- `PUBLIC_REVIEW_REQUIRED`を経由する公開
+- 非公開下書きとしての複製
+- 完了後の走行記録作成への参照
 
-## 責務分離
+## Responsibility Boundaries
 
 | 領域 | 責務 |
 | --- | --- |
@@ -79,36 +68,36 @@
 
 計画値を実績値として自動確定しない。
 
-## 状態モデル
+## State Model
 
-### プラン状態
+### Plan State
 
-- `DRAFT`: 作成途中
-- `CONFIRMED`: 出発前確認済み
-- `COMPLETED`: 予定終了
-- `CANCELED`: 中止
+- `DRAFT`
+- `CONFIRMED`
+- `COMPLETED`
+- `CANCELED`
 
-### 公開状態
+### Publication State
 
-- `PRIVATE`: 所有者のみ
-- `PUBLIC_REVIEW_REQUIRED`: 公開前確認中
-- `PUBLIC`: 公開中
-- `STOPPED`: 権利・安全・プライバシー等による停止
+- `PRIVATE`
+- `PUBLIC_REVIEW_REQUIRED`
+- `PUBLIC`
+- `STOPPED`
 
 `STOPPED`を最優先する。
 
-## 安全・プライバシー方針
+## Safety / Privacy
 
 - 作成・編集・並び替えは停車中または出発前利用とする。
-- ドライブプランは運転指示・通行可能性の保証ではない。
+- プランは運転指示・通行可能性の保証ではない。
 - 地点順は手動で決め、自動最適化しない。
 - 自宅・勤務先・車両保管場所等の正確位置を公開しない。
 - 自由入力地点は公開前レビュー対象とする。
 - 公開範囲の初期値は`PRIVATE`とする。
-- 外部共有・画像化時も生活拠点ぼかしを継承する。
+- 外部共有・画像化時も生活拠点保護を継承する。
 - 現地標識、道路標示、警察官、道路管理者等の指示を優先する。
 
-## 元スポット停止時の方針
+## Spot Reference Integrity
 
 - 元スポットの本文・画像・正確位置を恒久スナップショットとして再公開しない。
 - 非公開、削除、権利停止、安全停止時は古い情報を非表示にする。
@@ -116,29 +105,29 @@
 - 所有者固有メモと元スポット由来情報を分離する。
 - 元スポットへの閲覧権限を失った場合、プラン経由で復活させない。
 
-## provider非依存方針
+## Provider Independence
 
-- 距離・時間はMVPの必須項目にしない。
-- 手入力値には`USER_ENTERED`等の由来を持たせる。
+- 距離・時間はMVP必須項目にしない。
+- 手入力値には由来を持たせる。
 - 将来の外部計算値はprovider・計算日時・条件・版を区別する。
 - provider値を手入力値へ自動変換しない。
-- 外部サービス停止時も、タイトル・メモ・手動地点管理を不必要に停止しない。
+- 外部サービス停止時も、依存しない手動計画部分を不必要に停止しない。
 
-## 追加画面
+## Added Screens
 
 - SCR-21: 行きたいスポット一覧
 - SCR-22: ドライブプラン一覧
 - SCR-23: ドライブプラン作成/編集
 - SCR-24: ドライブプラン詳細/公開前確認
 
-更新画面:
+Updated:
 
 - SCR-05: 最新プラン導線
 - SCR-07: プランへの参照追加候補
 - SCR-09: 完了プランからの入力補助
 - SCR-12: 行きたい保存・解除、プラン追加
 
-## 対象外
+## Out of Scope
 
 - ターンバイターンナビ、音声案内
 - 自動ルート最適化、推奨経路、リアルタイム再探索
@@ -146,22 +135,21 @@
 - GPS高頻度トラッキング
 - リアルタイム共同編集
 - 外部カレンダー・SNS・メッセージ共有
-- 施設予約・決済・混雑情報連携
 - provider選定、APIキー取得、契約
 - DB / API / UI / Infra実装
 
-## 未確定事項
+## Unresolved Decisions
 
 - 地点数・文字数等の最終上限
 - 論理削除・復元期間
 - 内部βで`PUBLIC`を有効化するか
 - 自由入力地点の公開可能な位置粒度
-- 元スポット停止時に地点単位停止とプラン全体停止のどちらを優先するか
+- 地点単位停止とプラン全体停止の優先規則
 - 公開プラン一覧への掲載可否
 - 更新通知方式
 - 将来provider値を採用する場合の契約・保持条件
 
-## レビュー必須領域
+## Required Review
 
 - プロダクト
 - UX
@@ -169,25 +157,31 @@
 - セキュリティ
 - プライバシー
 - 運用
-- 将来のデータ・API設計担当
+- データ・API設計
 - プロジェクト責任者
 
-## 次の作業
+## Recently Completed
 
-1. `main`との差分と変更範囲を確認する。
-2. PRを作成する。
-3. AI支援セルフレビューとCodexレビューを実施する。
-4. 指摘を要件・MVP・画面・Source of Truthへ反映する。
-5. 人間の必須レビューを受ける。
-6. 問題がなければPRマージ・Issue完了を確認する。
-7. 後続としてデータモデル/API境界の基本設計Issueを検討する。
+- Issue #126 / PR #127: 交通規制情報の項目単位権利・安全表示境界
+- Issue #124 / PR #125: 断面交通量情報の項目単位第三者権利・位置表示境界
+- Issue #121 / PR #123: JARTIC静的レイヤー保持期間・再確認期限・削除SLA
+- Issue #119 / PR #120: 生活拠点ぼかし・共有出力・外部キャプチャ保護
 
-## 触ってはいけない箇所
+## Next Steps
+
+1. Codexレビューの追加指摘を再確認する。
+2. 指摘があれば要件・MVP・画面・Source of Truthへ反映する。
+3. 最新headの差分、mergeability、workflow/statusを確認する。
+4. 人間の必須レビューを受ける。
+5. 問題がなければPR #129をマージし、Issue #128完了を確認する。
+6. 後続としてデータモデル・API境界の基本設計Issueを検討する。
+
+## Do Not Proceed
 
 - 実位置情報・走行履歴・実スポットデータ取得
-- 公開Repositoryへの非公開データ・位置情報保存
+- 公開Repositoryへの位置情報・非公開データ保存
 - provider採用・APIキー取得・契約
-- 自動ルート最適化・通行可否判定実装
+- 自動最適化・通行可否判定実装
 - Next.js / Expo / DB / API / Auth / Maps / Infra実装
 - 外部問い合わせ・外部共有
 - AIだけによる要件承認・実装開始
