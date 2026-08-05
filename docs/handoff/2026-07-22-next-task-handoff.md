@@ -5,13 +5,14 @@
 - Repository: `mizzz-ivr/RouteGarage`
 - Phase: Phase 1 / Requirements Definition
 - PR #127はマージ済み、Issue #126はcompleted。
-- 現在はIssue #128として、行きたいスポット保存・ドライブプラン作成機能をMVPへ追加する要件を定義中。
+- Issue #128 / PR #129として、行きたいスポット保存・ドライブプラン作成機能のMVP要件をレビュー中。
 - 本機能は外部provider・本格ナビ・リアルタイム交通情報に依存しない出発前計画機能。
 - 実位置情報、実走行履歴、実スポットデータ、実装、provider契約、外部問い合わせは扱っていない。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #128: https://github.com/mizzz-ivr/RouteGarage/issues/128
+- PR #129: https://github.com/mizzz-ivr/RouteGarage/pull/129
 - Branch: `docs/issue-128-drive-plan-requirements`
 - Main document: `docs/requirements/want-to-go-spots-and-drive-plan-requirements.md`
 - MVP source: `docs/requirements/mvp-requirements.md`
@@ -20,22 +21,24 @@
 - Work log: `docs/logs/2026-08-05-issue-128.md`
 - AI prompt log: `docs/ai-prompts/2026-08-05-issue-128-drive-plan-requirements.md`
 
-## Current Status
+## PR Status
 
-- Issue #128: Open
-- Branch: 作成済み
-- Main requirements: 作成済み
-- MVP requirements: 更新済み
-- Screen list: SCR-21〜24追加済み
-- Screen flow: 保存・計画・公開・走行記録導線追加済み
-- Source of Truth: 更新済み
-- PR: 未作成
-- Review: 未実施
-- Implementation: 未着手
+- State: Open
+- Mergeable: true
+- Draft: false
+- PR作成時`main`比較: 9 commits / 9 files / behind 0
+- 変更範囲: docsのみ
+- AI支援セルフレビュー: COMMENTで記録済み
+- Codex自動レビュー: 現時点で指摘なし
+- 未解決review thread: 0件
+- GitHub Actions / commit status: workflow・status checkなし
+- 人間レビュー: 未実施
+
+CI通過とは扱わない。人間レビュー前にマージ・実装へ進まない。
 
 ## Product Goal
 
-スポット探索と走行記録の間に、次の出発前計画機能を追加する。
+スポット探索と走行記録の間に、出発前計画機能を追加する。
 
 1. 気になるスポットを保存する。
 2. 保存したスポットを複数地点のプランへ追加する。
@@ -108,7 +111,7 @@
 - 距離・時間は必須にしない。
 - 手入力値と外部計算値の由来を分離。
 - 外部計算値の失効時に手入力値へ偽装しない。
-- provider停止時も、依存しない手動計画部分を縮退利用可能とする候補。
+- provider停止時も、依存しない手動計画部分を不必要に停止しない。
 
 ## Spot Reference Integrity
 
@@ -190,7 +193,7 @@
 
 - 本格ナビ対象外。
 - 走行中操作禁止。
-- 非公開既定・生活拠点ぼかし。
+- 非公開既定・生活拠点保護。
 - 元データ停止時の表示停止・削除伝播。
 - 走行記録・スポット投稿との責務分離。
 
@@ -209,13 +212,12 @@ AI生成内容だけで承認・実装開始へ進まない。
 
 ## Remaining Tasks
 
-1. `main`との差分と変更範囲を確認する。
-2. PRを作成する。
-3. AI支援セルフレビュー・Codexレビューを実施する。
-4. 指摘を全関連文書へ反映する。
-5. 人間の必須レビューを受ける。
-6. 問題がなければPRマージ・Issue完了を確認する。
-7. データモデル・API境界の基本設計を後続Issueとして評価する。
+1. Codexレビューの追加指摘を再確認する。
+2. 指摘があれば全関連文書へ反映する。
+3. 最新headの差分、mergeability、workflow/statusを再確認する。
+4. 人間の必須レビューを受ける。
+5. 問題がなければPR #129をマージし、Issue #128完了を確認する。
+6. データモデル・API境界の基本設計を後続Issueとして評価する。
 
 ## Do Not Proceed
 
