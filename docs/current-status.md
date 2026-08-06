@@ -4,17 +4,32 @@
 
 - Repository: `mizzz-ivr/RouteGarage`
 - Phase: Phase 1 / Requirements Definition
-- Current task: Issue #130
+- Current task: Issue #130 / PR #131
 - Feature: 24時間ドライブストーリー投稿・閲覧
 - AI生成物: 人間レビュー必須
 - 実装・実画像・実位置情報・provider契約・外部送信: 未実施
 
-## Issue / Branch
+## Issue / PR / Branch
 
 - Issue #130: https://github.com/mizzz-ivr/RouteGarage/issues/130
+- PR #131: https://github.com/mizzz-ivr/RouteGarage/pull/131
 - Branch: `docs/issue-130-drive-story-requirements`
 - Main document: `docs/requirements/drive-story-requirements.md`
-- PR: 未作成
+
+## PR Status
+
+- State: Open
+- Mergeable: true
+- Draft: false
+- PR作成時`main`比較: 9 commits / 9 files / behind 0
+- Changes: docs only
+- AI支援セルフレビュー: COMMENT済み
+- Codex自動レビュー: 利用上限により未実施
+- Unresolved review threads: 0
+- GitHub Actions / commit status: workflow・status checkなし
+- Human review: 未実施
+
+CI通過とは扱わない。Codex未実施をレビュー完了と扱わない。人間レビュー前にマージ・実装へ進まない。
 
 ## 直近の完了
 
@@ -58,9 +73,15 @@
 
 `STOPPED`を最優先する。
 
-## Expiration
+## Expiration Invariants
 
-- `expires_at = published_at + 24 hours`
+- `expires_at = first_published_at + 24 hours`
+- 初回公開成功時に`first_published_at`と`expires_at`を設定する
+- 公開前レビュー開始時点では期限を開始しない
+- `first_published_at`と`expires_at`は初回公開後に変更しない
+- 非公開化しても期限を停止・延長しない
+- 再公開できる場合も元の`expires_at`までに限定し、期限を再計算しない
+- `EXPIRED`から再公開しない。再共有する場合は新しいストーリーとして公開前確認をやり直す
 - 保存・比較はUTC基準
 - UIは利用者タイムゾーンへ変換
 - 期限到達時は公開一覧・ホーム・プロフィール・直接URL・画像配信から一般閲覧を停止
@@ -108,7 +129,7 @@
 - 公開ストーリーから2操作以内で通報
 - 期限切れ後も未解決通報を継続
 - 公開停止を物理削除より先に実施
-- 投稿者削除より管理者停止・証跡保全を優先可能
+- 投稿者削除要求があっても、法務・運用レビューで認められた範囲の通報証跡保全を優先できる候補
 - AI・自動判定だけで公開可否・違反を確定しない
 
 ## Added / Updated Screens
@@ -160,11 +181,10 @@
 
 ## Next Steps
 
-1. Issue #130の要件・画面・Source of Truth差分を確認する。
-2. `main`との差分を確認してPRを作成する。
-3. AI支援セルフレビューとCodexレビューを実施する。
-4. 人間の必須レビューを受ける。
-5. 承認後にデータモデル・API・期限処理・画像処理を後続Issue化する。
+1. 期限延長防止、状態競合、認可、参照停止の人間レビューを受ける。
+2. 保持・削除・通報証跡の法務・運用レビューを受ける。
+3. 最新headの差分、mergeability、workflow/status、review threadを再確認する。
+4. 承認後にデータモデル・API・期限処理・画像処理を後続Issue化する。
 
 ## Do Not Proceed
 
