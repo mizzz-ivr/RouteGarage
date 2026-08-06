@@ -4,9 +4,11 @@
 
 - Issue #130: 24時間ドライブストーリー投稿・閲覧機能の要件を定義する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/130
+  - PR: https://github.com/mizzz-ivr/RouteGarage/pull/131
   - Branch: `docs/issue-130-drive-story-requirements`
-  - Status: In Progress / PR作成前
+  - Status: In Progress / PR #131人間レビュー待ち
   - Main document: `docs/requirements/drive-story-requirements.md`
+  - Expiration invariants: `docs/requirements/drive-story-expiration-invariants.md`
   - Implementation: 未着手
 
 ## Feature Scope
@@ -51,9 +53,12 @@
 
 - RouteGarage内の名称は`ドライブストーリー`。
 - 通常投稿・走行記録・ストーリーを別責務にする。
-- 公開期限は`published_at`から24時間。
+- `published_at`は初回公開成功時の不変時刻。
+- `expires_at = published_at + 24 hours`。
 - 保存・比較はUTC基準。
-- 期限処理は閲覧時にも判定する。
+- 期限処理は閲覧時・画像配信認可時にも判定する。
+- 非公開化・再公開・編集・再レビューで期限を延長しない。
+- `EXPIRED`を同一IDで再公開しない。
 - 期限切れと物理削除・通報証跡保持を分離する。
 - 公開初期値は`PRIVATE`。
 - 公開は`PUBLIC_REVIEW_REQUIRED`を経由する。
@@ -82,12 +87,22 @@
 - 参照先本文・画像・正確位置を恒久複製しない。
 - 管理者操作を権限分離・監査対象とする。
 
+## Expiration Gates
+
+- 公開前レビューでは期限を開始しない。
+- 初回公開成功時に`published_at`と`expires_at`を一度だけ設定する候補。
+- 非公開化しても期限を停止しない。
+- 再公開を提供する場合も元の期限までに限定する。
+- 公開API再試行・二重クリック・ジョブ再実行で期限を延長しない。
+- 期限到達と再公開が競合した場合は期限到達を優先する。
+- 期限切れ内容の再共有は新しいストーリーとして公開前確認をやり直す。
+
 ## Moderation / Retention Gates
 
 - 公開ストーリーから2操作以内で通報。
 - 期限切れ後も通報案件を維持。
 - 公開停止を物理削除より先に行う。
-- 投稿者削除より管理者停止・証跡保全を優先可能。
+- 投稿者削除より管理者停止・法務・運用上認められた証跡保全を優先できる候補。
 - 24時間を物理削除完了として案内しない。
 - 通常保持期間、削除SLA、通報証跡保持期間は未確定。
 
@@ -96,6 +111,19 @@
 - SCR-25: ドライブストーリー作成/公開前確認
 - SCR-26: ドライブストーリー閲覧
 - SCR-27: 自分のドライブストーリー管理
+
+## PR #131 Review Status
+
+- State: Open / mergeable / not draft
+- PR作成時`main`比較: 9 commits / 9 files / behind 0
+- Changes: docs only
+- AI支援セルフレビュー: COMMENT済み
+- Codex自動レビュー: 利用上限により未実施
+- Unresolved review threads: 0
+- GitHub Actions / commit status: workflow・status checkなし
+- Human review: 未実施
+
+Codex未実施・workflow/statusなしのため、レビュー完了・CI通過とは扱わない。
 
 ## Out of Scope
 
@@ -122,11 +150,10 @@
 
 ## Upcoming
 
-1. Issue #130の要件、MVP正本、画面一覧・遷移の整合性を確認する。
-2. `main`との差分を確認してPRを作成する。
-3. AI支援セルフレビューとCodexレビューを実施する。
-4. 人間・プロダクト・UX・安全・セキュリティ・プライバシー・運用・モデレーション・法務レビューを受ける。
-5. 承認後にデータモデル、期限処理、画像処理、通報運用、保持・削除を後続Issue化する。
+1. 最新headの差分、mergeability、workflow/status、review threadを再確認する。
+2. 期限不変条件、状態競合、認可、参照停止を人間レビューする。
+3. プロダクト・UX・安全・セキュリティ・プライバシー・運用・モデレーション・法務レビューを受ける。
+4. 承認後にデータモデル、期限処理、画像処理、通報運用、保持・削除を後続Issue化する。
 
 ## Cross-Cutting Gates
 
