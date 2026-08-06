@@ -5,22 +5,38 @@
 - Repository: `mizzz-ivr/RouteGarage`
 - Phase: Phase 1 / Requirements Definition
 - PR #129は2026-08-06にマージ済み、Issue #128はcompleted。
-- 現在はIssue #130として、画像・短文を24時間限定で共有する`ドライブストーリー`の要件を定義中。
+- 現在はIssue #130 / PR #131として、画像・短文を24時間限定で共有する`ドライブストーリー`の要件をレビュー中。
 - 通常投稿・走行記録とは別責務にする。
 - 走行中投稿、現在地共有、返信・DM・動画等は対象外。
 - 実画像、実位置情報、実装、Storage/CDN採用、外部送信は行っていない。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #130: https://github.com/mizzz-ivr/RouteGarage/issues/130
-- PR: 未作成
+- PR #131: https://github.com/mizzz-ivr/RouteGarage/pull/131
 - Branch: `docs/issue-130-drive-story-requirements`
 - Main document: `docs/requirements/drive-story-requirements.md`
+- Expiration invariants: `docs/requirements/drive-story-expiration-invariants.md`
 - MVP source: `docs/requirements/mvp-requirements.md`
 - Screen list: `docs/screen-design/screen-list.md`
 - Screen flow: `docs/screen-design/screen-flow.md`
 - Work log: `docs/logs/2026-08-06-issue-130.md`
 - AI prompt log: `docs/ai-prompts/2026-08-06-issue-130-drive-story-requirements.md`
+
+## PR Status
+
+- State: Open
+- Mergeable: true
+- Draft: false
+- PR作成時比較: 9 commits / 9 files / behind 0
+- Changes: docs only
+- AI支援セルフレビュー: COMMENT済み
+- Codex自動レビュー: 利用上限により未実施
+- Unresolved review threads: 0
+- GitHub Actions / commit status: workflow・status checkなし
+- Human review: 未実施
+
+Codex未実施・workflow/statusなしをレビュー完了・CI通過とは扱わない。
 
 ## Product Goal
 
@@ -59,13 +75,18 @@
 
 `STOPPED`を最優先する。
 
-## Expiration
+## Expiration Invariants
 
-- `expires_at = published_at + 24 hours`
-- 保存・比較はUTC基準。
-- UIは利用者タイムゾーンへ変換。
-- 期限到達時はホーム、一覧、プロフィール、直接URL、画像配信から一般閲覧を停止。
-- バッチだけでなく閲覧時にも期限判定。
+- `published_at`は初回公開成功時の不変UTC時刻。
+- `expires_at = published_at + 24 hours`。
+- 公開前レビュー開始時には期限を開始しない。
+- 初回公開成功時に期限値を一度だけ設定する候補。
+- 非公開化で期限を停止・延長しない。
+- 再公開を許可する場合も元の`expires_at`までに限定する。
+- 再公開、編集、参照変更、再レビュー、API再試行で期限を再計算しない。
+- `EXPIRED`から同一ストーリーIDを再公開しない。
+- 期限切れ内容の再共有は新規ストーリーとして公開前確認をやり直す。
+- バッチだけでなく閲覧時・画像配信認可時にも期限判定する。
 - 24時間は公開期間であり、物理削除・内部保持期間ではない。
 - 未解決通報を期限切れとともに破棄しない。
 
@@ -105,7 +126,7 @@
 - 公開ストーリーから2操作以内で通報。
 - 期限切れ後も未解決通報を維持。
 - 公開停止を物理削除より先に実施。
-- 投稿者削除より管理者停止・証跡保全を優先可能。
+- 投稿者削除より管理者停止・法務・運用上認められた証跡保全を優先できる候補。
 - 24時間を物理削除完了として案内しない。
 - 通常保持期間、削除SLA、通報証跡保持期間は法務・運用レビュー後に確定。
 
@@ -146,12 +167,10 @@ AI生成内容だけで承認・公開版採用・実装開始へ進まない。
 
 ## Remaining Tasks
 
-1. `main`との差分・変更ファイルを確認する。
-2. PRを作成する。
-3. AI支援セルフレビューをCOMMENTで記録する。
-4. Codex自動レビューの指摘を反映・返信・解決する。
-5. 人間の必須レビューを受ける。
-6. 承認後にデータモデル・期限処理・画像処理・通報運用・保持削除を後続Issue化する。
+1. 最新headの差分、mergeability、workflow/status、review threadを確認する。
+2. 期限不変条件・状態競合・認可・参照停止を人間レビューする。
+3. 保持・削除・通報証跡を法務・運用レビューする。
+4. 承認後にデータモデル・期限処理・画像処理・通報運用・保持削除を後続Issue化する。
 
 ## Do Not Proceed
 
