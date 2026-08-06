@@ -15,6 +15,7 @@
 - PR #131: https://github.com/mizzz-ivr/RouteGarage/pull/131
 - Branch: `docs/issue-130-drive-story-requirements`
 - Main document: `docs/requirements/drive-story-requirements.md`
+- Expiration invariants: `docs/requirements/drive-story-expiration-invariants.md`
 
 ## PR Status
 
@@ -75,17 +76,19 @@ CI通過とは扱わない。Codex未実施をレビュー完了と扱わない�
 
 ## Expiration Invariants
 
-- `expires_at = first_published_at + 24 hours`
-- 初回公開成功時に`first_published_at`と`expires_at`を設定する
+- `published_at`は対象ストーリーの初回公開成功時刻とし、初回公開後は変更しない
+- `expires_at = published_at + 24 hours`
+- 初回公開成功時に`published_at`と`expires_at`を一度だけ設定する候補
 - 公開前レビュー開始時点では期限を開始しない
-- `first_published_at`と`expires_at`は初回公開後に変更しない
 - 非公開化しても期限を停止・延長しない
-- 再公開できる場合も元の`expires_at`までに限定し、期限を再計算しない
-- `EXPIRED`から再公開しない。再共有する場合は新しいストーリーとして公開前確認をやり直す
+- 再公開を許可する場合も元の`expires_at`までに限定し、期限を再計算しない
+- 公開後の短文修正・参照変更・再レビューでも期限を延長しない
+- `EXPIRED`から同一ストーリーIDを再公開しない
+- 期限切れ内容を再共有する場合は、新規ストーリーとして公開前確認をやり直す
 - 保存・比較はUTC基準
 - UIは利用者タイムゾーンへ変換
 - 期限到達時は公開一覧・ホーム・プロフィール・直接URL・画像配信から一般閲覧を停止
-- バッチだけでなく閲覧時にも期限を判定
+- バッチだけでなく閲覧時・画像配信認可時にも期限を判定
 - 24時間は公開期間であり、物理削除期限ではない
 - 未解決通報は期限切れ後も維持
 
@@ -161,6 +164,7 @@ CI通過とは扱わない。Codex未実施をレビュー完了と扱わない�
 - 投稿者向け期限切れアーカイブ
 - 閲覧数提供可否
 - ストーリーミュートの内部β範囲
+- 非公開化後の再公開機能を内部βで提供するか
 - 公開前全件審査か事後モデレーションか
 - 期限切れ後の通常保持期間
 - 投稿者削除・バックアップ・CDN削除SLA
