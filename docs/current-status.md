@@ -4,121 +4,146 @@
 
 - Repository: `mizzz-ivr/RouteGarage`
 - Phase: Phase 1 / Requirements Definition
-- Current task: Issue #128 / PR #129
-- Feature: 行きたいスポット保存・ドライブプラン作成
+- Current task: Issue #130
+- Feature: 24時間ドライブストーリー投稿・閲覧
 - AI生成物: 人間レビュー必須
-- 実装・実データ・provider契約・外部問い合わせ: 未実施
+- 実装・実画像・実位置情報・provider契約・外部送信: 未実施
 
-## Issue / PR
+## Issue / Branch
 
-- Issue #128: https://github.com/mizzz-ivr/RouteGarage/issues/128
-- PR #129: https://github.com/mizzz-ivr/RouteGarage/pull/129
-- Branch: `docs/issue-128-drive-plan-requirements`
-- Main document: `docs/requirements/want-to-go-spots-and-drive-plan-requirements.md`
+- Issue #130: https://github.com/mizzz-ivr/RouteGarage/issues/130
+- Branch: `docs/issue-130-drive-story-requirements`
+- Main document: `docs/requirements/drive-story-requirements.md`
+- PR: 未作成
 
-## PR Status
+## 直近の完了
 
-- State: Open
-- Mergeable: true
-- Draft: false
-- Latest `main` compare: 13 commits / 9 files / behind 0
-- Changes: docs only
-- AI支援セルフレビュー: COMMENT済み
-- Codex review: P2指摘1件を修正・返信・解決済み
-- Codex fix: SCR-24の所有者操作へ停車中利用制約を追加し、公開閲覧表示と所有者操作を分離
-- Unresolved review threads: 0
-- GitHub Actions / commit status: workflow・status checkなし
-- Human review: 未実施
+- Issue #128 / PR #129: 行きたいスポット保存・ドライブプラン作成機能
+- PR #129 merged: 2026-08-06
+- Merge commit: `82153f0007c0a05cd99cbed3b5fe7a6f878c7594`
 
-CI通過とは扱わない。人間レビュー前にマージ・実装へ進まない。
+## Product Goal
 
-## Feature Scope
+通常投稿・走行記録とは別に、ドライブやツーリングの一場面を画像と短文で24時間だけ共有できる`ドライブストーリー`を追加する。
 
-### 行きたいスポット
-
-- 保存・解除
-- 一覧、絞り込み、並び替え
-- 所有者限定の個人メモ
-- ドライブプランへの追加
-- 元スポット停止時の古い本文・位置・画像非表示
-
-### ドライブプラン
-
-- タイトル、予定日、概要メモ
-- RouteGarageスポット・自由入力地点
-- 地点の追加・削除・手動並び替え
-- `DRAFT` / `CONFIRMED` / `COMPLETED` / `CANCELED`
-- `PRIVATE`を既定とする公開範囲
-- `PUBLIC_REVIEW_REQUIRED`を経由する公開
-- 非公開下書きとしての複製
-- 完了後の走行記録作成への参照
+一般SNSの仕様をそのまま広げず、走行中操作、現在地共有、返信・DM、動画、閲覧者一覧等を対象外にした安全な最小機能とする。
 
 ## Responsibility Boundaries
 
 | 領域 | 責務 |
 | --- | --- |
-| 行きたいスポット | 個人用ブックマーク |
-| ドライブプラン | 出発前の予定表 |
-| 走行記録 | 実走行の実績 |
-| provider | 将来の経路・距離・時間計算。未確定 |
+| ドライブストーリー | 画像・短文を24時間限定で一時共有 |
+| 通常投稿 | 継続公開・保存を前提とするコミュニティ投稿 |
+| 走行記録 | 実際の走行実績 |
+| スポット | 場所情報・説明・画像を持つ共有対象 |
+| 参照リンク | 公開済みスポット・本人の公開走行記録・本人の公開車両プロフィールへの関連付け |
 
-計画値を実績値として自動確定しない。
+ストーリーから通常投稿・走行記録へ自動変換しない。
+
+## Story Lifecycle
+
+### ライフサイクル
+
+- `DRAFT`
+- `PUBLISHED`
+- `EXPIRED`
+- `DELETED`
+
+### 公開状態
+
+- `PRIVATE`
+- `PUBLIC_REVIEW_REQUIRED`
+- `PUBLIC`
+- `STOPPED`
+
+`STOPPED`を最優先する。
+
+## Expiration
+
+- `expires_at = published_at + 24 hours`
+- 保存・比較はUTC基準
+- UIは利用者タイムゾーンへ変換
+- 期限到達時は公開一覧・ホーム・プロフィール・直接URL・画像配信から一般閲覧を停止
+- バッチだけでなく閲覧時にも期限を判定
+- 24時間は公開期間であり、物理削除期限ではない
+- 未解決通報は期限切れ後も維持
+
+## Functional Scope
+
+- JPEG / PNG画像と短文の下書き
+- 公開前確認
+- 公開・非公開化・削除要求
+- 公開中ストーリー一覧・投稿者単位閲覧
+- 前後移動
+- 残り時間または公開時刻表示
+- 公開スポット・本人公開走行記録・本人公開車両プロフィールへの任意参照
+- 通報
+- 個別非表示
+- 投稿者単位ミュート候補
 
 ## Safety / Privacy
 
-- 作成・編集・並び替え・公開・完了・中止・複製・走行記録作成は停車中、出発前、または走行後に行う。
-- SCR-24の公開閲覧表示と所有者操作を分離する。
-- プランは運転指示・通行可能性の保証ではない。
-- 地点順は手動で決め、自動最適化しない。
-- 自宅・勤務先・車両保管場所等の正確位置を公開しない。
-- 自由入力地点は公開前レビュー対象とする。
-- 公開初期値は`PRIVATE`。
-- 現地標識・道路標示・警察官・道路管理者等の指示を優先する。
+- 作成・編集・公開・非公開化・削除は停車中または走行後に限定
+- 走行中の撮影・投稿を促さない
+- 現在地を自動取得・付与しない
+- 正確な座標をストーリーへ構造化保存・公開しない
+- 粗いエリアまたは公開済みコンテンツ参照だけを候補とする
+- 公開初期値は`PRIVATE`
+- `PUBLIC_REVIEW_REQUIRED`を経由する
+- EXIF除去失敗時は公開No-Go
+- 人物、ナンバープレート、表札、生活拠点、反射物等を公開前確認
+- 24時間後もスクリーンショット等が残り得ることを明示
+- 個別閲覧者一覧を提供しない
 
-## Spot Reference Integrity
+## Reference Integrity
 
-- 元スポット本文・画像・正確位置を恒久複製して再公開しない。
-- 非公開・削除・権利停止・安全停止時は古い情報を非表示にする。
-- 公開プランは表示停止を先に行う。
-- 個人メモと元スポット由来情報を分離する。
-- 失った閲覧権限をプラン経由で復活させない。
+- 参照先本文・画像・正確位置をストーリーへ恒久複製しない
+- 参照先が非公開・削除・権利停止・安全停止の場合、リンク・名称・サムネイル・位置表示を停止
+- 参照解除後にストーリー独自画像・短文が公開可能か再判定
+- 公開できない場合は`STOPPED`
+- 失った閲覧権限をストーリー経由で復活させない
 
-## Provider Independence
+## Moderation
 
-- 距離・時間は必須にしない。
-- 手入力値と外部計算値の由来を分離する。
-- provider値を手入力値へ自動変換しない。
-- provider停止時も手動計画部分を不必要に停止しない。
+- 公開ストーリーから2操作以内で通報
+- 期限切れ後も未解決通報を継続
+- 公開停止を物理削除より先に実施
+- 投稿者削除より管理者停止・証跡保全を優先可能
+- AI・自動判定だけで公開可否・違反を確定しない
 
-## Added Screens
+## Added / Updated Screens
 
-- SCR-21: 行きたいスポット一覧
-- SCR-22: ドライブプラン一覧
-- SCR-23: ドライブプラン作成/編集
-- SCR-24: ドライブプラン詳細/公開前確認
-
-SCR-24の所有者操作には停車中利用警告を必須とする。
+- SCR-25: ドライブストーリー作成/公開前確認
+- SCR-26: ドライブストーリー閲覧
+- SCR-27: 自分のドライブストーリー管理
+- SCR-05 / 10 / 12 / 13 / 16 / 17 / 19 / 20を接続更新
 
 ## Out of Scope
 
-- ターンバイターンナビ・音声案内
-- 自動ルート最適化・推奨経路・リアルタイム再探索
-- 通行可能性・交通規制適合性の保証
-- GPS高頻度トラッキング
-- リアルタイム共同編集
-- 外部カレンダー・SNS・メッセージ共有
-- provider選定・APIキー・契約
-- DB / API / UI / Infra実装
+- 動画・音声ストーリー
+- ライブ配信
+- リアルタイム現在地共有
+- 走行中の自動投稿
+- 返信、DM、コメント、リアクション
+- 個別閲覧者一覧
+- フォロー限定公開
+- 外部SNS自動共有
+- BGM、スタンプ、フィルター等の高度編集
+- 推薦・ランキング
+- DB / API / Storage / CDN / UI実装
 
 ## Unresolved Decisions
 
-- 地点数・文字数等の最終上限
-- 論理削除・復元期間
-- 内部βで`PUBLIC`を有効化するか
-- 自由入力地点の公開可能な位置粒度
-- 地点単位停止とプラン全体停止の優先規則
-- 公開プラン一覧への掲載可否
-- データモデル・API・競合制御
+- 文字だけストーリー可否
+- 画像容量・解像度・同時公開件数
+- 短文の最終文字数上限
+- 投稿者向け期限切れアーカイブ
+- 閲覧数提供可否
+- ストーリーミュートの内部β範囲
+- 公開前全件審査か事後モデレーションか
+- 期限切れ後の通常保持期間
+- 投稿者削除・バックアップ・CDN削除SLA
+- 通報証跡保持期間
 
 ## Required Review
 
@@ -128,21 +153,24 @@ SCR-24の所有者操作には停車中利用警告を必須とする。
 - セキュリティ
 - プライバシー
 - 運用
+- モデレーション
 - データ・API設計
+- 法務
 - プロジェクト責任者
 
 ## Next Steps
 
-1. 最新headのmergeability、thread、workflow/statusを再確認する。
-2. 人間の必須レビューを受ける。
-3. 問題がなければPR #129をマージしIssue #128完了を確認する。
-4. データモデル・API境界設計を後続Issueとして評価する。
+1. Issue #130の要件・画面・Source of Truth差分を確認する。
+2. `main`との差分を確認してPRを作成する。
+3. AI支援セルフレビューとCodexレビューを実施する。
+4. 人間の必須レビューを受ける。
+5. 承認後にデータモデル・API・期限処理・画像処理を後続Issue化する。
 
 ## Do Not Proceed
 
-- 実位置情報・走行履歴・実スポットデータ取得
-- 公開Repositoryへの位置情報・非公開データ保存
-- provider採用・APIキー取得・契約
-- 自動最適化・通行可否判定実装
-- Next.js / Expo / DB / API / Auth / Maps / Infra実装
-- AIだけによる要件承認・実装開始
+- 実ユーザー画像・位置情報・走行履歴取得
+- 公開Repositoryへの画像・位置・非公開証跡保存
+- 画像ストレージ・CDN・通知provider採用
+- APIキー取得・契約・外部送信
+- Next.js / DB / API / Auth / Storage / CDN実装
+- AIだけによる要件承認・モデレーション確定・実装開始
