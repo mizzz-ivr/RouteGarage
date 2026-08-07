@@ -4,8 +4,9 @@
 
 - Issue #132: テーマ別ドライブコレクション・訪問進捗機能の要件を定義する
   - URL: https://github.com/mizzz-ivr/RouteGarage/issues/132
+  - PR: https://github.com/mizzz-ivr/RouteGarage/pull/133
   - Branch: `docs/issue-132-drive-collection-progress`
-  - Status: In Progress / PR作成前
+  - Status: In Progress / PR #133人間レビュー待ち
   - Main document: `docs/requirements/drive-collection-progress-requirements.md`
   - Content governance: `docs/content/drive-collection-content-governance.md`
   - Screen delta: `docs/screen-design/drive-collection-screen-extension.md`
@@ -130,6 +131,19 @@ Issue #132では既存正本の大量置換を避け、レビュー用deltaを�
 
 承認後に`mvp-requirements.md`、`screen-list.md`、`screen-flow.md`へ統合する。
 
+## PR #133 Review Status
+
+- State: Open / mergeable / not draft
+- Initial `main` compare: 9 commits / 9 files / behind 0
+- Changes: docs only
+- AI支援セルフレビュー: COMMENT済み
+- Codex自動レビュー: 利用上限により未実施
+- Unresolved review threads: 0
+- GitHub Actions / commit status: workflow・status checkなし
+- Human review: 未実施
+
+Codex未実施・workflow/statusなしのため、レビュー完了・CI通過とは扱わない。
+
 ## Out of Scope
 
 - GPS位置証明
@@ -156,12 +170,11 @@ Issue #132では既存正本の大量置換を避け、レビュー用deltaを�
 
 ## Upcoming
 
-1. Issue #132の差分整合性を確認する。
-2. PRを作成し、AI支援セルフレビューとCodexレビュー可否を確認する。
-3. プロダクト・UX・安全・セキュリティ・プライバシー・運用・コンテンツ・権利/法務レビューを受ける。
-4. 承認後にMVP・画面正本へ統合する。
-5. データモデル/API境界を後続Issue化する。
-6. 実コンテンツはテーマごとに個別調査Issue化する。
+1. PR #133の人間レビューを受ける。
+2. `UNAVAILABLE`と達成分母、バッジ採用等を人間判断する。
+3. 承認後にMVP・画面正本へdeltaを統合する。
+4. データモデル/API境界を後続Issue化する。
+5. 実コンテンツはテーマごとに個別調査Issue化する。
 
 ## Cross-Cutting Gates
 
