@@ -5,18 +5,36 @@
 - Repository: `mizzz-ivr/RouteGarage`
 - Phase: Phase 1 / Requirements Definition
 - PR #131は2026-08-07にマージ済み、Issue #130はcompleted。
-- 現在はIssue #132として`ドライブコレクション`と訪問進捗の要件を定義中。
+- 現在はIssue #132 / PR #133として`ドライブコレクション`と訪問進捗の要件をレビュー中。
 - 機能だけでなく、運営が継続的に作るテーマ別コンテンツの公開・権利・鮮度・安全レビューも対象。
 - GPSチェックイン、ランキング、最速競争、実スポット投入、実装は行っていない。
 
-## Current Issue / Branch
+## Current Issue / PR / Branch
 
 - Issue #132: https://github.com/mizzz-ivr/RouteGarage/issues/132
+- PR #133: https://github.com/mizzz-ivr/RouteGarage/pull/133
 - Branch: `docs/issue-132-drive-collection-progress`
 - Main requirements: `docs/requirements/drive-collection-progress-requirements.md`
 - Content governance: `docs/content/drive-collection-content-governance.md`
 - MVP delta: `docs/requirements/issue-132-mvp-delta.md`
 - Screen delta: `docs/screen-design/drive-collection-screen-extension.md`
+- Work log: `docs/logs/2026-08-07-issue-132.md`
+- AI prompt log: `docs/ai-prompts/2026-08-07-issue-132-drive-collection-progress.md`
+
+## PR Status
+
+- State: Open
+- Mergeable: true
+- Draft: false
+- Initial compare: 9 commits / 9 files / behind 0
+- Changes: docs only
+- AI支援セルフレビュー: COMMENT済み
+- Codex自動レビュー: 利用上限により未実施
+- Unresolved review threads: 0
+- GitHub Actions / commit status: workflow・status checkなし
+- Human review: 未実施
+
+Codex未実施・workflow/statusなしをレビュー完了・CI通過とは扱わない。
 
 ## Product Goal
 
@@ -192,15 +210,15 @@ Issue #132ではテーマ分類と制作ルールだけを定義し、実在ス�
 - データ・API設計
 - プロジェクト責任者
 
+AI生成内容だけで承認・コンテンツ公開・正本統合・実装開始へ進まない。
+
 ## Remaining Tasks
 
-1. Issue #132のrequirements / content governance / MVP delta / screen deltaをレビューする。
-2. PRを作成しmergeability・thread・workflow/statusを確認する。
-3. AI支援セルフレビューをCOMMENTとして記録する。
-4. Codexレビューが利用可能なら実施する。
-5. 人間レビュー後にMVP・画面正本へ統合する。
-6. データモデル/API境界を後続Issue化する。
-7. 実コンテンツ調査はテーマごとに個別Issue化する。
+1. PR #133の人間レビューを受ける。
+2. `UNAVAILABLE`と達成分母、バッジ採用等を人間判断する。
+3. 承認後にMVP・画面正本へdeltaを統合する。
+4. データモデル/API境界を後続Issue化する。
+5. 実コンテンツはテーマごとに一次情報・権利・安全・鮮度を確認する個別Issueへ分割する。
 
 ## Do Not Proceed
 
