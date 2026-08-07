@@ -4,11 +4,35 @@
 
 - Repository: `mizzz-ivr/RouteGarage`
 - Phase: Phase 1 / Requirements Definition
-- Current task: Issue #132
+- Current task: Issue #132 / PR #133
 - Feature: テーマ別ドライブコレクション・訪問進捗
 - Branch: `docs/issue-132-drive-collection-progress`
 - AI生成物: 人間レビュー必須
 - 実装・実スポット投入・GPS取得・外部データ取得: 未実施
+
+## Current Issue / PR
+
+- Issue #132: https://github.com/mizzz-ivr/RouteGarage/issues/132
+- PR #133: https://github.com/mizzz-ivr/RouteGarage/pull/133
+- Main requirements: `docs/requirements/drive-collection-progress-requirements.md`
+- Content governance: `docs/content/drive-collection-content-governance.md`
+- Screen delta: `docs/screen-design/drive-collection-screen-extension.md`
+- MVP delta: `docs/requirements/issue-132-mvp-delta.md`
+
+## PR Status
+
+- State: Open
+- Mergeable: true
+- Draft: false
+- Initial `main` compare: 9 commits / 9 files / behind 0
+- Changes: docs only
+- AI支援セルフレビュー: COMMENT済み
+- Codex自動レビュー: 利用上限により未実施
+- Unresolved review threads: 0
+- GitHub Actions / commit status: workflow・status checkなし
+- Human review: 未実施
+
+Codex未実施、workflow/statusなしをレビュー完了・CI通過とは扱わない。人間レビュー前に正本統合・実データ投入・実装へ進まない。
 
 ## 直近の完了
 
@@ -17,15 +41,6 @@
   - Merge commit: `b6803c2484dc32653dc44b5418cecf46fbd934a4`
 - Issue #128 / PR #129: 行きたいスポット保存・ドライブプラン作成
   - PR #129 merged: 2026-08-06
-
-## Current Issue / Branch
-
-- Issue #132: https://github.com/mizzz-ivr/RouteGarage/issues/132
-- Branch: `docs/issue-132-drive-collection-progress`
-- Main requirements: `docs/requirements/drive-collection-progress-requirements.md`
-- Content governance: `docs/content/drive-collection-content-governance.md`
-- Screen delta: `docs/screen-design/drive-collection-screen-extension.md`
-- MVP delta: `docs/requirements/issue-132-mvp-delta.md`
 
 ## Product Goal
 
@@ -52,7 +67,7 @@
 
 - 運営作成のテーマ別スポット一覧
 - 保存・解除
-- テーマ・エリア表示
+- テーマ・エリア・注意事項
 - スポット参照
 - `content_revision`による版管理
 - `DRAFT` / `REVIEW_REQUIRED` / `PUBLISHED` / `STOPPED` / `ARCHIVED`
@@ -94,7 +109,7 @@
 - 夜景
 - 季節ドライブ
 
-実在スポット名・画像・説明文は本Issueでは投入しない。
+実在スポット名・画像・説明文はIssue #132では投入しない。
 
 ## Version Integrity
 
@@ -138,8 +153,6 @@
 - SCR-28: ドライブコレクション一覧
 - SCR-29: ドライブコレクション詳細
 - SCR-30: 自分のコレクション進捗
-
-`docs/screen-design/drive-collection-screen-extension.md`をレビュー後、既存画面正本へ統合する。
 
 ## Source of Truth Integration Policy
 
@@ -194,9 +207,9 @@
 
 ## Next Steps
 
-1. Issue #132の要件・画面delta・MVP delta・コンテンツ運用基準をレビューする。
-2. PRを作成し、AI支援セルフレビュー・Codexレビュー可否を確認する。
-3. 人間レビュー後にMVP/画面正本へ統合する。
+1. PR #133の人間レビューを受ける。
+2. `UNAVAILABLE`と達成分母、バッジ採用等を人間判断する。
+3. 承認後にMVP/画面正本へdeltaを統合する。
 4. データモデル/API境界を後続Issue化する。
 5. 実コンテンツはテーマごとに別Issueで一次情報・権利・安全・鮮度を調査する。
 
