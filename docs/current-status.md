@@ -4,25 +4,27 @@
 
 - Repository: `mizzz-ivr/RouteGarage`
 - Phase: Phase 1 / Requirements Definition
-- Current task: Issue #130 / PR #131
-- Feature: 24時間ドライブストーリー投稿・閲覧
+- Current task: Issue #132 / PR #133
+- Feature: テーマ別ドライブコレクション・訪問進捗
+- Branch: `docs/issue-132-drive-collection-progress`
 - AI生成物: 人間レビュー必須
-- 実装・実画像・実位置情報・provider契約・外部送信: 未実施
+- 実装・実スポット投入・GPS取得・外部データ取得: 未実施
 
-## Issue / PR / Branch
+## Current Issue / PR
 
-- Issue #130: https://github.com/mizzz-ivr/RouteGarage/issues/130
-- PR #131: https://github.com/mizzz-ivr/RouteGarage/pull/131
-- Branch: `docs/issue-130-drive-story-requirements`
-- Main document: `docs/requirements/drive-story-requirements.md`
-- Expiration invariants: `docs/requirements/drive-story-expiration-invariants.md`
+- Issue #132: https://github.com/mizzz-ivr/RouteGarage/issues/132
+- PR #133: https://github.com/mizzz-ivr/RouteGarage/pull/133
+- Main requirements: `docs/requirements/drive-collection-progress-requirements.md`
+- Content governance: `docs/content/drive-collection-content-governance.md`
+- Screen delta: `docs/screen-design/drive-collection-screen-extension.md`
+- MVP delta: `docs/requirements/issue-132-mvp-delta.md`
 
 ## PR Status
 
 - State: Open
 - Mergeable: true
 - Draft: false
-- PR作成時`main`比較: 9 commits / 9 files / behind 0
+- Initial `main` compare: 9 commits / 9 files / behind 0
 - Changes: docs only
 - AI支援セルフレビュー: COMMENT済み
 - Codex自動レビュー: 利用上限により未実施
@@ -30,145 +32,165 @@
 - GitHub Actions / commit status: workflow・status checkなし
 - Human review: 未実施
 
-CI通過とは扱わない。Codex未実施をレビュー完了と扱わない。人間レビュー前にマージ・実装へ進まない。
+Codex未実施、workflow/statusなしをレビュー完了・CI通過とは扱わない。人間レビュー前に正本統合・実データ投入・実装へ進まない。
 
 ## 直近の完了
 
-- Issue #128 / PR #129: 行きたいスポット保存・ドライブプラン作成機能
-- PR #129 merged: 2026-08-06
-- Merge commit: `82153f0007c0a05cd99cbed3b5fe7a6f878c7594`
+- Issue #130 / PR #131: 24時間ドライブストーリー投稿・閲覧機能
+  - PR #131 merged: 2026-08-07
+  - Merge commit: `b6803c2484dc32653dc44b5418cecf46fbd934a4`
+- Issue #128 / PR #129: 行きたいスポット保存・ドライブプラン作成
+  - PR #129 merged: 2026-08-06
 
 ## Product Goal
 
-通常投稿・走行記録とは別に、ドライブやツーリングの一場面を画像と短文で24時間だけ共有できる`ドライブストーリー`を追加する。
+テーマから次のドライブ先を発見し、保存し、行きたいスポット・ドライブプランへつなぎ、走行後に自分の訪問進捗として記録できる体験を追加する。
 
-一般SNSの仕様をそのまま広げず、走行中操作、現在地共有、返信・DM、動画、閲覧者一覧等を対象外にした安全な最小機能とする。
+競争型スタンプラリーにはせず、出発前の発見と走行後の振り返りを強化する。
 
 ## Responsibility Boundaries
 
 | 領域 | 責務 |
 | --- | --- |
-| ドライブストーリー | 画像・短文を24時間限定で一時共有 |
-| 通常投稿 | 継続公開・保存を前提とするコミュニティ投稿 |
+| ドライブコレクション | 運営がテーマ別に既存スポットをまとめる編集コンテンツ |
+| 行きたいスポット | 個人用ブックマーク |
+| ドライブプラン | 出発前の予定表 |
 | 走行記録 | 実際の走行実績 |
-| スポット | 場所情報・説明・画像を持つ共有対象 |
-| 参照リンク | 公開済みスポット・本人の公開走行記録・本人の公開車両プロフィールへの関連付け |
+| 訪問記録 | コレクション進捗用の本人自己申告 |
+| 達成記録 | 特定コレクション版を完了した個人記録 |
 
-ストーリーから通常投稿・走行記録へ自動変換しない。
+訪問記録を運営確認済みの訪問証明として扱わない。
 
-## Story Lifecycle
+## Feature Scope
 
-### ライフサイクル
+### コレクション
 
-- `DRAFT`
-- `PUBLISHED`
-- `EXPIRED`
-- `DELETED`
+- 運営作成のテーマ別スポット一覧
+- 保存・解除
+- テーマ・エリア・注意事項
+- スポット参照
+- `content_revision`による版管理
+- `DRAFT` / `REVIEW_REQUIRED` / `PUBLISHED` / `STOPPED` / `ARCHIVED`
 
-### 公開状態
+### 訪問進捗
 
-- `PRIVATE`
-- `PUBLIC_REVIEW_REQUIRED`
-- `PUBLIC`
-- `STOPPED`
+- 手動訪問登録・取消
+- 任意の訪問日時・個人メモ
+- 本人走行記録への任意参照
+- `NOT_STARTED` / `IN_PROGRESS` / `COMPLETED`
+- 地点状態`NOT_VISITED` / `VISITED` / `UNAVAILABLE`
+- 訪問数 / 対象数 / 進捗率
 
-`STOPPED`を最優先する。
+### 達成記録
 
-## Expiration Invariants
+- 特定`content_revision`単位の達成
+- 過去版達成の保持
+- 個人用記念バッジ候補
+- 公開初期値は本人限定
 
-- `published_at`は対象ストーリーの初回公開成功時刻とし、初回公開後は変更しない
-- `expires_at = published_at + 24 hours`
-- 初回公開成功時に`published_at`と`expires_at`を一度だけ設定する候補
-- 公開前レビュー開始時点では期限を開始しない
-- 非公開化しても期限を停止・延長しない
-- 再公開を許可する場合も元の`expires_at`までに限定し、期限を再計算しない
-- 公開後の短文修正・参照変更・再レビューでも期限を延長しない
-- `EXPIRED`から同一ストーリーIDを再公開しない
-- 期限切れ内容を再共有する場合は、新規ストーリーとして公開前確認をやり直す
-- 保存・比較はUTC基準
-- UIは利用者タイムゾーンへ変換
-- 期限到達時は公開一覧・ホーム・プロフィール・直接URL・画像配信から一般閲覧を停止
-- バッチだけでなく閲覧時・画像配信認可時にも期限を判定
-- 24時間は公開期間であり、物理削除期限ではない
-- 未解決通報は期限切れ後も維持
+## Initial Content Themes
 
-## Functional Scope
+優先度A候補:
 
-- JPEG / PNG画像と短文の下書き
-- 公開前確認
-- 公開・非公開化・削除要求
-- 公開中ストーリー一覧・投稿者単位閲覧
-- 前後移動
-- 残り時間または公開時刻表示
-- 公開スポット・本人公開走行記録・本人公開車両プロフィールへの任意参照
-- 通報
-- 個別非表示
-- 投稿者単位ミュート候補
+- 絶景・景観
+- 道の駅
+- 温泉
+- 展望台
+- ご当地グルメ
+- 海沿いドライブ
+
+その他候補:
+
+- PA / SA
+- ダム・橋
+- カフェ
+- 山・高原
+- 歴史・文化
+- 夜景
+- 季節ドライブ
+
+実在スポット名・画像・説明文はIssue #132では投入しない。
+
+## Version Integrity
+
+- 対象スポット追加・削除・差し替えは`content_revision`更新対象。
+- 達成記録は`collection_id + content_revision`へ紐づける。
+- 新版公開後も旧版達成を削除しない。
+- 現在版進捗と旧版達成を区別する。
+- 削除・停止された元スポット情報を過去達成画面へ復元しない。
+
+## Spot Reference Integrity
+
+- コレクションへ元スポット本文・画像・正確位置を恒久複製しない。
+- 元スポット停止時は表示・新規訪問登録を止める。
+- 該当地点を`UNAVAILABLE`として扱う。
+- 安全・権利停止を理由に自動で達成分母を減らして完了扱いにしない。
+- 判断不能時は`REVIEW_REQUIRED`または`STOPPED`へ進める。
 
 ## Safety / Privacy
 
-- 作成・編集・公開・非公開化・削除は停車中または走行後に限定
-- 走行中の撮影・投稿を促さない
-- 現在地を自動取得・付与しない
-- 正確な座標をストーリーへ構造化保存・公開しない
-- 粗いエリアまたは公開済みコンテンツ参照だけを候補とする
-- 公開初期値は`PRIVATE`
-- `PUBLIC_REVIEW_REQUIRED`を経由する
-- EXIF除去失敗時は公開No-Go
-- 人物、ナンバープレート、表札、生活拠点、反射物等を公開前確認
-- 24時間後もスクリーンショット等が残り得ることを明示
-- 個別閲覧者一覧を提供しない
+- 訪問登録・取消・メモ・プラン追加は停車中または走行後に限定。
+- GPS・ジオフェンス・常時位置取得を要求しない。
+- ランキング、最速達成、速度・距離競争、ストリークを提供しない。
+- 訪問日時は任意。
+- 訪問履歴・達成記録は本人限定を初期値とする。
+- 達成公開を将来導入しても訪問時刻・順番・正確位置・速度を自動公開しない。
+- 自宅・勤務先・車両保管場所等をコレクション対象にしない。
 
-## Reference Integrity
+## Content Governance
 
-- 参照先本文・画像・正確位置をストーリーへ恒久複製しない
-- 参照先が非公開・削除・権利停止・安全停止の場合、リンク・名称・サムネイル・位置表示を停止
-- 参照解除後にストーリー独自画像・短文が公開可能か再判定
-- 公開できない場合は`STOPPED`
-- 失った閲覧権限をストーリー経由で復活させない
+- 第三者紹介文をコピーしない。
+- 権利不明画像を使わない。
+- 元スポットの権利・安全・公開状態を継承する。
+- 季節・営業時間・通行条件等の変化を考慮する。
+- `reviewed_at`と必要に応じて`recheck_due_at`を管理する。
+- AI生成案だけで実在スポット紹介を公開しない。
 
-## Moderation
+## Added Screens
 
-- 公開ストーリーから2操作以内で通報
-- 期限切れ後も未解決通報を継続
-- 公開停止を物理削除より先に実施
-- 投稿者削除要求があっても、法務・運用レビューで認められた範囲の通報証跡保全を優先できる候補
-- AI・自動判定だけで公開可否・違反を確定しない
+レビュー用差分として以下を定義済み。
 
-## Added / Updated Screens
+- SCR-28: ドライブコレクション一覧
+- SCR-29: ドライブコレクション詳細
+- SCR-30: 自分のコレクション進捗
 
-- SCR-25: ドライブストーリー作成/公開前確認
-- SCR-26: ドライブストーリー閲覧
-- SCR-27: 自分のドライブストーリー管理
-- SCR-05 / 10 / 12 / 13 / 16 / 17 / 19 / 20を接続更新
+## Source of Truth Integration Policy
+
+既存`mvp-requirements.md`、`screen-list.md`、`screen-flow.md`を大量置換して差分事故を起こさないため、Issue #132ではレビュー用deltaを分離している。
+
+- MVP delta: `docs/requirements/issue-132-mvp-delta.md`
+- Screen delta: `docs/screen-design/drive-collection-screen-extension.md`
+
+人間レビュー承認後に既存正本へ統合する。
 
 ## Out of Scope
 
-- 動画・音声ストーリー
-- ライブ配信
-- リアルタイム現在地共有
-- 走行中の自動投稿
-- 返信、DM、コメント、リアクション
-- 個別閲覧者一覧
-- フォロー限定公開
-- 外部SNS自動共有
-- BGM、スタンプ、フィルター等の高度編集
-- 推薦・ランキング
-- DB / API / Storage / CDN / UI実装
+- GPS位置証明
+- ジオフェンス自動チェックイン
+- リアルタイム位置共有
+- ランキング・最速・速度・距離競争
+- ストリーク
+- 賞金・景品・抽選
+- NFT等の外部資産化
+- ユーザー生成コレクション
+- 外部観光DB・施設API採用
+- 実スポットデータ・実画像投入
+- DB / API / UI / Storage / CDN実装
 
 ## Unresolved Decisions
 
-- 文字だけストーリー可否
-- 画像容量・解像度・同時公開件数
-- 短文の最終文字数上限
-- 投稿者向け期限切れアーカイブ
-- 閲覧数提供可否
-- ストーリーミュートの内部β範囲
-- 非公開化後の再公開機能を内部βで提供するか
-- 公開前全件審査か事後モデレーションか
-- 期限切れ後の通常保持期間
-- 投稿者削除・バックアップ・CDN削除SLA
-- 通報証跡保持期間
+- コレクション1件の最大スポット数
+- テーマ複数選択可否
+- 訪問日時粒度
+- 訪問取消後の達成記録扱い
+- `UNAVAILABLE`と達成分母の最終ルール
+- 過去版の表示範囲
+- 記念バッジを内部βへ含めるか
+- バッジ公開可否
+- カバー画像仕様
+- 再確認周期
+- 季節限定コレクションの公開期間
+- 運営編集・レビュー権限モデル
 
 ## Required Review
 
@@ -178,23 +200,26 @@ CI通過とは扱わない。Codex未実施をレビュー完了と扱わない�
 - セキュリティ
 - プライバシー
 - 運用
-- モデレーション
+- コンテンツ編集
+- 権利・法務
 - データ・API設計
-- 法務
 - プロジェクト責任者
 
 ## Next Steps
 
-1. 期限延長防止、状態競合、認可、参照停止の人間レビューを受ける。
-2. 保持・削除・通報証跡の法務・運用レビューを受ける。
-3. 最新headの差分、mergeability、workflow/status、review threadを再確認する。
-4. 承認後にデータモデル・API・期限処理・画像処理を後続Issue化する。
+1. PR #133の人間レビューを受ける。
+2. `UNAVAILABLE`と達成分母、バッジ採用等を人間判断する。
+3. 承認後にMVP/画面正本へdeltaを統合する。
+4. データモデル/API境界を後続Issue化する。
+5. 実コンテンツはテーマごとに別Issueで一次情報・権利・安全・鮮度を調査する。
 
 ## Do Not Proceed
 
-- 実ユーザー画像・位置情報・走行履歴取得
-- 公開Repositoryへの画像・位置・非公開証跡保存
-- 画像ストレージ・CDN・通知provider採用
-- APIキー取得・契約・外部送信
-- Next.js / DB / API / Auth / Storage / CDN実装
-- AIだけによる要件承認・モデレーション確定・実装開始
+- 実ユーザー訪問履歴・位置情報の取得
+- GPS訪問証明
+- 実スポット・実画像の無審査投入
+- 無断スクレイピング
+- 権利不明画像・説明文の転載
+- 外部観光DB/provider採用・APIキー取得・契約
+- DB / API / UI / Storage実装
+- AIだけによる要件承認・コンテンツ公開
