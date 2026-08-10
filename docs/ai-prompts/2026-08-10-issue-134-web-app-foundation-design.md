@@ -21,6 +21,9 @@ Repository状態を確認し、実装コードが存在しないこと、README�
 5. Server Component既定、Client Component最小化を設計。
 6. lint/typecheck/test/build/E2E/CIを初期品質ゲートとして設計。
 7. 安全・プライバシー・secret管理の初期ガードレールを設計。
+8. PR #136を作成しAI支援セルフレビューを記録。
+9. `docs/01_development_process.md`を再照合し、基本設計と実装の間にPhase 4詳細設計が必要であることを確認。
+10. Issue #137を詳細設計・テスト仕様Issueとして作成し、Issue #135を#134 / #137の両方にBlockedとした。
 
 ## 外部確認
 
@@ -51,11 +54,15 @@ Vercel EngineeringのReact / Next.js best practicesを参照し、次を設計�
 - CSP詳細
 - Observability
 
-package versionはIssue #135開始時に公式stableを再確認し、lockfileで固定する設計とした。
+package versionは実装直前に公式stableを再確認し、lockfileで固定する設計とした。
 
 ## 実装非実施
 
 Issue #134は基本設計Issueのため、AIはアプリケーションコードやdependencyを追加していない。
+
+Issue #137も詳細設計Issueとして実装コードを混在させない。
+
+実コードは#134 / PR #136と#137が人間レビュー・mainマージされた後、Issue #135でのみ開始する。
 
 ## Human Review Required
 
@@ -64,6 +71,7 @@ Issue #134は基本設計Issueのため、AIはアプリケーションコード
 - directory / dependency boundary
 - security baseline
 - testing / CI方針
+- Issue #137の詳細設計開始可否
 - Issue #135の実装開始可否
 
-AI生成物のみでIssue #134を承認・Issue #135を開始しない。
+AI生成物のみでIssue #134を承認したり、Issue #137 / #135のBlockedを解除しない。
