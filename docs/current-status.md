@@ -4,11 +4,30 @@
 
 - Repository: `mizzz-ivr/RouteGarage`
 - Phase: Phase 3 / Basic Design
-- Current task: Issue #134
+- Current task: Issue #134 / PR #136
 - Task: Webアプリ基盤の技術選定・基本設計
 - Branch: `docs/issue-134-web-app-foundation-design`
 - Implementation issue: Issue #135（Blocked by #134）
 - AI生成物: 人間レビュー必須
+
+## Current Issue / PR
+
+- Issue #134: https://github.com/mizzz-ivr/RouteGarage/issues/134
+- PR #136: https://github.com/mizzz-ivr/RouteGarage/pull/136
+- Design: `docs/architecture/web-application-foundation-design.md`
+- ADR: `docs/adr/ADR-0002-web-application-foundation.md`
+
+## PR Status
+
+- State: Open
+- Draft: false
+- Changes: docs / README only
+- Initial compare: 9 commits / 9 files / behind 0
+- AI生成物: 人間レビュー必須
+- Codex review: 要確認
+- GitHub Actions / commit status: 要確認
+
+PR #136のマージをIssue #135の実装開始条件とする。
 
 ## 直近の完了
 
@@ -20,12 +39,7 @@
 
 ## Current Design
 
-Main document:
-
-- `docs/architecture/web-application-foundation-design.md`
-- `docs/adr/ADR-0002-web-application-foundation.md`
-
-採用候補をIssue #134で次へ確定する。
+採用案:
 
 - Next.js / React / TypeScript
 - App Router
@@ -35,6 +49,8 @@ Main document:
 - TypeScript strict
 - Repository rootの単一Webアプリ
 - Server Component既定 / Client Component最小化
+
+Next.js / React / Tailwindの正確なpackage versionはIssue #135開始時に公式stableを再確認し、lockfileで固定する。
 
 ## Layer Boundaries
 
@@ -59,7 +75,7 @@ src/adapters -> src/domain
 
 ## Implementation Gate
 
-Issue #135「Webアプリ基盤を初期実装し、PR品質ゲートを構築する」は作成済みだが、Issue #134完了まで`ai: blocked`とする。
+Issue #135「Webアプリ基盤を初期実装し、PR品質ゲートを構築する」は作成済みだが、Issue #134 / PR #136完了まで`ai: blocked`とする。
 
 Issue #135の対象:
 
@@ -73,14 +89,13 @@ Issue #135の対象:
 
 ## Do Not Implement Yet
 
-Issue #134完了前はIssue #135を開始しない。
+Issue #136ではなくPR #136がmainへマージされる前にIssue #135を開始しない。
 
 Issue #135でも次は実装しない。
 
 - DB / ORM
 - Auth provider
-- Maps SDK
-- geolocation
+- Maps SDK / geolocation
 - Storage / CDN
 - 実スポット / 実走行履歴
 - ドライブコレクション等の業務機能
@@ -109,7 +124,7 @@ Issue #135でPR必須チェック候補として構築する。
 
 CI成功を人間レビューの代替にしない。
 
-## Required Review for #134
+## Required Review for #136
 
 - プロダクト
 - テックリード / アーキテクト
@@ -122,8 +137,8 @@ CI成功を人間レビューの代替にしない。
 
 ## Next Steps
 
-1. Issue #134の設計PRをレビュー可能状態にする。
-2. ADR、責務分離、Node/runtime、testing/CI方針を人間レビューする。
-3. 承認・mainマージ後にIssue #135の`ai: blocked`を解除する。
-4. Issue #135で初めて実コードとGitHub Actionsを追加する。
-5. 基盤PR完了後、Landing/Auth/Spot等の詳細設計・実装を個別Issueで進める。
+1. PR #136を人間レビューする。
+2. ADR-0002、責務分離、Node/runtime、testing/CI方針を確認する。
+3. 承認後にPR #136をmainへマージする。
+4. Issue #135の`ai: blocked`を解除し`ai: codex-ready`へ更新する。
+5. Issue #135で初めて実コードとGitHub Actionsを追加する。
