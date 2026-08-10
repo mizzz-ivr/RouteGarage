@@ -6,12 +6,13 @@
 - Phase: Phase 3 / Basic Design
 - PR #133 / Issue #132は2026-08-10 09:39 JSTに完了。
 - Repositoryには現時点でWebアプリ実装コードがない。
-- 現在はIssue #134でWeb MVPのアプリ基盤を基本設計中。
-- Issue #135を最初の実装Issueとして作成済みだが、#134完了までBlocked。
+- 現在はIssue #134 / PR #136でWeb MVPのアプリ基盤を基本設計中。
+- Issue #135を最初の実装Issueとして作成済みだが、PR #136完了までBlocked。
 
-## Current Issue
+## Current Issue / PR
 
 - Issue #134: https://github.com/mizzz-ivr/RouteGarage/issues/134
+- PR #136: https://github.com/mizzz-ivr/RouteGarage/pull/136
 - Branch: `docs/issue-134-web-app-foundation-design`
 - Design: `docs/architecture/web-application-foundation-design.md`
 - ADR: `docs/adr/ADR-0002-web-application-foundation.md`
@@ -20,8 +21,8 @@
 
 - Issue #135: https://github.com/mizzz-ivr/RouteGarage/issues/135
 - Title: Webアプリ基盤を初期実装し、PR品質ゲートを構築する
-- Status: Blocked by #134
-- Implementation starts only after #134 design is approved and merged to main.
+- Status: Blocked by #134 / PR #136
+- Implementation starts only after PR #136 is approved and merged to main.
 
 ## Proposed Web Foundation
 
@@ -34,6 +35,8 @@
 - Repository root single Web app
 - Server Component default
 - Client Component only for required browser interaction
+
+Next.js / React / Tailwindの正確なpackage versionはIssue #135開始時に公式stableを再確認し、lockfileで固定する。
 
 ## Layer Boundaries
 
@@ -101,7 +104,7 @@ Do not allow:
 
 CI is not a substitute for human review.
 
-## Review Required for #134
+## Review Required for #136
 
 - Product
 - Tech lead / architect
@@ -114,16 +117,16 @@ CI is not a substitute for human review.
 
 ## Remaining Tasks
 
-1. Create and review PR for Issue #134.
-2. Decide whether ADR-0002 is accepted.
-3. Merge #134 after human review.
-4. Remove `ai: blocked` from Issue #135 and mark it implementation-ready.
-5. Implement Issue #135 in a separate feature branch/PR.
-6. After foundation, move to detailed design and implementation per feature.
+1. PR #136を人間レビューする。
+2. ADR-0002をAcceptedとしてよいか判断する。
+3. 承認後PR #136をmainへマージする。
+4. Issue #135の`ai: blocked`を削除し`ai: codex-ready`へ更新する。
+5. Issue #135を別feature branch / PRで実装する。
+6. 基盤完了後、業務機能ごとに詳細設計・実装へ進む。
 
 ## Do Not Proceed Yet
 
-- Do not implement Issue #135 before #134 is complete.
+- Do not implement Issue #135 before PR #136 is complete.
 - Do not select DB/Auth/Maps/Storage provider in foundation PR.
 - Do not acquire API keys or send external data.
 - Do not use real location/drive/user data.
