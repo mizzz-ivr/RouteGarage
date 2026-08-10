@@ -25,12 +25,28 @@
 - Draft: false
 - Changes: docs / README only
 - AI支援セルフレビュー: COMMENT済み
-- Unresolved review threads: 0（セルフレビュー時点）
-- Codex review: 最終headで再確認
-- GitHub Actions / commit status: workflow・status checkなし（セルフレビュー時点）
+- Codex自動レビュー: P1 2件
+  - 詳細設計を完了してから#135をunblockする → Issue #137を作成し、#135を#134/#137の両方にBlockedへ修正済み
+  - ADRをマージ前にAcceptedへ遷移する → 同一PRの最終commitでAcceptedへ変更する必須ゲートをADRへ追加済み
+- Codex review thread: 2件とも返信・解決済み / outdated
+- Unresolved review threads: 0
+- GitHub Actions / commit status: workflow・status checkなし
 - Human review: 未完了
 
-PR #136は人間レビュー前にマージしない。
+CI通過とは扱わない。PR #136は人間レビューとADR Accepted遷移前にマージしない。
+
+## ADR Acceptance Gate
+
+ADR-0002は現在`Proposed`。
+
+PR #136のマージ必須条件:
+
+1. 必須人間レビューで技術選定を承認する。
+2. 同一PR #136の最終commitでADR-0002を`Accepted`へ変更する。
+3. Accepted変更後の最終headを再レビューする。
+4. 未解決review thread 0件を確認する。
+5. Accepted状態のADRがmainへ入るまでIssue #137をunblockしない。
+6. Issue #137完了までIssue #135をunblockしない。
 
 ## 直近の完了
 
@@ -152,8 +168,9 @@ CI成功を人間レビューの代替にしない。
 ## Next Steps
 
 1. PR #136を人間レビューする。
-2. ADR-0002、責務分離、runtime、test/CI方針を確認する。
-3. 承認後PR #136をmainへマージする。
-4. Issue #137の`ai: blocked`を解除して詳細設計を進める。
-5. Issue #137完了後、Issue #135の`ai: blocked`を解除し`ai: codex-ready`へ更新する。
-6. Issue #135で初めて実コードとGitHub Actionsを追加する。
+2. ADR-0002をAcceptedとしてよいか判断する。
+3. 承認後、同一PRでADRをAcceptedへ変更し最終headを再レビューする。
+4. PR #136をmainへマージする。
+5. Issue #137の`ai: blocked`を解除して詳細設計を進める。
+6. Issue #137完了後、Issue #135の`ai: blocked`を解除し`ai: codex-ready`へ更新する。
+7. Issue #135で初めて実コードとGitHub Actionsを追加する。
