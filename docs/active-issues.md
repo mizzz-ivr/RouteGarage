@@ -2,14 +2,16 @@
 
 ## Active
 
-### Issue #134: Webアプリ基盤の技術選定・基本設計を確定する
+### Issue #134 / PR #136: Webアプリ基盤の技術選定・基本設計
 
-- URL: https://github.com/mizzz-ivr/RouteGarage/issues/134
+- Issue: https://github.com/mizzz-ivr/RouteGarage/issues/134
+- PR: https://github.com/mizzz-ivr/RouteGarage/pull/136
 - Branch: `docs/issue-134-web-app-foundation-design`
 - Phase: Phase 3 / Basic Design
-- Status: In Progress
-- Main design: `docs/architecture/web-application-foundation-design.md`
+- Status: PR Review
+- Design: `docs/architecture/web-application-foundation-design.md`
 - ADR: `docs/adr/ADR-0002-web-application-foundation.md`
+- Initial compare: 9 commits / 9 files / behind 0
 
 設計対象:
 
@@ -27,7 +29,7 @@
 
 - URL: https://github.com/mizzz-ivr/RouteGarage/issues/135
 - Phase: Phase 5 / Implementation
-- Status: **Blocked by #134**
+- Status: **Blocked by #134 / PR #136**
 - Labels: `ai: blocked`, `ai: human-review-required`
 
 実装予定:
@@ -40,7 +42,7 @@
 - lint / typecheck / unit test / build / E2E smoke
 - GitHub Actions quality gate
 
-Issue #134がmainへマージされるまで実装開始しない。
+PR #136がmainへマージされるまで実装開始しない。
 
 ## Recently Completed
 
@@ -63,7 +65,7 @@ Issue #134がmainへマージされるまで実装開始しない。
 
 ## Cross-Cutting Gates
 
-- Issue #134の設計承認前にIssue #135を実装しない。
+- PR #136の設計承認前にIssue #135を実装しない。
 - provider未選定SDKを先行導入しない。
 - 実位置・走行履歴・ユーザー画像をfixtureへ使用しない。
 - geolocation / camera / microphoneを初期基盤で要求しない。
@@ -73,7 +75,8 @@ Issue #134がmainへマージされるまで実装開始しない。
 
 ## Upcoming
 
-1. Issue #134の設計PRを作成・レビュー。
-2. 承認後、Issue #135の`ai: blocked`を解除。
-3. Issue #135でWeb基盤とGitHub Actionsを実装。
-4. 基盤完了後、各機能の詳細設計・実装Issueへ進む。
+1. PR #136の人間レビュー。
+2. 承認後にPR #136をmainへマージ。
+3. Issue #135の`ai: blocked`を解除して`ai: codex-ready`へ更新。
+4. Issue #135でWeb基盤とGitHub Actionsを実装。
+5. 基盤完了後、各機能の詳細設計・実装Issueへ進む。
