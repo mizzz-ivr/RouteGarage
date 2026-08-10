@@ -2,7 +2,7 @@
 
 - Status: Proposed
 - Date: 2026-08-10
-- Related: Issue #134 / Issue #135
+- Related: Issue #134 / PR #136 / Issue #137 / Issue #135
 
 ## Context
 
@@ -27,7 +27,7 @@ Web MVPのアプリ基盤として次を採用する。
 - Server Componentを既定、Client Componentを必要最小限
 - `src/app` / `src/features` / `src/domain` / `src/adapters` / `src/shared`の責務分離
 
-Next.js / React / Tailwind CSSの正確なpackage versionはIssue #135開始時に公式stableを確認して固定し、`package-lock.json`を再現性の正本とする。
+Next.js / React / Tailwind CSSの正確なpackage versionはIssue #135の実装直前に公式stableを確認して固定し、`package-lock.json`を再現性の正本とする。
 
 DB / ORM / Auth / Maps / Storage / CDN / Hosting / analyticsは本ADRで採用しない。
 
@@ -81,7 +81,7 @@ DB / ORM / Auth / Maps / Storage / CDN / Hosting / analyticsは本ADRで採用�
 
 ### Positive
 
-- Issue #135から実コードを安全に開始できる。
+- Issue #137で詳細設計を具体化し、その後Issue #135で実コードを安全に開始できる。
 - provider未選定領域を隔離できる。
 - Server/Client境界、domain/adapters境界を早期に固定できる。
 - lint / typecheck / test / build / E2Eを全feature PRの共通品質ゲートにできる。
@@ -104,7 +104,7 @@ DB / ORM / Auth / Maps / Storage / CDN / Hosting / analyticsは本ADRで採用�
 
 ## Quality Gates
 
-後続Issue #135で以下をPR必須チェックとして構築する。
+Issue #137で具体仕様を確定し、Issue #135で以下をPR必須チェックとして構築する。
 
 - lint
 - typecheck
@@ -121,6 +121,25 @@ CI成功を人間レビューの代替にはしない。
 - Tailwind CSS Framework Guides: https://tailwindcss.com/docs/installation/framework-guides
 - Node.js release status: https://nodejs.org/en/about/previous-releases
 
-## Review / Acceptance
+## Review / Acceptance Gate
 
-本ADRはPRレビュー中は`Proposed`とする。Issue #134のPRが承認・mainへマージされた時点で`Accepted`へ更新する候補とする。
+本ADRはPR #136の人間レビューが完了するまでは`Proposed`とする。
+
+### マージ必須条件
+
+PR #136をmainへマージする前に、次をすべて満たす。
+
+1. 必須レビュー領域で本ADRの技術選定を承認する。
+2. 同一PR #136上の最終commitで本ファイルの`Status`を`Accepted`へ変更する。
+3. `Accepted`へ変更した最終headを再レビューし、未解決review threadがないことを確認する。
+4. `Accepted`状態のADRがmainへ入るまでIssue #137の`ai: blocked`を解除しない。
+5. Issue #137が完了するまでIssue #135の`ai: blocked`を解除しない。
+
+`Proposed`のままPR #136をマージしない。PRのマージ後に別途`Accepted`へ直す運用にも依存しない。
+
+### 承認できない場合
+
+- `Proposed`を維持する。
+- PR #136をマージしない。
+- Issue #137 / #135はBlockedのままとする。
+- 変更案は本ADRまたは代替ADRとして再レビューする。
