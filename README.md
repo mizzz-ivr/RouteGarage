@@ -1,87 +1,118 @@
 # RouteGarage
 
 ## 概要
-RouteGarage は、日本の車好き・ドライブユーザー向けに、ルート案内、走行記録、スポット共有、愛車管理を一体化して提供するプロダクト構想です。日常のドライブから長距離ツーリングまで、記録・発見・交流を安全に支援することを目的とします。
 
-## 対象ユーザー
-- 車での移動やドライブを日常的に行うユーザー
-- PA/SA、道の駅、絶景スポットの探索を楽しむユーザー
-- 走行記録やカスタム履歴を残したいユーザー
-- コメント・フォロー等でコミュニティ交流をしたいユーザー
+RouteGarage は、日本の車好き・ドライブユーザー向けに、ルート閲覧、走行記録、スポット共有、愛車管理、ドライブ計画・発見を一体化して提供するプロダクト構想です。
 
-## 主な機能領域
-- ルート案内・ナビ
-- 走行記録
-- スポット共有
-- PA / SA・道の駅・絶景スポット
-- 道路メモ
-- 交通情報・事故情報・PA閉鎖情報
-- オービス情報
-- ガレージ・愛車管理
-- カスタム記録
-- コメント・いいね・フォロー
-- 画像投稿
+日常のドライブから長距離ツーリングまで、記録・発見・共有を安全に支援することを目的とします。
 
 ## 開発方針
-- ウォーターフォール開発を採用し、要件・設計・実装・テストを段階的に進行
-- Issue駆動で作業を管理し、仕様確定前の実装を禁止
-- Codex を主なAI開発支援として利用し、AI生成物は必ず人間がレビュー
-- PR本文、Issueコメント、作業ログ、各種ドキュメントは日本語で統一
+
+- ウォーターフォール開発
+- Issue駆動
+- 仕様確定前の実装禁止
+- 1PR 1目的
+- AI生成物は人間レビュー必須
+- PR / Issue / commit / 作業ログは日本語
 - 無関係なリファクタリングを混在させない
 
-## 技術スタック予定（検討中）
-- フロントエンド: Next.js / TypeScript
-- バックエンド: Node.js 系API（詳細未確定）
-- データベース: 未確定
-- インフラ: 未確定
-- 監視・分析: 未確定
+詳細は `AGENTS.md` と `docs/01_development_process.md` を参照してください。
 
-> 注記: 本リポジトリの現時点では、技術選定は確定していません。詳細は要件・設計フェーズで確定します。
+## 現在フェーズ
 
-## 開発フェーズ
-1. プロジェクト初期整備（本コミット範囲）
-2. 要件定義
-3. 基本設計
-4. 詳細設計
-5. 実装
-6. テスト
-7. リリース準備
+**Phase 3 / Basic Design**
 
-## 安全性・プライバシー方針
-- 走行中操作を助長しないUI/UX方針を徹底
-- 位置情報は最小権限・最小保持で扱う
-- 自宅周辺など生活圏推定につながる情報はぼかし・非公開制御を前提
-- 交通情報・事故情報・PA閉鎖情報は正確性限界を明示し、誤認リスクに配慮
-- オービス情報は法令・利用規約・地域ルールに配慮した取り扱いを行う
-- 違法改造を助長する投稿・導線を許容しない
+- Issue #134: Webアプリ基盤の技術選定・基本設計
+- Issue #135: Webアプリ基盤初期実装（#134完了までBlocked）
 
-## 現在のステータス
-- 状態: **プロジェクト初期ドキュメント整備中**
-- 実装コード: なし（ドキュメント整備のみ）
-- 未確定事項: MVPスコープ詳細、技術スタック確定、データポリシー詳細
+Repositoryには現時点でWebアプリ実装コードはありません。
+
+## Web基盤設計（Issue #134でレビュー中）
+
+- Framework: Next.js
+- UI: React
+- Language: TypeScript
+- Routing: App Router
+- Styling: Tailwind CSS
+- Runtime: Node.js 24 LTS
+- Package manager: npm
+- TypeScript: strict
+- Web MVPはRepository rootの単一アプリ構成
+- Server Componentを既定とし、Client Componentを必要最小限にする
+
+設計正本:
+
+- `docs/architecture/web-application-foundation-design.md`
+- `docs/adr/ADR-0002-web-application-foundation.md`
+
+## 未確定の技術領域
+
+次はWeb基盤PRで先取りしません。
+
+- DB / ORM
+- 認証provider
+- Maps provider
+- Storage / CDN
+- Hosting
+- Monitoring / Analytics
+- 独立API server
+- iOS / Android
+
+必要になった時点で個別Issue / ADRで確定します。
+
+## 想定責務分離
+
+```text
+src/app -> src/features -> src/domain
+src/app -> src/shared
+src/features -> src/shared
+src/adapters -> src/domain
+```
+
+- `src/app`: routing / layout / composition
+- `src/features`: use case UI / application orchestration
+- `src/domain`: provider非依存のrule / type
+- `src/adapters`: Auth / Maps / Storage / API等の外部境界
+- `src/shared`: 共通UI / utility
+
+## 主な機能領域
+
+- スポット・ルート閲覧
+- 行きたいスポット
+- ドライブプラン
+- 走行記録
+- ドライブストーリー
+- ドライブコレクション・訪問進捗
+- ガレージ・愛車管理
+- コミュニティ
+- 交通・道路参考情報
+
+各機能は要件・設計Issueが完了した範囲から段階的に実装します。
+
+## 安全性・プライバシー
+
+- 走行中操作を助長しない
+- 位置情報は目的限定・最小保持
+- 生活拠点推定につながる情報はぼかし・非公開制御を前提とする
+- 実装基盤段階ではgeolocation / camera / microphoneを要求しない
+- provider未選定SDKを先行導入しない
+- secretsや実利用者の位置・走行履歴をRepositoryへ保存しない
+
+## 最初の実装Issue
+
+Issue #135ではWebアプリの土台だけを実装します。
+
+- Next.js / TypeScript / Tailwind bootstrap
+- root layout / landing page
+- 走行中操作禁止の安全注意表示
+- error / not-found fallback
+- lint / typecheck / unit test / build / E2E smoke
+- GitHub Actions PR quality gate
+
+DB / Auth / Maps / Storage / 業務機能は含めません。
 
 ## AI開発プロトコル
 
-RouteGarageでは、AIエージェントと人間が継続的に協調できるよう、
-AI-Native Development Protocol を導入しています。
-
-詳細は以下を参照してください。
-
-- docs/ai-protocol/README.md
-- docs/ai-protocol/PROMPT.md
-- docs/ai-protocol/routegarage-specific-policy.md
-
-### GitHub運用方針
-
-- PR本文は日本語
-- Issue本文・コメントは日本語
-- Discussion本文・コメントは日本語
-- commit messageは日本語
-- 作業ログはRepositoryへ保存
-- AIプロンプトログはRepositoryへ保存
-- 重要判断はADRへ保存
-
-### RouteGarage固有の重要方針
-
-RouteGarageは位置情報・走行情報・交通情報・車両情報を扱う可能性があるため、
-安全性・プライバシー・法令配慮を最優先します。
+- `docs/ai-protocol/README.md`
+- `docs/ai-protocol/PROMPT.md`
+- `docs/ai-protocol/routegarage-specific-policy.md`
