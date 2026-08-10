@@ -11,7 +11,6 @@
 - Status: PR Review
 - Design: `docs/architecture/web-application-foundation-design.md`
 - ADR: `docs/adr/ADR-0002-web-application-foundation.md`
-- Initial compare: 9 commits / 9 files / behind 0
 
 設計対象:
 
@@ -25,11 +24,28 @@
 - environment / security baseline
 - lint / typecheck / test / build / E2E / CI
 
+### Issue #137: Webアプリ基盤初期実装の詳細設計・テスト仕様
+
+- URL: https://github.com/mizzz-ivr/RouteGarage/issues/137
+- Phase: Phase 4 / Detail Design
+- Status: **Blocked by #134 / PR #136**
+- Labels: `ai: blocked`, `ai: human-review-required`
+
+詳細化予定:
+
+- 初期作成ファイル一覧
+- Node / package / npm scripts
+- landing / safety / error / 404 acceptance
+- env / security headers
+- Vitest / RTL cases
+- Playwright smoke cases
+- GitHub Actions trigger / jobs / failure behavior
+
 ### Issue #135: Webアプリ基盤を初期実装し、PR品質ゲートを構築する
 
 - URL: https://github.com/mizzz-ivr/RouteGarage/issues/135
 - Phase: Phase 5 / Implementation
-- Status: **Blocked by #134 / PR #136**
+- Status: **Blocked by #134 / #137**
 - Labels: `ai: blocked`, `ai: human-review-required`
 
 実装予定:
@@ -42,7 +58,7 @@
 - lint / typecheck / unit test / build / E2E smoke
 - GitHub Actions quality gate
 
-PR #136がmainへマージされるまで実装開始しない。
+PR #136とIssue #137が完了するまで実装開始しない。
 
 ## Recently Completed
 
@@ -65,7 +81,8 @@ PR #136がmainへマージされるまで実装開始しない。
 
 ## Cross-Cutting Gates
 
-- PR #136の設計承認前にIssue #135を実装しない。
+- PR #136の設計承認前にIssue #137を確定しない。
+- Issue #137の詳細設計承認前にIssue #135を実装しない。
 - provider未選定SDKを先行導入しない。
 - 実位置・走行履歴・ユーザー画像をfixtureへ使用しない。
 - geolocation / camera / microphoneを初期基盤で要求しない。
@@ -76,7 +93,8 @@ PR #136がmainへマージされるまで実装開始しない。
 ## Upcoming
 
 1. PR #136の人間レビュー。
-2. 承認後にPR #136をmainへマージ。
-3. Issue #135の`ai: blocked`を解除して`ai: codex-ready`へ更新。
-4. Issue #135でWeb基盤とGitHub Actionsを実装。
-5. 基盤完了後、各機能の詳細設計・実装Issueへ進む。
+2. 承認後PR #136をmainへマージ。
+3. Issue #137をunblockして詳細設計PRを作成。
+4. Issue #137完了後Issue #135を`ai: codex-ready`へ更新。
+5. Issue #135でWeb基盤とGitHub Actionsを実装。
+6. 基盤完了後、各機能の詳細設計・実装Issueへ進む。
