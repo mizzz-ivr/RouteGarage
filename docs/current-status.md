@@ -3,223 +3,174 @@
 ## 現在状態
 
 - Repository: `mizzz-ivr/RouteGarage`
-- Phase: Phase 1 / Requirements Definition
-- Current task: Issue #132 / PR #133
-- Feature: テーマ別ドライブコレクション・訪問進捗
-- Branch: `docs/issue-132-drive-collection-progress`
+- Phase: Phase 3 / Basic Design
+- Current task: Issue #134 / PR #136
+- Task: Webアプリ基盤の技術選定・基本設計
+- Branch: `docs/issue-134-web-app-foundation-design`
+- Detail design: Issue #137（Blocked by #134 / PR #136）
+- Implementation: Issue #135（Blocked by #134 / #137）
 - AI生成物: 人間レビュー必須
-- 実装・実スポット投入・GPS取得・外部データ取得: 未実施
 
 ## Current Issue / PR
 
-- Issue #132: https://github.com/mizzz-ivr/RouteGarage/issues/132
-- PR #133: https://github.com/mizzz-ivr/RouteGarage/pull/133
-- Main requirements: `docs/requirements/drive-collection-progress-requirements.md`
-- Content governance: `docs/content/drive-collection-content-governance.md`
-- Screen delta: `docs/screen-design/drive-collection-screen-extension.md`
-- MVP delta: `docs/requirements/issue-132-mvp-delta.md`
+- Issue #134: https://github.com/mizzz-ivr/RouteGarage/issues/134
+- PR #136: https://github.com/mizzz-ivr/RouteGarage/pull/136
+- Design: `docs/architecture/web-application-foundation-design.md`
+- ADR: `docs/adr/ADR-0002-web-application-foundation.md`
 
 ## PR Status
 
 - State: Open
 - Mergeable: true
 - Draft: false
-- Initial `main` compare: 9 commits / 9 files / behind 0
-- Changes: docs only
+- Changes: docs / README only
 - AI支援セルフレビュー: COMMENT済み
-- Codex自動レビュー: 利用上限により未実施
+- Codex自動レビュー: P1 2件
+  - 詳細設計を完了してから#135をunblockする → Issue #137を作成し、#135を#134/#137の両方にBlockedへ修正済み
+  - ADRをマージ前にAcceptedへ遷移する → 同一PRの最終commitでAcceptedへ変更する必須ゲートをADRへ追加済み
+- Codex review thread: 2件とも返信・解決済み / outdated
 - Unresolved review threads: 0
 - GitHub Actions / commit status: workflow・status checkなし
-- Human review: 未実施
+- Human review: 未完了
 
-Codex未実施、workflow/statusなしをレビュー完了・CI通過とは扱わない。人間レビュー前に正本統合・実データ投入・実装へ進まない。
+CI通過とは扱わない。PR #136は人間レビューとADR Accepted遷移前にマージしない。
+
+## ADR Acceptance Gate
+
+ADR-0002は現在`Proposed`。
+
+PR #136のマージ必須条件:
+
+1. 必須人間レビューで技術選定を承認する。
+2. 同一PR #136の最終commitでADR-0002を`Accepted`へ変更する。
+3. Accepted変更後の最終headを再レビューする。
+4. 未解決review thread 0件を確認する。
+5. Accepted状態のADRがmainへ入るまでIssue #137をunblockしない。
+6. Issue #137完了までIssue #135をunblockしない。
 
 ## 直近の完了
 
-- Issue #130 / PR #131: 24時間ドライブストーリー投稿・閲覧機能
-  - PR #131 merged: 2026-08-07
-  - Merge commit: `b6803c2484dc32653dc44b5418cecf46fbd934a4`
-- Issue #128 / PR #129: 行きたいスポット保存・ドライブプラン作成
-  - PR #129 merged: 2026-08-06
+- Issue #132 / PR #133: テーマ別ドライブコレクション・訪問進捗要件
+  - Merged: 2026-08-10 09:39 JST
+  - Merge commit: `13bd97b554ad2cc225beeee54dad1d3f6af1aa05`
+- Issue #130 / PR #131: 24時間ドライブストーリー要件
+- Issue #128 / PR #129: 行きたいスポット・ドライブプラン要件
 
-## Product Goal
+## Current Design
 
-テーマから次のドライブ先を発見し、保存し、行きたいスポット・ドライブプランへつなぎ、走行後に自分の訪問進捗として記録できる体験を追加する。
+採用案:
 
-競争型スタンプラリーにはせず、出発前の発見と走行後の振り返りを強化する。
+- Next.js / React / TypeScript
+- App Router
+- Tailwind CSS
+- Node.js 24 LTS
+- npm + `package-lock.json`
+- TypeScript strict
+- Repository rootの単一Webアプリ
+- Server Component既定 / Client Component最小化
 
-## Responsibility Boundaries
+Next.js / React / Tailwindの正確なpackage versionは実装直前に公式stableを再確認し、lockfileで固定する。
 
-| 領域 | 責務 |
-| --- | --- |
-| ドライブコレクション | 運営がテーマ別に既存スポットをまとめる編集コンテンツ |
-| 行きたいスポット | 個人用ブックマーク |
-| ドライブプラン | 出発前の予定表 |
-| 走行記録 | 実際の走行実績 |
-| 訪問記録 | コレクション進捗用の本人自己申告 |
-| 達成記録 | 特定コレクション版を完了した個人記録 |
+## Layer Boundaries
 
-訪問記録を運営確認済みの訪問証明として扱わない。
+```text
+src/app -> src/features -> src/domain
+src/app -> src/shared
+src/features -> src/shared
+src/adapters -> src/domain
+```
 
-## Feature Scope
+- `app`: routing / layout / composition
+- `features`: use case UI / application orchestration
+- `domain`: provider非依存のrule / type
+- `adapters`: Auth / Maps / Storage / API等の外部境界
+- `shared`: 共通UI / utility
 
-### コレクション
+禁止:
 
-- 運営作成のテーマ別スポット一覧
-- 保存・解除
-- テーマ・エリア・注意事項
-- スポット参照
-- `content_revision`による版管理
-- `DRAFT` / `REVIEW_REQUIRED` / `PUBLISHED` / `STOPPED` / `ARCHIVED`
+- domain -> React / Next.js / provider SDK
+- feature -> provider SDK直結
+- shared -> feature固有rule
 
-### 訪問進捗
+## Next Phase Gate
 
-- 手動訪問登録・取消
-- 任意の訪問日時・個人メモ
-- 本人走行記録への任意参照
-- `NOT_STARTED` / `IN_PROGRESS` / `COMPLETED`
-- 地点状態`NOT_VISITED` / `VISITED` / `UNAVAILABLE`
-- 訪問数 / 対象数 / 進捗率
+### Issue #137: 詳細設計
 
-### 達成記録
+- URL: https://github.com/mizzz-ivr/RouteGarage/issues/137
+- Phase: Phase 4 / Detail Design
+- Status: Blocked by #134 / PR #136
+- Scope: file一覧、package scripts、UI acceptance、security header、unit/E2E cases、GitHub Actions詳細
 
-- 特定`content_revision`単位の達成
-- 過去版達成の保持
-- 個人用記念バッジ候補
-- 公開初期値は本人限定
+### Issue #135: 実装
 
-## Initial Content Themes
+- URL: https://github.com/mizzz-ivr/RouteGarage/issues/135
+- Phase: Phase 5 / Implementation
+- Status: Blocked by #134 / #137
 
-優先度A候補:
+Issue #135の対象:
 
-- 絶景・景観
-- 道の駅
-- 温泉
-- 展望台
-- ご当地グルメ
-- 海沿いドライブ
+- Next.js / TypeScript / Tailwind bootstrap
+- root layout / landing page
+- 走行中操作禁止の安全注意表示
+- 404 / error fallback
+- `.env.example`
+- lint / typecheck / unit test / build / E2E smoke
+- GitHub Actions quality gate
 
-その他候補:
+## Do Not Implement Yet
 
-- PA / SA
-- ダム・橋
-- カフェ
-- 山・高原
-- 歴史・文化
-- 夜景
-- 季節ドライブ
+PR #136とIssue #137が完了する前にIssue #135を開始しない。
 
-実在スポット名・画像・説明文はIssue #132では投入しない。
+Issue #135でも次は実装しない。
 
-## Version Integrity
+- DB / ORM
+- Auth provider
+- Maps SDK / geolocation
+- Storage / CDN
+- 実スポット / 実走行履歴
+- ドライブコレクション等の業務機能
+- 本番Hosting
+- iOS / Android
 
-- 対象スポット追加・削除・差し替えは`content_revision`更新対象。
-- 達成記録は`collection_id + content_revision`へ紐づける。
-- 新版公開後も旧版達成を削除しない。
-- 現在版進捗と旧版達成を区別する。
-- 削除・停止された元スポット情報を過去達成画面へ復元しない。
+## Safety / Privacy Baseline
 
-## Spot Reference Integrity
+- 初期UIから「走行中は操作しない」を表示する。
+- geolocation / camera / microphoneを要求しない。
+- secretsをRepositoryへ保存しない。
+- `NEXT_PUBLIC_`へ秘密情報を置かない。
+- 実ユーザー位置・走行履歴をfixtureへ使用しない。
+- provider未選定のSDKを先行導入しない。
 
-- コレクションへ元スポット本文・画像・正確位置を恒久複製しない。
-- 元スポット停止時は表示・新規訪問登録を止める。
-- 該当地点を`UNAVAILABLE`として扱う。
-- 安全・権利停止を理由に自動で達成分母を減らして完了扱いにしない。
-- 判断不能時は`REVIEW_REQUIRED`または`STOPPED`へ進める。
+## Quality Gate
 
-## Safety / Privacy
+Issue #137で具体仕様を確定し、Issue #135で実装する。
 
-- 訪問登録・取消・メモ・プラン追加は停車中または走行後に限定。
-- GPS・ジオフェンス・常時位置取得を要求しない。
-- ランキング、最速達成、速度・距離競争、ストリークを提供しない。
-- 訪問日時は任意。
-- 訪問履歴・達成記録は本人限定を初期値とする。
-- 達成公開を将来導入しても訪問時刻・順番・正確位置・速度を自動公開しない。
-- 自宅・勤務先・車両保管場所等をコレクション対象にしない。
+1. `npm ci`
+2. lint
+3. typecheck
+4. unit/component test
+5. production build
+6. E2E smoke
 
-## Content Governance
+CI成功を人間レビューの代替にしない。
 
-- 第三者紹介文をコピーしない。
-- 権利不明画像を使わない。
-- 元スポットの権利・安全・公開状態を継承する。
-- 季節・営業時間・通行条件等の変化を考慮する。
-- `reviewed_at`と必要に応じて`recheck_due_at`を管理する。
-- AI生成案だけで実在スポット紹介を公開しない。
-
-## Added Screens
-
-レビュー用差分として以下を定義済み。
-
-- SCR-28: ドライブコレクション一覧
-- SCR-29: ドライブコレクション詳細
-- SCR-30: 自分のコレクション進捗
-
-## Source of Truth Integration Policy
-
-既存`mvp-requirements.md`、`screen-list.md`、`screen-flow.md`を大量置換して差分事故を起こさないため、Issue #132ではレビュー用deltaを分離している。
-
-- MVP delta: `docs/requirements/issue-132-mvp-delta.md`
-- Screen delta: `docs/screen-design/drive-collection-screen-extension.md`
-
-人間レビュー承認後に既存正本へ統合する。
-
-## Out of Scope
-
-- GPS位置証明
-- ジオフェンス自動チェックイン
-- リアルタイム位置共有
-- ランキング・最速・速度・距離競争
-- ストリーク
-- 賞金・景品・抽選
-- NFT等の外部資産化
-- ユーザー生成コレクション
-- 外部観光DB・施設API採用
-- 実スポットデータ・実画像投入
-- DB / API / UI / Storage / CDN実装
-
-## Unresolved Decisions
-
-- コレクション1件の最大スポット数
-- テーマ複数選択可否
-- 訪問日時粒度
-- 訪問取消後の達成記録扱い
-- `UNAVAILABLE`と達成分母の最終ルール
-- 過去版の表示範囲
-- 記念バッジを内部βへ含めるか
-- バッジ公開可否
-- カバー画像仕様
-- 再確認周期
-- 季節限定コレクションの公開期間
-- 運営編集・レビュー権限モデル
-
-## Required Review
+## Required Review for #136
 
 - プロダクト
-- UX
-- 安全
+- テックリード / アーキテクト
+- フロントエンド
 - セキュリティ
 - プライバシー
+- 安全
 - 運用
-- コンテンツ編集
-- 権利・法務
-- データ・API設計
 - プロジェクト責任者
 
 ## Next Steps
 
-1. PR #133の人間レビューを受ける。
-2. `UNAVAILABLE`と達成分母、バッジ採用等を人間判断する。
-3. 承認後にMVP/画面正本へdeltaを統合する。
-4. データモデル/API境界を後続Issue化する。
-5. 実コンテンツはテーマごとに別Issueで一次情報・権利・安全・鮮度を調査する。
-
-## Do Not Proceed
-
-- 実ユーザー訪問履歴・位置情報の取得
-- GPS訪問証明
-- 実スポット・実画像の無審査投入
-- 無断スクレイピング
-- 権利不明画像・説明文の転載
-- 外部観光DB/provider採用・APIキー取得・契約
-- DB / API / UI / Storage実装
-- AIだけによる要件承認・コンテンツ公開
+1. PR #136を人間レビューする。
+2. ADR-0002をAcceptedとしてよいか判断する。
+3. 承認後、同一PRでADRをAcceptedへ変更し最終headを再レビューする。
+4. PR #136をmainへマージする。
+5. Issue #137の`ai: blocked`を解除して詳細設計を進める。
+6. Issue #137完了後、Issue #135の`ai: blocked`を解除し`ai: codex-ready`へ更新する。
+7. Issue #135で初めて実コードとGitHub Actionsを追加する。
