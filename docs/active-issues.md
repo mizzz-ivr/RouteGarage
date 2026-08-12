@@ -2,12 +2,13 @@
 
 ## Active
 
-### Issue #138: 愛車の整備・給油・走行距離履歴機能の要件定義
+### Issue #138 / PR #140: 愛車の整備・給油・走行距離履歴機能の要件定義
 
 - Issue: https://github.com/mizzz-ivr/RouteGarage/issues/138
+- PR: https://github.com/mizzz-ivr/RouteGarage/pull/140
 - Branch: `docs/issue-138-garage-maintenance-history-requirements`
 - Phase: Phase 1 / Requirements Definition
-- Status: In Progress
+- Status: PR Review
 - Priority: High
 - Area: Garage
 
@@ -130,9 +131,10 @@
 
 ## Upcoming
 
-1. Issue #138の要件PRを作成し、人間レビューを受ける。
-2. Issue #139でADR-0002の承認状態を整合する。
-3. ADR Accepted後にIssue #137をunblockする。
-4. Issue #137の詳細設計完了後にIssue #135をunblockする。
-5. Issue #135でWeb基盤/品質ゲートを実装する。
-6. Garage履歴機能は要件→画面→基本設計→詳細設計→実装の順で後続Issue化する。
+1. PR #140の人間レビューを受ける。
+2. Issue #138承認後、MVP・画面正本へdeltaを統合する。
+3. Issue #139でADR-0002の承認状態を整合する。
+4. ADR Accepted後にIssue #137をunblockする。
+5. Issue #137の詳細設計完了後にIssue #135をunblockする。
+6. Issue #135でWeb基盤/品質ゲートを実装する。
+7. Garage履歴機能は要件→画面→基本設計→詳細設計→実装の順で後続Issue化する。
