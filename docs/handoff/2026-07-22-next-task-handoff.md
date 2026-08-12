@@ -3,7 +3,8 @@
 ## Summary
 
 - Repository: `mizzz-ivr/RouteGarage`
-- Current feature task: Issue #138 / 愛車の整備・給油・走行距離履歴
+- Current feature task: Issue #138 / PR #140
+- Feature: 愛車の整備・給油・走行距離履歴
 - Branch: `docs/issue-138-garage-maintenance-history-requirements`
 - Phase: Phase 1 / Requirements Definition
 - Web foundation implementation remains blocked.
@@ -13,8 +14,8 @@
 
 ## Current Feature
 
-Issue #138:
-https://github.com/mizzz-ivr/RouteGarage/issues/138
+- Issue #138: https://github.com/mizzz-ivr/RouteGarage/issues/138
+- PR #140: https://github.com/mizzz-ivr/RouteGarage/pull/140
 
 Documents:
 
@@ -160,7 +161,7 @@ Do not infer approval from merge status.
 - Open / `ai: blocked`
 - Keep blocked until Issue #139 and #137 are complete.
 
-## Review Required for Issue #138
+## Review Required for Issue #138 / PR #140
 
 - Product
 - UX
@@ -181,11 +182,11 @@ Key decisions:
 5. Vehicle archive behavior.
 6. Vehicle full-delete + history policy.
 7. Whether reminder notifications enter MVP.
-8. Whether cost/fuel-economy summaries enter MVP.
+8. Whether cost/fuel economy summaries enter MVP.
 
 ## Next Tasks
 
-1. Create and review Issue #138 requirements PR.
+1. Review PR #140.
 2. After approval, integrate MVP/screen delta into Source of Truth.
 3. Resolve Issue #139 with human architecture review.
 4. If accepted, move ADR-0002 to `Accepted` through a follow-up PR.
