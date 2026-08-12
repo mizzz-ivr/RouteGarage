@@ -133,12 +133,17 @@
 ## PR #140 Status
 
 - State: Open
+- Mergeable: true
 - Draft: false
-- Initial compare: 9 commits / 9 files / behind 0
+- Latest confirmed compare: 12 commits / 9 files / behind 0
 - Changes: docs only
+- AI支援セルフレビュー: COMMENT済み
+- Codex review: `@codex review`依頼済み / 現時点でレビュー結果未返却
+- Unresolved review threads: 0
+- GitHub Actions / commit status: workflow・status checkなし
 - Human review: 未完了
 
-mergeability / Codex review / review thread / workflow statusは最新head確認後に更新する。
+workflow/statusが存在しないためCI通過とは扱わない。Codexへの依頼コメントだけをレビュー完了とは扱わない。
 
 ## Web Foundation Status
 
