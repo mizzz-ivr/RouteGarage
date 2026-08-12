@@ -3,16 +3,17 @@
 ## 現在状態
 
 - Repository: `mizzz-ivr/RouteGarage`
-- Current feature task: Issue #138
+- Current feature task: Issue #138 / PR #140
 - Feature: 愛車の整備・給油・走行距離履歴
 - Branch: `docs/issue-138-garage-maintenance-history-requirements`
 - Phase: Phase 1 / Requirements Definition（機能要件の並行作業）
 - AI生成物: 人間レビュー必須
 - DB/API/UI実装: 未着手
 
-## Current Feature Issue
+## Current Feature Issue / PR
 
 - Issue #138: https://github.com/mizzz-ivr/RouteGarage/issues/138
+- PR #140: https://github.com/mizzz-ivr/RouteGarage/pull/140
 - Requirements: `docs/requirements/garage-maintenance-history-requirements.md`
 - Fuel/Odometer invariants: `docs/requirements/garage-maintenance-fuel-odometer-invariants.md`
 - MVP delta: `docs/requirements/issue-138-mvp-delta.md`
@@ -129,6 +130,16 @@
 - 車検適合保証
 - 他ユーザーへの履歴公開
 
+## PR #140 Status
+
+- State: Open
+- Draft: false
+- Initial compare: 9 commits / 9 files / behind 0
+- Changes: docs only
+- Human review: 未完了
+
+mergeability / Codex review / review thread / workflow statusは最新head確認後に更新する。
+
 ## Web Foundation Status
 
 ### PR #136
@@ -204,7 +215,7 @@ PR #136では「人間レビュー後、同一PRでAcceptedへ変更してから
 
 ## Next Steps
 
-1. Issue #138の要件PRをレビューする。
+1. PR #140の人間レビューを受ける。
 2. 走行距離逆転/メーター交換/満タン法/車両削除方針を人間判断する。
 3. 承認後、MVP・画面正本へdeltaを統合する。
 4. Issue #139でADR-0002の承認状態を整合する。
