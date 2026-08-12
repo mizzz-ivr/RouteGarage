@@ -16,6 +16,7 @@
 - PR #140: https://github.com/mizzz-ivr/RouteGarage/pull/140
 - Requirements: `docs/requirements/garage-maintenance-history-requirements.md`
 - Fuel/Odometer invariants: `docs/requirements/garage-maintenance-fuel-odometer-invariants.md`
+- Codex review clarifications: `docs/requirements/issue-138-review-clarifications.md`
 - MVP delta: `docs/requirements/issue-138-mvp-delta.md`
 - Screen delta: `docs/screen-design/garage-maintenance-screen-extension.md`
 
@@ -84,6 +85,9 @@
 
 - 前回満タンから今回満タンまでを1区間とする。
 - 途中の部分給油を合算する。
+- 同一日の複数給油は日付だけで順序を推測せず、同日内の論理順序を確定できる場合だけ区間へ含める。
+- `created_at`、DB ID、UUID、API到着順を実際の給油順の代替にしない。
+- 同日内順序を確定できない場合は、その記録を含む区間を算出不能とする。
 - 前回満タンがない場合は算出しない。
 - 距離が逆転している区間は算出しない。
 - メーター交換をまたぐ区間は補正仕様確定前は算出しない。
@@ -93,6 +97,8 @@
 
 - ユーザーが日付/走行距離を任意設定する。
 - システムは入力済み有効値との比較結果だけを表示する。
+- 「目安が近い」は近接閾値未定義のためIssue #138のMVP対象外とする。
+- MVPでは未超過、日付超過、距離超過、両方超過、判定不能を候補とする。
 - メーカー推奨値を自動生成しない。
 - 「安全」「危険」「走行不可」等の診断をしない。
 
@@ -100,10 +106,29 @@
 
 - 履歴は本人限定。
 - 公開車両プロフィールから整備費用・給油・走行距離履歴を取得できない。
+- 公開プロフィールの正常レスポンスやserialized props/client stateにも非公開メンテナンス情報を含めない。
+- 公開ストーリーの車両参照にも非公開メンテナンス情報を含めない。
 - ID直指定で他ユーザーの履歴を取得できない。
 - GPS/現在地を自動取得しない。
 - 店舗住所/座標を必須にしない。
 - VIN、ナンバープレート、車検証画像をMVPで要求しない。
+
+## Codex Review Hardening
+
+PR #140のCodexレビューで以下を追加した。
+
+1. **P1: 公開車両プロフィール経由の漏えいテスト不足**
+   - 公開プロフィール/公開ストーリーの正常閲覧経路でも、整備費用・給油・走行距離・燃費・次回目安・メモをレスポンスへ含めない必須テストを追加。
+2. **P1: 同日給油記録の順序未定義**
+   - `給油日 + 同日内論理順序`で完全順序を定義する要件を追加。
+   - 順序不明区間は燃費算出不能。
+3. **P1: 日付訂正/整備削除時の再評価テスト不足**
+   - 給油日、同日順序、走行距離付き整備記録の日付/距離訂正、整備記録削除を派生値再評価の必須ケースへ追加。
+4. **P2: 「目安が近い」の閾値未定義**
+   - Issue #138のMVP表示対象から除外。
+   - 将来追加時は日付/距離閾値、設定主体、優先順位、通知抑制を別要件で定義する。
+
+上記は `docs/requirements/issue-138-review-clarifications.md` を規範補足とする。正本統合時に元要件・不変条件へ統合し、重複を解消する。
 
 ## Added Screen Delta
 
@@ -135,15 +160,17 @@
 - State: Open
 - Mergeable: true
 - Draft: false
-- Latest confirmed compare: 12 commits / 9 files / behind 0
+- Latest confirmed compare before this status commit: 14 commits / 10 files / behind 0
 - Changes: docs only
 - AI支援セルフレビュー: COMMENT済み
-- Codex review: `@codex review`依頼済み / 現時点でレビュー結果未返却
+- Codex review: COMMENTED
+- Codex findings: P1 3件 / P2 1件
+- Codex findings: 全件対応・返信・Resolve済み
 - Unresolved review threads: 0
-- GitHub Actions / commit status: workflow・status checkなし
+- GitHub Actions / commit status: workflow・status checkなし（最新headで再確認要）
 - Human review: 未完了
 
-workflow/statusが存在しないためCI通過とは扱わない。Codexへの依頼コメントだけをレビュー完了とは扱わない。
+workflow/statusが存在しない場合はCI通過とは扱わない。Codexレビュー対応済みでも人間レビューの代替とは扱わない。
 
 ## Web Foundation Status
 
@@ -221,8 +248,8 @@ PR #136では「人間レビュー後、同一PRでAcceptedへ変更してから
 ## Next Steps
 
 1. PR #140の人間レビューを受ける。
-2. 走行距離逆転/メーター交換/満タン法/車両削除方針を人間判断する。
-3. 承認後、MVP・画面正本へdeltaを統合する。
+2. 走行距離逆転/メーター交換/満タン法/同日給油順序/車両削除方針を人間判断する。
+3. 承認後、MVP・画面正本へdeltaとレビュー補足を統合する。
 4. Issue #139でADR-0002の承認状態を整合する。
 5. ADR Accepted後にIssue #137を進める。
 6. Issue #137完了後にIssue #135でWeb基盤を実装する。
