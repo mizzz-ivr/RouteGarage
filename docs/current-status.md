@@ -3,7 +3,7 @@
 ## 現在状態
 
 - Repository: `mizzz-ivr/RouteGarage`
-- Current feature task: Issue #141
+- Current feature task: Issue #141 / PR #142
 - Feature: ドライブ振り返り・統計ダッシュボード
 - Branch: `docs/issue-141-drive-review-dashboard-requirements`
 - Phase: Phase 1 / Requirements Definition（機能要件の並行作業）
@@ -13,6 +13,7 @@
 ## Current Feature
 
 - Issue #141: https://github.com/mizzz-ivr/RouteGarage/issues/141
+- PR #142: https://github.com/mizzz-ivr/RouteGarage/pull/142
 - Requirements: `docs/requirements/drive-review-dashboard-requirements.md`
 - Metrics invariants: `docs/requirements/drive-review-dashboard-metrics-invariants.md`
 - MVP delta: `docs/requirements/issue-141-mvp-delta.md`
@@ -113,6 +114,20 @@ Issue #138の整備費用・給油履歴・燃費・次回目安は本人限定�
 
 正本統合時に採番競合を再確認する。
 
+## PR #142 Status
+
+- State: Open
+- Draft: false
+- Initial compare: 10 commits / 10 files / behind 0
+- Changes: docs only
+- AI支援セルフレビュー: COMMENT済み
+- Codex review: `@codex review`依頼済み
+- Codex findings: 現時点で未返却
+- Initial unresolved review threads: 0
+- Human review: 未完了
+
+Codexへの依頼だけをレビュー完了とは扱わない。
+
 ## Recently Completed
 
 ### Issue #138 / PR #140
@@ -189,8 +204,8 @@ PR #136はマージ済みだが、mainのADR-0002は`Status: Proposed`のまま�
 
 ## Next Steps
 
-1. Issue #141の要件PRを作成してレビューする。
-2. Codexレビュー指摘を同PR内で処理する。
+1. PR #142のCodex/人間レビューを受ける。
+2. Codex指摘があれば同PR内で解消する。
 3. 人間承認後、MVP/画面正本へdeltaを統合する。
 4. 別途PR #140由来のGarage delta正本統合作業を行う。
 5. Issue #139でADR-0002承認状態を人間判断で整合する。
