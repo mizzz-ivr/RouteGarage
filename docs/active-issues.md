@@ -8,13 +8,14 @@
 - PR: https://github.com/mizzz-ivr/RouteGarage/pull/142
 - Branch: `docs/issue-141-drive-review-dashboard-requirements`
 - Phase: Phase 1 / Requirements Definition
-- Status: PR Review
+- Status: Human Review
 - Priority: High
 
 成果物:
 
 - `docs/requirements/drive-review-dashboard-requirements.md`
 - `docs/requirements/drive-review-dashboard-metrics-invariants.md`
+- `docs/requirements/issue-141-review-clarifications.md`
 - `docs/requirements/issue-141-mvp-delta.md`
 - `docs/screen-design/drive-review-dashboard-screen-extension.md`
 - `docs/content/drive-review-dashboard-content-guidelines.md`
@@ -38,65 +39,38 @@
 - ランキング/速度/最短時間/ストリークを出さない
 - 走行量を煽らない
 
-レビュー状態:
+Codexレビュー:
 
-- AI支援セルフレビュー: COMMENT済み
-- Codex review: 依頼済み
-- 人間レビュー: 未完了
+- P1: 月所属基準未確定 → `走行日`をMVPの月/年所属正本として固定
+- P1: 公開投稿経由の漏えいテスト不足 → 公開プロフィール/投稿/ストーリーを独立必須テスト化
+- P2: 距離あり/未入力混在表示 → 算出値 + 欠損注記、全件未入力時だけデータなし
+- P2: 車両参照解除時の再集計 → A→null/null→Bを明示し旧車両派生値を再評価
+- 全4件を修正・返信・Resolve済み
+- 未解決review thread: 0
+- Human review: 未完了
 
 ### Issue #139: ADR-0002承認状態と実装ゲート整合
 
 - Issue: https://github.com/mizzz-ivr/RouteGarage/issues/139
 - Priority: Critical
-- Area: Architecture / Project Management
 - Status: Open / `ai: blocked`
-
-背景:
-
-- PR #136は2026-08-12 09:08 JSTにmainへマージ済み。
-- mainのADR-0002は`Status: Proposed`のまま。
-- ADR自身はマージ前の人間レビューと`Accepted`遷移を必須条件としていた。
-
-方針:
-
-- PRマージ済みという理由だけでADR承認済み扱いしない。
-- 人間レビューで承認できる場合、フォローアップPRで`Accepted`へ更新する。
-- Acceptedがmainへ入るまでIssue #137をunblockしない。
-- Issue #137完了までIssue #135をunblockしない。
+- PR #136はマージ済みだがmainのADR-0002は`Status: Proposed`
+- 人間レビューで承認できる場合のみフォローアップPRで`Accepted`へ更新する
+- Acceptedがmainへ入るまでIssue #137をunblockしない
 
 ### Issue #137: Webアプリ基盤初期実装の詳細設計・テスト仕様
 
 - Issue: https://github.com/mizzz-ivr/RouteGarage/issues/137
 - Phase: Phase 4 / Detail Design
-- Status: **Blocked by Issue #139 / ADR-0002 acceptance**
+- Status: Blocked by Issue #139 / ADR-0002 acceptance
 - Labels: `ai: blocked`, `ai: human-review-required`
-
-詳細化予定:
-
-- 初期作成ファイル一覧
-- Node / package / npm scripts
-- landing / safety / error / 404 acceptance
-- env / security headers
-- Vitest / RTL cases
-- Playwright smoke cases
-- GitHub Actions trigger / jobs / failure behavior
 
 ### Issue #135: Webアプリ基盤を初期実装し、PR品質ゲートを構築する
 
 - Issue: https://github.com/mizzz-ivr/RouteGarage/issues/135
 - Phase: Phase 5 / Implementation
-- Status: **Blocked by Issue #139 / #137**
+- Status: Blocked by Issue #139 / #137
 - Labels: `ai: blocked`, `ai: human-review-required`
-
-実装予定:
-
-- Next.js / TypeScript / Tailwind bootstrap
-- root layout / landing
-- 安全注意表示
-- error / not-found fallback
-- `.env.example`
-- lint / typecheck / unit test / build / E2E smoke
-- GitHub Actions quality gate
 
 ## Recently Completed
 
@@ -105,29 +79,19 @@
 - Issue #138: Closed
 - PR #140: Merged 2026-08-13 09:36 JST
 - Merge commit: `fe3520c57811b19e2c3a925d59db1b3bef2df3fb`
-- Codex P1 3件 / P2 1件は対応・Resolve済み
 - MVP/画面deltaのcanonical統合は別作業として残る
 
-### Issue #134 / PR #136: Webアプリ基盤の技術選定・基本設計
+### Issue #134 / PR #136
 
-- PR #136 merged: 2026-08-12 09:08 JST
-- Merge commit: `f20f157b396ccca49210b791849dbaef510c0bad`
-- ADR-0002はmain上で`Proposed`のため、承認状態はIssue #139で整合する
+- PR #136: Merged 2026-08-12 09:08 JST
+- ADR-0002はmain上で`Proposed`のためIssue #139で整合する
 
-### その他
-
-- Issue #132 / PR #133: テーマ別ドライブコレクション・訪問進捗要件
-- Issue #130 / PR #131: 24時間ドライブストーリー
-- Issue #128 / PR #129: 行きたいスポット・ドライブプラン
-
-## Issue #141 Review Decisions
-
-人間レビューで特に確認する。
+## Issue #141 Human Decisions
 
 1. 任意期間フィルターをMVPへ含めるか。
-2. 0件月をグラフで0表示するか、データなしとして区別するか。
+2. 0件月を0表示するか、no-dataとして区別するか。
 3. 粗いエリア集計をMVPへ含めるか。
-4. 過去の思い出セクションをMVPへ含めるか。
+4. 「過去の思い出」をMVPへ含めるか。
 5. 車両アーカイブ後の表示名方針。
 6. 将来の統計共有をロードマップ候補にするか。
 
@@ -137,17 +101,14 @@
 - `Proposed` ADRのままIssue #137/#135を開始しない。
 - provider未選定SDKを先行導入しない。
 - 実位置・実走行履歴・実ユーザー画像をfixtureへ使用しない。
-- geolocation / camera / microphoneをWeb基盤から要求しない。
 - secretsをRepositoryへ保存しない。
 - CI成功を人間レビューの代替にしない。
-- 統計値を運転技術評価/競争機能へ拡張しない。
 
 ## Upcoming
 
-1. PR #142のCodex/人間レビュー。
-2. Codex指摘があれば同PR内で解消する。
-3. 人間承認後、MVP/画面正本へdeltaを統合する。
-4. PR #140由来のGarage delta canonical統合を別タスク化する。
-5. Issue #139でADR-0002の承認状態を整合する。
-6. ADR Accepted後にIssue #137をunblockする。
-7. Issue #137詳細設計完了後、Issue #135でWeb基盤/品質ゲートを実装する。
+1. PR #142の人間レビュー。
+2. 承認後、Issue #141 delta/レビュー補足をcanonicalへ統合。
+3. PR #140由来Garage deltaもcanonical統合。
+4. Issue #139を人間レビューで解消。
+5. ADR Accepted後、Issue #137を進める。
+6. Issue #137完了後、Issue #135でWeb基盤/品質ゲートを実装する。
