@@ -3,10 +3,11 @@
 ## Summary
 
 - Repository: `mizzz-ivr/RouteGarage`
-- Current feature task: Issue #141
+- Current feature task: Issue #141 / PR #142
 - Feature: ドライブ振り返り・統計ダッシュボード
 - Branch: `docs/issue-141-drive-review-dashboard-requirements`
 - Phase: Phase 1 / Requirements Definition
+- PR: https://github.com/mizzz-ivr/RouteGarage/pull/142
 - Web foundation implementation remains blocked.
 - PR #140 / Issue #138は2026-08-13 09:36 JSTに完了。
 - Issue #139 / #137 / #135は引き続き実装ゲート。
@@ -14,6 +15,7 @@
 ## Current Feature
 
 - Issue #141: https://github.com/mizzz-ivr/RouteGarage/issues/141
+- PR #142: https://github.com/mizzz-ivr/RouteGarage/pull/142
 
 Documents:
 
@@ -99,6 +101,14 @@ Avoid:
 - ランキング
 - 運転レベル
 
+## PR #142 Review State
+
+- AI支援セルフレビュー: COMMENT済み
+- Codex review: `@codex review`依頼済み
+- Codex findings: 現時点で未返却
+- Initial unresolved review threads: 0
+- Human review: 未完了
+
 ## Recently Completed
 
 ### Issue #138 / PR #140
@@ -145,8 +155,8 @@ Decide:
 
 ## Next Tasks
 
-1. Create and review Issue #141 PR.
-2. Run Codex review and address relevant findings.
+1. Complete Codex review for PR #142 and address relevant findings.
+2. Complete human review for PR #142.
 3. After human approval, integrate Issue #141 delta into canonical MVP/screens.
 4. Create follow-up canonical integration task for Issue #138/PR #140 delta.
 5. Resolve Issue #139 through human architecture review.
