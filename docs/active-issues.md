@@ -2,12 +2,13 @@
 
 ## Active
 
-### Issue #141: ドライブ振り返り・統計ダッシュボード機能の要件定義
+### Issue #141 / PR #142: ドライブ振り返り・統計ダッシュボード機能の要件定義
 
 - Issue: https://github.com/mizzz-ivr/RouteGarage/issues/141
+- PR: https://github.com/mizzz-ivr/RouteGarage/pull/142
 - Branch: `docs/issue-141-drive-review-dashboard-requirements`
 - Phase: Phase 1 / Requirements Definition
-- Status: Requirements Draft
+- Status: PR Review
 - Priority: High
 
 成果物:
@@ -36,6 +37,12 @@
 - 正確な頻出地点を出さない
 - ランキング/速度/最短時間/ストリークを出さない
 - 走行量を煽らない
+
+レビュー状態:
+
+- AI支援セルフレビュー: COMMENT済み
+- Codex review: 依頼済み
+- 人間レビュー: 未完了
 
 ### Issue #139: ADR-0002承認状態と実装ゲート整合
 
@@ -137,8 +144,8 @@
 
 ## Upcoming
 
-1. Issue #141要件PRを作成する。
-2. Codexレビューを実施し、指摘を同PR内で解消する。
+1. PR #142のCodex/人間レビュー。
+2. Codex指摘があれば同PR内で解消する。
 3. 人間承認後、MVP/画面正本へdeltaを統合する。
 4. PR #140由来のGarage delta canonical統合を別タスク化する。
 5. Issue #139でADR-0002の承認状態を整合する。
