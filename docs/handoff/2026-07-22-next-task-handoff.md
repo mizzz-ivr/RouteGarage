@@ -1,152 +1,203 @@
-# Handoff（2026-08-10 / Issue #134）
+# Handoff（2026-08-12 / Issue #138）
 
 ## Summary
 
 - Repository: `mizzz-ivr/RouteGarage`
-- Phase: Phase 3 / Basic Design
-- PR #133 / Issue #132は2026-08-10 09:39 JSTに完了。
-- Repositoryには現時点でWebアプリ実装コードがない。
-- 現在はIssue #134 / PR #136でWeb MVPのアプリ基盤を基本設計中。
-- Issue #137をPhase 4詳細設計として作成済みで、PR #136完了までBlocked。
-- Issue #135を最初の実装Issueとして作成済みだが、#134 / #137完了までBlocked。
+- Current feature task: Issue #138 / PR #140
+- Feature: 愛車の整備・給油・走行距離履歴
+- Branch: `docs/issue-138-garage-maintenance-history-requirements`
+- Phase: Phase 1 / Requirements Definition
+- Web foundation implementation remains blocked.
+- PR #136 was merged at 2026-08-12 09:08 JST, but ADR-0002 remains `Proposed` on main.
+- Issue #139 tracks the resulting governance inconsistency.
+- Issue #137 / #135 remain `ai: blocked`.
 
-## Current Issue / PR
+## Current Feature
 
-- Issue #134: https://github.com/mizzz-ivr/RouteGarage/issues/134
-- PR #136: https://github.com/mizzz-ivr/RouteGarage/pull/136
-- Branch: `docs/issue-134-web-app-foundation-design`
-- Design: `docs/architecture/web-application-foundation-design.md`
-- ADR: `docs/adr/ADR-0002-web-application-foundation.md`
+- Issue #138: https://github.com/mizzz-ivr/RouteGarage/issues/138
+- PR #140: https://github.com/mizzz-ivr/RouteGarage/pull/140
 
-## Detail Design Gate
+Documents:
 
-- Issue #137: https://github.com/mizzz-ivr/RouteGarage/issues/137
-- Phase: Phase 4 / Detail Design
-- Status: Blocked by #134 / PR #136
+- `docs/requirements/garage-maintenance-history-requirements.md`
+- `docs/requirements/garage-maintenance-fuel-odometer-invariants.md`
+- `docs/requirements/issue-138-mvp-delta.md`
+- `docs/screen-design/garage-maintenance-screen-extension.md`
 
-Issue #137で固定する内容:
+## Product Goal
 
-- 初期作成ファイル一覧
-- runtime/package/scripts
-- landing/safety/error/404 acceptance
-- security/env境界
-- unit/component test cases
-- Playwright smoke cases
-- GitHub Actions workflow詳細
+Garageを車両プロフィールだけの領域から、愛車を継続管理できる個人記録領域へ拡張する。
 
-## Pending Implementation
+対象:
 
-- Issue #135: https://github.com/mizzz-ivr/RouteGarage/issues/135
-- Phase: Phase 5 / Implementation
-- Status: Blocked by #134 / #137
-- Implementation starts only after basic design and detail design are approved and merged.
+- 整備履歴
+- 給油履歴
+- 走行距離履歴
+- 費用集計候補
+- 満タン法による区間燃費候補
+- ユーザー設定の次回メンテナンス目安
 
-## Proposed Web Foundation
+## Maintenance Record
 
-- Next.js / React / TypeScript
-- App Router
-- Tailwind CSS
-- Node.js 24 LTS
-- npm + `package-lock.json`
-- TypeScript strict
-- Repository root single Web app
-- Server Component default
-- Client Component only for required browser interaction
+必須:
 
-Next.js / React / Tailwindの正確なpackage versionは実装直前に公式stableを再確認し、lockfileで固定する。
+- 車両
+- 実施日
+- カテゴリ
+- 作業内容
 
-## Layer Boundaries
+任意:
 
-- `src/app`: routing / layout / composition
-- `src/features`: use case UI / application orchestration
-- `src/domain`: provider-independent rule / type
-- `src/adapters`: Auth / Maps / Storage / API external boundaries
-- `src/shared`: reusable UI / utility
+- 走行距離
+- 店舗名/作業者メモ
+- 費用
+- 個人メモ
+- 次回目安日
+- 次回目安走行距離
 
-Dependency principle:
+## Fuel Record
 
-```text
-app -> features -> domain
-app -> shared
-features -> shared
-adapters -> domain
-```
+必須:
 
-Do not allow:
+- 車両
+- 給油日
+- 走行距離
+- 給油量
+- 満タンフラグ
 
-- domain -> React / Next.js / provider SDK
-- feature -> provider SDK directly
-- shared -> feature-specific business rule
+任意:
 
-## Issue #135 Scope
+- 合計金額
+- 単価
+- 個人メモ
 
-- Next.js / TypeScript / Tailwind bootstrap
-- root layout / landing page
-- visible driving-safety notice
-- error / not-found fallback
-- `.env.example`
-- lint / typecheck / unit test / build / E2E smoke
-- GitHub Actions PR quality gate
-- minimal README update
+## Odometer Integrity
 
-## Issue #135 Out of Scope
+- 通常区間は単調非減少。
+- 同値は許容。
+- 距離逆転は通常記録として無条件確定しない。
+- 訂正/メーター交換を通常系列と区別する。
+- 過去日付への後追い登録では記録対象日を基準に再評価する。
 
-- DB / ORM
-- Auth
-- Maps / geolocation
-- Storage / CDN
-- real spot data
-- real drive history
-- drive collection business implementation
-- production hosting decision
-- iOS / Android
+## Fuel Economy Integrity
 
-## Safety / Security Baseline
+初期候補は満タン法。
 
-- Do not request geolocation / camera / microphone in foundation scope.
-- Do not store secrets in Repository.
-- Do not put secrets under `NEXT_PUBLIC_`.
-- Do not use real user location or drive history in fixtures.
-- Do not introduce unapproved provider SDKs.
-- Show stop-before-use / no-driving-operation guidance from initial UI.
+- 前回有効満タン → 今回有効満タンを1区間とする。
+- 途中の部分給油は合算する。
+- 前回満タン時の給油量は次区間へ含めない。
+- 距離0以下、給油量0以下、距離不整合、メーター交換境界では算出しない。
+- 算出不能を0km/Lとして表示しない。
+- 元履歴の訂正/削除後に派生値を再評価する。
 
-## Quality Gate Planned for #135
+## Reminder Boundary
 
-Issue #137で具体仕様を確定し、#135で実装する。
+次回目安はユーザー設定値のみを扱う。
 
-1. `npm ci`
-2. lint
-3. typecheck
-4. unit/component test
-5. production build
-6. E2E smoke
+Do not infer:
 
-CI is not a substitute for human review.
+- manufacturer recommendation
+- safe/unsafe to drive
+- inspection compliance
+- fault diagnosis
 
-## Review Required for #136
+## Authorization / Privacy
+
+- Owner only.
+- Public vehicle profile must not expose maintenance/fuel/odometer history.
+- No GPS/current-location auto capture.
+- Store name is optional; address/coordinates are not required.
+- VIN/license plate/inspection document image are not required.
+
+## Screen Delta
+
+Candidates:
+
+- SCR-16 extension: Garage -> Maintenance History
+- SCR-31: Maintenance History List
+- SCR-32: Maintenance Create/Edit
+- SCR-33: Fuel Create/Edit
+- SCR-34: Maintenance Detail/Summary
+
+Recheck numbering before Source of Truth integration.
+
+## Out of Scope
+
+- OBD/ECU/dashcam integration
+- GPS automatic odometer
+- VIN/manufacturer API
+- shop reservation/payment
+- receipt OCR
+- receipt/maintenance image storage
+- AI fault/safety diagnosis
+- driveability judgment
+- legal inspection guarantee
+- public sharing of private histories
+
+## Web Foundation Governance
+
+### PR #136
+
+- Merged: 2026-08-12 09:08 JST
+- Merge commit: `f20f157b396ccca49210b791849dbaef510c0bad`
+
+### Issue #139
+
+https://github.com/mizzz-ivr/RouteGarage/issues/139
+
+main ADR-0002 is still `Status: Proposed` although the ADR required human review + `Accepted` before PR #136 merge.
+
+Do not infer approval from merge status.
+
+### Issue #137
+
+- Phase 4 / Detail Design
+- Open / `ai: blocked`
+- Keep blocked until ADR acceptance is reconciled through Issue #139.
+
+### Issue #135
+
+- Phase 5 / Implementation
+- Open / `ai: blocked`
+- Keep blocked until Issue #139 and #137 are complete.
+
+## Review Required for Issue #138 / PR #140
 
 - Product
-- Tech lead / architect
-- Frontend
+- UX
+- Garage domain
 - Security
 - Privacy
 - Safety
+- Data design
 - Operations
 - Project owner
 
-## Remaining Tasks
+Key decisions:
 
-1. PR #136を人間レビューする。
-2. ADR-0002をAcceptedとしてよいか判断する。
-3. 承認後PR #136をmainへマージする。
-4. Issue #137のBlockedを解除して詳細設計を進める。
-5. Issue #137完了後、Issue #135のBlockedを解除し`ai: codex-ready`へ更新する。
-6. Issue #135を別feature branch / PRで実装する。
-7. 基盤完了後、業務機能ごとに詳細設計・実装へ進む。
+1. Maintenance odometer optional vs required.
+2. Fuel odometer required.
+3. Full-tank method and partial-fill aggregation.
+4. Do not calculate across meter replacement initially.
+5. Vehicle archive behavior.
+6. Vehicle full-delete + history policy.
+7. Whether reminder notifications enter MVP.
+8. Whether cost/fuel economy summaries enter MVP.
+
+## Next Tasks
+
+1. Review PR #140.
+2. After approval, integrate MVP/screen delta into Source of Truth.
+3. Resolve Issue #139 with human architecture review.
+4. If accepted, move ADR-0002 to `Accepted` through a follow-up PR.
+5. Unblock and complete Issue #137.
+6. Unblock Issue #135 and implement Web foundation + CI.
+7. Later move Garage history through screen/basic/detail design before implementation.
 
 ## Do Not Proceed Yet
 
-- Do not implement Issue #135 before PR #136 and Issue #137 are complete.
-- Do not select DB/Auth/Maps/Storage provider in foundation PR.
-- Do not acquire API keys or send external data.
-- Do not use real location/drive/user data.
+- Do not implement #135 while ADR-0002 is Proposed.
+- Do not implement Garage history from Issue #138 alone.
+- Do not introduce DB/Auth/Maps/Storage providers.
+- Do not acquire API keys.
+- Do not use real user location/drive/maintenance records in the public repository.
