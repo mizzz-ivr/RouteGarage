@@ -1,203 +1,163 @@
-# Handoff（2026-08-12 / Issue #138）
+# Handoff（2026-08-13 / Issue #141）
 
 ## Summary
 
 - Repository: `mizzz-ivr/RouteGarage`
-- Current feature task: Issue #138 / PR #140
-- Feature: 愛車の整備・給油・走行距離履歴
-- Branch: `docs/issue-138-garage-maintenance-history-requirements`
+- Current feature task: Issue #141
+- Feature: ドライブ振り返り・統計ダッシュボード
+- Branch: `docs/issue-141-drive-review-dashboard-requirements`
 - Phase: Phase 1 / Requirements Definition
 - Web foundation implementation remains blocked.
-- PR #136 was merged at 2026-08-12 09:08 JST, but ADR-0002 remains `Proposed` on main.
-- Issue #139 tracks the resulting governance inconsistency.
-- Issue #137 / #135 remain `ai: blocked`.
+- PR #140 / Issue #138は2026-08-13 09:36 JSTに完了。
+- Issue #139 / #137 / #135は引き続き実装ゲート。
 
 ## Current Feature
 
-- Issue #138: https://github.com/mizzz-ivr/RouteGarage/issues/138
-- PR #140: https://github.com/mizzz-ivr/RouteGarage/pull/140
+- Issue #141: https://github.com/mizzz-ivr/RouteGarage/issues/141
 
 Documents:
 
-- `docs/requirements/garage-maintenance-history-requirements.md`
-- `docs/requirements/garage-maintenance-fuel-odometer-invariants.md`
-- `docs/requirements/issue-138-mvp-delta.md`
-- `docs/screen-design/garage-maintenance-screen-extension.md`
+- `docs/requirements/drive-review-dashboard-requirements.md`
+- `docs/requirements/drive-review-dashboard-metrics-invariants.md`
+- `docs/requirements/issue-141-mvp-delta.md`
+- `docs/screen-design/drive-review-dashboard-screen-extension.md`
+- `docs/content/drive-review-dashboard-content-guidelines.md`
 
 ## Product Goal
 
-Garageを車両プロフィールだけの領域から、愛車を継続管理できる個人記録領域へ拡張する。
+本人の既存記録を用いて、競争ではなく振り返りとして月間/年間/車両別のドライブ活動を確認できるようにする。
 
 対象:
 
-- 整備履歴
-- 給油履歴
-- 走行距離履歴
-- 費用集計候補
-- 満タン法による区間燃費候補
-- ユーザー設定の次回メンテナンス目安
+- 期間サマリー
+- 月別推移
+- 車両別振り返り
+- 訪問/コレクション振り返り
+- 最近の記録
+- 次のドライブへの手動導線
 
-## Maintenance Record
+## Metrics Invariants
 
-必須:
+- `drive_count`は対象期間の有効走行記録件数。
+- `total_distance`は距離入力済み有効記録だけを合計する。
+- 距離未入力を0kmとして扱わない。
+- 平均距離の分母は距離入力済み有効記録件数。
+- 分母0は算出不能。
+- 計画距離を実績へ混ぜない。
+- 同一記録を二重計上しない。
+- 車両参照なし記録を推測で車両へ割り当てない。
+- 編集/削除/参照変更後は派生統計を再評価する。
 
-- 車両
-- 実施日
-- カテゴリ
-- 作業内容
-
-任意:
-
-- 走行距離
-- 店舗名/作業者メモ
-- 費用
-- 個人メモ
-- 次回目安日
-- 次回目安走行距離
-
-## Fuel Record
-
-必須:
-
-- 車両
-- 給油日
-- 走行距離
-- 給油量
-- 満タンフラグ
-
-任意:
-
-- 合計金額
-- 単価
-- 個人メモ
-
-## Odometer Integrity
-
-- 通常区間は単調非減少。
-- 同値は許容。
-- 距離逆転は通常記録として無条件確定しない。
-- 訂正/メーター交換を通常系列と区別する。
-- 過去日付への後追い登録では記録対象日を基準に再評価する。
-
-## Fuel Economy Integrity
-
-初期候補は満タン法。
-
-- 前回有効満タン → 今回有効満タンを1区間とする。
-- 途中の部分給油は合算する。
-- 前回満タン時の給油量は次区間へ含めない。
-- 距離0以下、給油量0以下、距離不整合、メーター交換境界では算出しない。
-- 算出不能を0km/Lとして表示しない。
-- 元履歴の訂正/削除後に派生値を再評価する。
-
-## Reminder Boundary
-
-次回目安はユーザー設定値のみを扱う。
-
-Do not infer:
-
-- manufacturer recommendation
-- safe/unsafe to drive
-- inspection compliance
-- fault diagnosis
-
-## Authorization / Privacy
+## Privacy / Authorization
 
 - Owner only.
-- Public vehicle profile must not expose maintenance/fuel/odometer history.
-- No GPS/current-location auto capture.
-- Store name is optional; address/coordinates are not required.
-- VIN/license plate/inspection document image are not required.
+- Public profile/post/story must not expose private statistics.
+- Do not prefetch another user's private statistics into client state.
+- Do not infer home/work/vehicle-storage location.
+- Do not create exact frequent-location ranking.
+
+## Safety
+
+Do not add:
+
+- speed ranking
+- fastest/shortest-time records
+- distance ranking
+- streaks
+- driving score
+- safety score
+- copy that pressures the user to drive more
 
 ## Screen Delta
 
 Candidates:
 
-- SCR-16 extension: Garage -> Maintenance History
-- SCR-31: Maintenance History List
-- SCR-32: Maintenance Create/Edit
-- SCR-33: Fuel Create/Edit
-- SCR-34: Maintenance Detail/Summary
+- SCR-35: Drive Review Dashboard
+- SCR-36: Monthly Drive Review
+- SCR-37: Vehicle Drive Review
+- SCR-05: optional monthly-review card
 
-Recheck numbering before Source of Truth integration.
+Recheck numbering before canonical integration.
 
-## Out of Scope
+## Content Guidance
 
-- OBD/ECU/dashcam integration
-- GPS automatic odometer
-- VIN/manufacturer API
-- shop reservation/payment
-- receipt OCR
-- receipt/maintenance image storage
-- AI fault/safety diagnosis
-- driveability judgment
-- legal inspection guarantee
-- public sharing of private histories
+Preferred:
+
+- 今月のドライブ
+- 今年のドライブ
+- 愛車別の記録
+- 最近のドライブ
+- 距離データなし
+- 算出できません
+
+Avoid:
+
+- 自己ベスト
+- 走行不足
+- もっと走ろう
+- 最速
+- ランキング
+- 運転レベル
+
+## Recently Completed
+
+### Issue #138 / PR #140
+
+- Feature: Garage maintenance/fuel/odometer requirements
+- Issue: Closed
+- PR: Merged 2026-08-13 09:36 JST
+- Merge commit: `fe3520c57811b19e2c3a925d59db1b3bef2df3fb`
+- Codex P1 x3 / P2 x1 addressed before merge
+- Canonical MVP/screen integration remains follow-up work
 
 ## Web Foundation Governance
-
-### PR #136
-
-- Merged: 2026-08-12 09:08 JST
-- Merge commit: `f20f157b396ccca49210b791849dbaef510c0bad`
 
 ### Issue #139
 
 https://github.com/mizzz-ivr/RouteGarage/issues/139
 
-main ADR-0002 is still `Status: Proposed` although the ADR required human review + `Accepted` before PR #136 merge.
-
-Do not infer approval from merge status.
+- Open / `ai: blocked`
+- main ADR-0002 remains `Status: Proposed`
+- Do not infer approval from PR #136 merge
 
 ### Issue #137
 
 - Phase 4 / Detail Design
 - Open / `ai: blocked`
-- Keep blocked until ADR acceptance is reconciled through Issue #139.
+- Blocked until Issue #139 / ADR acceptance is reconciled
 
 ### Issue #135
 
 - Phase 5 / Implementation
 - Open / `ai: blocked`
-- Keep blocked until Issue #139 and #137 are complete.
+- Blocked until Issue #139 and #137 are complete
 
-## Review Required for Issue #138 / PR #140
+## Human Review for Issue #141
 
-- Product
-- UX
-- Garage domain
-- Security
-- Privacy
-- Safety
-- Data design
-- Operations
-- Project owner
+Decide:
 
-Key decisions:
-
-1. Maintenance odometer optional vs required.
-2. Fuel odometer required.
-3. Full-tank method and partial-fill aggregation.
-4. Do not calculate across meter replacement initially.
-5. Vehicle archive behavior.
-6. Vehicle full-delete + history policy.
-7. Whether reminder notifications enter MVP.
-8. Whether cost/fuel economy summaries enter MVP.
+1. Custom date range in MVP.
+2. Whether zero-record months render as numeric zero or explicit no-data.
+3. Whether coarse-area aggregation enters MVP.
+4. Whether a past-memories section enters MVP.
+5. Vehicle archive display-name policy.
+6. Whether statistics sharing is a future roadmap candidate.
 
 ## Next Tasks
 
-1. Review PR #140.
-2. After approval, integrate MVP/screen delta into Source of Truth.
-3. Resolve Issue #139 with human architecture review.
-4. If accepted, move ADR-0002 to `Accepted` through a follow-up PR.
-5. Unblock and complete Issue #137.
-6. Unblock Issue #135 and implement Web foundation + CI.
-7. Later move Garage history through screen/basic/detail design before implementation.
+1. Create and review Issue #141 PR.
+2. Run Codex review and address relevant findings.
+3. After human approval, integrate Issue #141 delta into canonical MVP/screens.
+4. Create follow-up canonical integration task for Issue #138/PR #140 delta.
+5. Resolve Issue #139 through human architecture review.
+6. If accepted, move ADR-0002 to `Accepted` through a follow-up PR.
+7. Unblock and complete Issue #137.
+8. Unblock Issue #135 and implement Web foundation + CI.
 
 ## Do Not Proceed Yet
 
 - Do not implement #135 while ADR-0002 is Proposed.
-- Do not implement Garage history from Issue #138 alone.
+- Do not implement Issue #141 business UI/API/DB from requirements alone.
 - Do not introduce DB/Auth/Maps/Storage providers.
 - Do not acquire API keys.
-- Do not use real user location/drive/maintenance records in the public repository.
+- Do not use real user location/drive records in the public repository.
