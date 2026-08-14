@@ -20,38 +20,50 @@ RouteGarage は、日本の車好き・ドライブユーザー向けに、ル�
 
 ## 現在フェーズ
 
-**Phase 3 / Basic Design**
+**Phase 5 / Implementation**
 
-- Issue #134: Webアプリ基盤の技術選定・基本設計
-- Issue #135: Webアプリ基盤初期実装（#134完了までBlocked）
+- ADR-0002: `Accepted`
+- Issue #139 / PR #143: 完了
+- Issue #137 / PR #144: 完了
+- Issue #146: 遅延レビュー指摘を整合中
+- Issue #135 / Draft PR #145: Webアプリ基盤を実装中
 
-Repositoryには現時点でWebアプリ実装コードはありません。
+PR #145は実装・テスト・レビュー完了までDraftを維持します。
 
-## Web基盤設計（Issue #134でレビュー中）
+## Web基盤
 
-- Framework: Next.js
-- UI: React
-- Language: TypeScript
-- Routing: App Router
-- Styling: Tailwind CSS
-- Runtime: Node.js 24 LTS
-- Package manager: npm
-- TypeScript: strict
-- Web MVPはRepository rootの単一アプリ構成
-- Server Componentを既定とし、Client Componentを必要最小限にする
+- Next.js App Router
+- React
+- TypeScript strict
+- Tailwind CSS
+- Node.js 24 LTS
+- npm + `package-lock.json`
+- Repository rootの単一Webアプリ
+- Server Component既定 / Client Component最小化
 
 設計正本:
 
 - `docs/architecture/web-application-foundation-design.md`
+- `docs/architecture/web-application-foundation-detail-design.md`
+- `docs/architecture/web-application-foundation-test-spec.md`
 - `docs/adr/ADR-0002-web-application-foundation.md`
+
+## Issue #135 実装対象
+
+- root layout / landing
+- 走行中操作禁止のSafetyNotice
+- error / not-found
+- Security Header
+- Tailwind / TypeScript / lint設定
+- Unit test / E2E
+- GitHub Actions quality gate
+- README更新
 
 ## 未確定の技術領域
 
-次はWeb基盤PRで先取りしません。
-
 - DB / ORM
 - 認証provider
-- Maps provider
+- Maps / geolocation provider
 - Storage / CDN
 - Hosting
 - Monitoring / Analytics
@@ -60,7 +72,7 @@ Repositoryには現時点でWebアプリ実装コードはありません。
 
 必要になった時点で個別Issue / ADRで確定します。
 
-## 想定責務分離
+## 責務分離
 
 ```text
 src/app -> src/features -> src/domain
@@ -72,7 +84,7 @@ src/adapters -> src/domain
 - `src/app`: routing / layout / composition
 - `src/features`: use case UI / application orchestration
 - `src/domain`: provider非依存のrule / type
-- `src/adapters`: Auth / Maps / Storage / API等の外部境界
+- `src/adapters`: 外部provider境界
 - `src/shared`: 共通UI / utility
 
 ## 主な機能領域
@@ -83,33 +95,18 @@ src/adapters -> src/domain
 - 走行記録
 - ドライブストーリー
 - ドライブコレクション・訪問進捗
+- ドライブ振り返り・統計
 - ガレージ・愛車管理
+- 整備・給油・走行距離履歴
 - コミュニティ
-- 交通・道路参考情報
-
-各機能は要件・設計Issueが完了した範囲から段階的に実装します。
 
 ## 安全性・プライバシー
 
 - 走行中操作を助長しない
-- 位置情報は目的限定・最小保持
-- 生活拠点推定につながる情報はぼかし・非公開制御を前提とする
-- 実装基盤段階ではgeolocation / camera / microphoneを要求しない
+- 初期Web基盤ではgeolocation / camera / microphoneを要求しない
 - provider未選定SDKを先行導入しない
 - secretsや実利用者の位置・走行履歴をRepositoryへ保存しない
-
-## 最初の実装Issue
-
-Issue #135ではWebアプリの土台だけを実装します。
-
-- Next.js / TypeScript / Tailwind bootstrap
-- root layout / landing page
-- 走行中操作禁止の安全注意表示
-- error / not-found fallback
-- lint / typecheck / unit test / build / E2E smoke
-- GitHub Actions PR quality gate
-
-DB / Auth / Maps / Storage / 業務機能は含めません。
+- error UIへ内部例外詳細を表示しない
 
 ## AI開発プロトコル
 
