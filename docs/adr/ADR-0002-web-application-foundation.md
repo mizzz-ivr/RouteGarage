@@ -1,8 +1,9 @@
 # ADR-0002: Webアプリ基盤にNext.js App Router / TypeScript / Tailwind CSSを採用する
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-08-10
-- Related: Issue #134 / PR #136 / Issue #137 / Issue #135
+- Accepted: 2026-08-14
+- Related: Issue #134 / PR #136 / Issue #139 / Issue #137 / Issue #135
 
 ## Context
 
@@ -27,7 +28,7 @@ Web MVPのアプリ基盤として次を採用する。
 - Server Componentを既定、Client Componentを必要最小限
 - `src/app` / `src/features` / `src/domain` / `src/adapters` / `src/shared`の責務分離
 
-Next.js / React / Tailwind CSSの正確なpackage versionはIssue #135の実装直前に公式stableを確認して固定し、`package-lock.json`を再現性の正本とする。
+Next.js / React / Tailwind CSSの正確なpackage versionはIssue #135の実装直前に公式stableと互換性を確認して固定し、`package-lock.json`を再現性の正本とする。
 
 DB / ORM / Auth / Maps / Storage / CDN / Hosting / analyticsは本ADRで採用しない。
 
@@ -121,25 +122,41 @@ CI成功を人間レビューの代替にはしない。
 - Tailwind CSS Framework Guides: https://tailwindcss.com/docs/installation/framework-guides
 - Node.js release status: https://nodejs.org/en/about/previous-releases
 
-## Review / Acceptance Gate
+## Acceptance Record
 
-本ADRはPR #136の人間レビューが完了するまでは`Proposed`とする。
+### 2026-08-12: PR #136 merge時の不整合
 
-### マージ必須条件
+PR #136は本ADRが`Proposed`のままmainへマージされた。元のAcceptance Gateでは`Accepted`へ変更してからマージすることを必須としていたため、Issue #139で承認状態と実装ゲートの整合を行うことにした。
 
-PR #136をmainへマージする前に、次をすべて満たす。
+### 2026-08-14: Web基盤方針の承認
 
-1. 必須レビュー領域で本ADRの技術選定を承認する。
-2. 同一PR #136上の最終commitで本ファイルの`Status`を`Accepted`へ変更する。
-3. `Accepted`へ変更した最終headを再レビューし、未解決review threadがないことを確認する。
-4. `Accepted`状態のADRがmainへ入るまでIssue #137の`ai: blocked`を解除しない。
-5. Issue #137が完了するまでIssue #135の`ai: blocked`を解除しない。
+プロジェクトオーナーから、要件定義だけでなく実装自体を進める明示指示を受けた。Issue #134 / PR #136で提示済みのWeb基盤技術選定を変更せずに実装へ進む意思決定として、本ADRを`Accepted`へ更新する。
 
-`Proposed`のままPR #136をマージしない。PRのマージ後に別途`Accepted`へ直す運用にも依存しない。
+承認対象は次に限定する。
 
-### 承認できない場合
+- Next.js App Router / React / TypeScript / Tailwind CSS
+- Node.js 24 LTS + npm
+- Repository rootの単一Webアプリ
+- Server Component既定 / Client Component最小化
+- `app / features / domain / adapters / shared`の責務分離
+- provider未選定を維持すること
+- security/privacy/safety baseline
+- lint / typecheck / unit test / build / E2E / GitHub Actions方針
 
-- `Proposed`を維持する。
-- PR #136をマージしない。
-- Issue #137 / #135はBlockedのままとする。
-- 変更案は本ADRまたは代替ADRとして再レビューする。
+この承認は次を意味しない。
+
+- DB / ORMの採用
+- Auth providerの採用
+- Maps / geolocation providerの採用
+- Storage / CDN / Hosting / analytics providerの採用
+- 外部APIキー取得や契約の承認
+- 実位置情報・実走行履歴の利用承認
+- 法務・セキュリティ・プライバシー専門レビューの代替
+
+## Implementation Gate After Acceptance
+
+1. Issue #139で本ADRの`Accepted`状態をmainへ反映する。
+2. Issue #137で初期実装の詳細設計・テスト仕様を確定し、mainへマージする。
+3. Issue #137完了後にIssue #135の`ai: blocked`を解除する。
+4. Issue #135でWebアプリ基盤を実装し、実際のGitHub Actions結果を確認する。
+5. DB/Auth/Maps/Storage等は各領域の設計・承認が完了するまで導入しない。
