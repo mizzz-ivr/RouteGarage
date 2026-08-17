@@ -23,7 +23,7 @@ jobs:
       - name: package-lockをbranchへ反映
         shell: bash
         run: |
-          if git diff --quiet -- package-lock.json; then
+          if [ -z "$(git status --porcelain -- package-lock.json)" ]; then
             echo "package-lock.jsonに変更はありません。"
             exit 0
           fi
