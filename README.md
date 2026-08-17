@@ -25,10 +25,11 @@ RouteGarage は、日本の車好き・ドライブユーザー向けに、ル�
 - ADR-0002: `Accepted`
 - Issue #139 / PR #143: 完了
 - Issue #137 / PR #144: 完了
-- Issue #146: 遅延レビュー指摘を整合中
-- Issue #135 / Draft PR #145: Webアプリ基盤を実装中
+- Issue #146 / PR #147: 遅延レビュー指摘を整合中
+- Issue #135: Webアプリ基盤の実装継続中
+- PR #145: 2026-08-17にマージ済み。ただし実差分は`package.json`のみ
 
-PR #145は実装・テスト・レビュー完了までDraftを維持します。
+PR #145のマージだけでWeb基盤実装完了とは扱いません。App Router、UI、テスト、lockfile、GitHub Actionsをフォローアップ実装し、実CI結果を確認してIssue #135を完了します。
 
 ## Web基盤
 
@@ -58,6 +59,7 @@ PR #145は実装・テスト・レビュー完了までDraftを維持します�
 - Unit test / E2E
 - GitHub Actions quality gate
 - README更新
+- `package-lock.json`
 
 ## 未確定の技術領域
 
