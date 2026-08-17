@@ -4,9 +4,8 @@
 
 - Repository: `mizzz-ivr/RouteGarage`
 - Phase: Phase 5 / Implementation
-- Current implementation: Issue #135 / Draft PR #145
-- Branch: `feature/issue-135-web-foundation`
-- Review follow-up: Issue #146
+- Current implementation: Issue #135
+- Review follow-up: Issue #146 / PR #147
 - AI生成物: 人間レビュー必須
 
 ## Web Foundation
@@ -15,7 +14,7 @@
 
 - Status: `Accepted`
 - PR #143で2026-08-14にmainへ反映済み
-- 承認追跡と遅延レビュー対応はIssue #146を正本とする
+- 承認追跡と遅延レビュー対応はIssue #146 / PR #147で管理
 - DB/Auth/Maps/Storage等のproviderは承認対象外のまま
 
 ### Issue #137 / PR #144
@@ -27,36 +26,34 @@
   - `docs/architecture/web-application-foundation-detail-design.md`
   - `docs/architecture/web-application-foundation-test-spec.md`
 
-### Issue #135 / Draft PR #145
+### Issue #135 / PR #145
 
 - Phase 5 / Implementation
 - Issue: Open / Blocked解除済み
-- PR: Draft / Open
-- Branch: `feature/issue-135-web-foundation`
-- GitHubへ反映済み: `package.json`
-- App Router / UI / test / CI: 実装継続中
+- PR #145: 2026-08-17にMerged
+- PR #145の実差分: `package.json`のみ
+- Issue #135の完了条件: 未達
+- App Router / UI / test / CI: 未実装
 - `package-lock.json`: 未反映
-- GitHub Actions / commit status: 現時点で未作成・未実行
+- GitHub Actions / commit status: 未作成・未実行
 
-workflow/statusが存在しないためCI通過とは扱わない。PR #145は実装・CI・レビュー完了までDraftを維持する。
+PR #145のマージ事実だけでIssue #135を完了扱いしない。実際のコード・テスト・CIが揃うまでPhase 5を継続する。
 
-## Issue #146: 遅延レビュー整合
+## Issue #146 / PR #147: 遅延レビュー整合
 
-PR #143 / #144のCodexレビューがマージ後に返却されたため、以下を実装前に整合する。
+PR #143 / #144の遅延Codex指摘と、PR #145マージ後の実状態を正本へ同期する。
 
-### PR #143
+対応内容:
 
-- P1: プロジェクトオーナー承認の追跡参照をADRへ追加
-- P1: ADR Accepted / Issue状態を`current-status` / `active-issues`へ同期
-
-### PR #144
-
-- P1: Unit/Component testファイルを実装対象一覧へ追加
-- P2: Security Headerをrootだけでなく404/unknown routeでも検証
-- P2: GitHub Actions runner戦略を確定
-- P2: README更新をIssue #135の実装対象へ追加
-
-Issue #146完了前にPR #145をReady/Mergeしない。
+- プロジェクトオーナー承認の追跡参照をADRへ追加
+- ADR Accepted / Issue状態を`current-status` / `active-issues`へ同期
+- Unit/Component testファイルを実装対象一覧へ追加
+- Security Headerをrootだけでなく404/unknown routeでも検証
+- GitHub Actions runner戦略を確定
+- README更新をIssue #135の実装対象へ追加
+- UT-002で未実装routeへの偽リンク・偽ボタンを禁止
+- 320px viewportで主要静的コンテンツ欠落を検証
+- Issue #138/#141のcanonical統合タスクを継続管理
 
 ## Runtime / Package
 
@@ -103,7 +100,7 @@ Issue #135では次を初期固定する。
 ### Unit
 
 - SafetyNotice
-- Landing
+- Landing + 未実装routeへの操作要素なし
 - Error fallback
 - 404
 
@@ -112,31 +109,30 @@ Issue #135では次を初期固定する。
 - `/`表示
 - 404表示
 - root / 404のSecurity Header
-- 320px viewport
+- 320px viewportで主要静的コンテンツ欠落なし
 
 ### CI
 
 - quality: `ubuntu-latest` + `windows-latest`
 - e2e: `ubuntu-latest` + Chromium
-- lint / typecheck / unit / build / E2Eのいずれか失敗でマージ不可
+- lint / typecheck / unit / build / E2Eのいずれか失敗で完了不可
 
-## Current Tooling Constraint
+## Requirement Integration Backlog
 
-GitHub連携から`.tsx`等のソースコードを直接書き込む操作が安全チェックで拒否されている。未反映分は詳細設計に基づく実装bundleとして作成し、必須file存在、未承認provider混入なし、安全注意、CI write権限なしを静的確認済み。
+### Issue #138
 
-この制約により未反映コードを完了扱いしない。GitHubへ実差分が入ってCIが実行されるまでPR #145はDraftを維持する。
+Garage整備・給油・走行距離履歴のMVP/画面deltaはcanonical未統合。実装前に正本へ統合する。
 
-## Recently Completed
+### Issue #141
 
-- Issue #141 / PR #142: ドライブ振り返り・統計ダッシュボード要件
-- Issue #138 / PR #140: 愛車の整備・給油・走行距離履歴要件
-- Issue #139 / PR #143: ADR承認状態整合
-- Issue #137 / PR #144: Web基盤詳細設計・テスト仕様
+ドライブ振り返り・統計ダッシュボードのMVP/画面deltaと人間判断事項はcanonical未統合。実装前に正本へ統合する。
 
 ## Next Steps
 
-1. Issue #146の正本同期をPR化し、遅延Codex指摘をResolveする。
-2. PR #145へApp Router / UI / test / CI / lockfileを反映する。
-3. 実際のGitHub Actions結果を確認し、失敗があればログから修正する。
-4. Codex + 人間レビュー後にPR #145をReadyへ変更する。
-5. Web基盤完了後、既に要件定義済みのDrive Collection等から最初のユーザー向けvertical sliceを基本設計→詳細設計→実装する。
+1. PR #147のP2指摘を解消してマージし、Issue #146を完了する。
+2. Issue #135の不足実装をフォローアップPRで追加する。
+3. `package-lock.json`を実依存解決から生成する。
+4. GitHub Actionsを実行し、lint/typecheck/unit/build/E2Eの失敗を修正する。
+5. Codex + 人間レビュー後にIssue #135を完了する。
+6. Issue #138/#141のcanonical統合を進める。
+7. Web基盤完了後、要件定義済み機能から最初のユーザー向けvertical sliceを基本設計→詳細設計→実装する。
