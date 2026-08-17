@@ -2,15 +2,15 @@
 
 - Issue: #137
 - Follow-up: #146
-- 後続実装: #135 / Draft PR #145
-- 更新日: 2026-08-14
+- 後続実装: #135
+- 更新日: 2026-08-17
 
 ## Unit / Component
 
 Vitest + React Testing Library + jsdomを使用する。
 
 - UT-001 `src/shared/ui/safety-notice.test.tsx`: 安全注意を表示しdismiss不可
-- UT-002 `src/app/page.test.tsx`: RouteGarage、説明、SafetyNoticeを表示
+- UT-002 `src/app/page.test.tsx`: RouteGarage、説明、SafetyNoticeを表示し、未実装routeを指すリンク・ボタン・CTAを配置しない
 - UT-003 `src/app/error.test.tsx`: 一般エラー表示、内部詳細非露出、reset呼び出し
 - UT-004 `src/app/not-found.test.tsx`: 404表示とトップへのlink
 
@@ -67,7 +67,12 @@ Playwright Chromiumを使用する。
 
 ### E2E-004 Mobile
 
-viewport 320x800で横スクロールがなく、heading/SafetyNoticeが視認できる。
+viewport 320x800で次を検証する。
+
+- 横スクロールがない
+- `RouteGarage` headingとSafetyNoticeが視認できる
+- ランディングの主要静的コンテンツ（ドライブ・ガレージ・振り返り）が欠落せず表示される
+- 主要テキスト・操作要素がCSSのresponsive指定で意図せず非表示にならない
 
 ## 異常系・回帰
 
@@ -78,6 +83,7 @@ viewport 320x800で横スクロールがなく、heading/SafetyNoticeが視認�
 - geolocation/camera/microphone APIを初期画面から呼ばない
 - 実位置・実走行データをfixtureへ追加しない
 - root/pageを不要にClient Component化しない
+- 未実装routeへの偽リンク・偽ボタンを追加しない
 
 ## GitHub Actions runner戦略
 
@@ -141,8 +147,10 @@ Windows / Linuxで同じnpm scriptsを使用する。
 ## 完了条件
 
 - UT-001〜004のfileが存在する
+- UT-002で未実装routeへの操作要素がないことを検証する
 - E2E-001〜004が実装される
 - Headerはrootと404の双方で検証される
+- 320pxで主要静的コンテンツが欠落しないことを検証する
 - qualityはUbuntu/Windowsで実行される
 - e2eはUbuntu/Chromiumで実行される
 - GitHub Actionsの実結果を確認する
