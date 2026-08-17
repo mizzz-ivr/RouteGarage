@@ -1,7 +1,8 @@
 # Webアプリ基盤 初期実装詳細設計
 
 - Issue: #137
-- 後続実装: Issue #135
+- Follow-up: Issue #146
+- 後続実装: Issue #135 / Draft PR #145
 - Phase: 4 / Detail Design
 - ADR: ADR-0002 `Accepted`
 - 更新日: 2026-08-14
@@ -38,17 +39,18 @@ Issue #135で実装担当が追加の技術選定を行わず、RouteGarageの�
 - `eslint-config-next`: `16.2.12`
 - `vitest`: `4.1.10`
 - `@testing-library/react`: `16.3.2`
-- `@testing-library/jest-dom`: `6.10.0`
+- `@testing-library/jest-dom`: `7.0.0`
 - `jsdom`: `30.0.1`
 - `@playwright/test`: `1.62.0`
 
-型定義packageはNode/Reactの対象majorに合わせ、`npm install`時にlockfileへ固定する。初回実装PRでは`package-lock.json`を必ずcommitし、以後のCIは`npm ci`を使用する。
+型定義packageはNode/Reactの対象majorに合わせ、`package-lock.json`で固定する。初回実装PRでは`package-lock.json`を必ずcommitし、最終CIは`npm ci`を使用する。
 
 ### Version選定上の注意
 
 - Next.js 16.3系は2026-08-14確認時点でpreview/canaryを含むため採用しない。
 - TypeScript 7.0.2はNext.js 16.2系でCompiler API検出に既知の互換問題があるため採用せず、6.0.3へ固定する。
 - ESLint 10系はNext.js 16系の依存pluginで互換問題が報告されているため、初期基盤は9.39.5へ固定する。
+- `@testing-library/jest-dom`は実装直前の再確認で7.0.0へ更新する。
 - package更新はIssue #135へ無関係に混ぜず、後続dependency updateとして扱う。
 
 ## 3. 初期ファイル構成
@@ -57,6 +59,7 @@ Issue #135で追加・変更する対象は次に限定する。
 
 ```text
 /
+├─ README.md
 ├─ .env.example
 ├─ .nvmrc
 ├─ package.json
@@ -73,11 +76,15 @@ Issue #135で追加・変更する対象は次に限定する。
 │  │  ├─ globals.css
 │  │  ├─ layout.tsx
 │  │  ├─ page.tsx
+│  │  ├─ page.test.tsx
 │  │  ├─ error.tsx
-│  │  └─ not-found.tsx
+│  │  ├─ error.test.tsx
+│  │  ├─ not-found.tsx
+│  │  └─ not-found.test.tsx
 │  └─ shared/
 │     └─ ui/
-│        └─ safety-notice.tsx
+│        ├─ safety-notice.tsx
+│        └─ safety-notice.test.tsx
 ├─ tests/
 │  └─ e2e/
 │     └─ home.spec.ts
@@ -86,7 +93,9 @@ Issue #135で追加・変更する対象は次に限定する。
       └─ web-quality.yml
 ```
 
-`src/features` / `src/domain` / `src/adapters`は、実体がない空ディレクトリを作成しない。最初の業務機能で責務が発生した時点で追加する。
+`src/features` / `src/domain` / `src/adapters`は実体がない空ディレクトリを作成しない。最初の業務機能で責務が発生した時点で追加する。
+
+READMEは「Phase 5 / Implementation」「ADR Accepted」「#139/#137完了」「#135 / PR #145実装中」に更新し、RepositoryにWebアプリコードがないという旧記述を残さない。
 
 ## 4. package scripts
 
@@ -145,8 +154,8 @@ Server Componentとする。
 
 - Next.js error boundary要件に従い`'use client'`を付ける
 - error詳細やstack traceを画面へ露出しない
-- 「画面を表示できませんでした」等の一般メッセージと`reset()`による再試行を提供
-- client componentはこの必要範囲に限定する
+- 一般メッセージと`reset()`による再試行を提供
+- Client Componentはこの必要範囲に限定する
 
 ### `src/app/not-found.tsx`
 
@@ -173,15 +182,9 @@ Server Componentとする。
 
 Tailwind CSS v4をPostCSS経由で利用する。
 
-`globals.css`では次を担当する。
-
-- Tailwind import
-- body背景/文字色の最低限token
-- focus-visibleの視認性
-- reduced motion尊重
+`globals.css`ではTailwind import、body背景/文字色の最低限token、focus-visible、reduced motionを扱う。
 
 初期基盤ではcomponent library、icon library、font provider、animation libraryを追加しない。
-
 UIはレスポンシブで、320px幅から横スクロールを発生させない。
 
 ## 9. Security headers
@@ -208,31 +211,18 @@ CSPはHosting、nonce/hash、Next.js script挙動を含む別設計が必要な�
 
 ## 11. Accessibility
 
-最低受け入れ条件:
-
 - `lang="ja"`
 - heading階層を飛ばさない
 - interactive elementはkeyboard操作可能
 - `focus-visible`を消さない
-- error retry buttonはbutton要素
-- 404のトップ導線はlink要素
+- error retryはbutton
+- 404トップ導線はlink
 - 安全注意を色だけで伝えない
 - 320px幅で主要テキスト/操作が欠落しない
 
 ## 12. Dependency boundary
 
-Issue #135では以下をpackageへ追加しない。
-
-- DB / ORM client
-- Auth SDK
-- Maps SDK
-- geolocation wrapper
-- Storage / CDN SDK
-- analytics SDK
-- AI SDK
-- UI component framework
-
-Next.js / React / testing / lint / Tailwind以外の依存追加は原則Issue分離する。
+Issue #135ではDB/ORM、Auth、Maps/geolocation、Storage/CDN、analytics、AI、UI component frameworkのSDKを追加しない。
 
 ## 13. Failure behavior
 
@@ -244,16 +234,13 @@ Next.js / React / testing / lint / Tailwind以外の依存追加は原則Issue�
 
 ## 14. Rollback
 
-Issue #135の実装PR単位でRevertする。
+Issue #135の実装PR単位でRevertする。DB migration/provider設定はないためデータmigrationは不要。
 
-本IssueではDB migration/provider設定を行わないため、rollback時にデータmigrationは不要。
+## 15. Issue #135実装ゲート
 
-## 15. Issue #135開始条件
-
-次をすべて確認した後にIssue #135の`ai: blocked`を解除する。
-
-1. ADR-0002がmainで`Accepted`
-2. 本詳細設計がmainへマージ済み
-3. 本Issue #137がClosed
-4. 未解決のP1/P0レビュー指摘がない
-5. package/runtimeの採用versionが実装時点でも利用可能であることを再確認
+- ADR-0002: mainで`Accepted`
+- Issue #139 / PR #143: 完了
+- Issue #137 / PR #144: 完了
+- Issue #146: 遅延レビュー指摘を追跡し、PR #145をReadyにする前に解消する
+- Issue #135 / PR #145: Draft実装中
+- 未解決P0/P1がある間はPR #145をReady/Mergeしない

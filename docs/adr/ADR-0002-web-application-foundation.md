@@ -3,7 +3,7 @@
 - Status: Accepted
 - Date: 2026-08-10
 - Accepted: 2026-08-14
-- Related: Issue #134 / PR #136 / Issue #139 / Issue #137 / Issue #135
+- Related: Issue #134 / PR #136 / Issue #139 / PR #143 / Issue #146 / Issue #137 / Issue #135
 
 ## Context
 
@@ -130,7 +130,9 @@ PR #136は本ADRが`Proposed`のままmainへマージされた。元のAcceptan
 
 ### 2026-08-14: Web基盤方針の承認
 
-プロジェクトオーナーから、要件定義だけでなく実装自体を進める明示指示を受けた。Issue #134 / PR #136で提示済みのWeb基盤技術選定を変更せずに実装へ進む意思決定として、本ADRを`Accepted`へ更新する。
+プロジェクトオーナーから「要件定義だけじゃなく実装自体を進めて」と明示指示を受けた。Issue #134 / PR #136で提示済みのWeb基盤技術選定を変更せずに詳細設計・実装へ進む意思決定として、本ADRを`Accepted`へ更新した。
+
+GitHub上の追跡記録はIssue #146を正本とする。Issue #146ではPR #143 / #144の遅延Codexレビューも含め、実装開始前の整合を追跡する。
 
 承認対象は次に限定する。
 
@@ -151,12 +153,12 @@ PR #136は本ADRが`Proposed`のままmainへマージされた。元のAcceptan
 - Storage / CDN / Hosting / analytics providerの採用
 - 外部APIキー取得や契約の承認
 - 実位置情報・実走行履歴の利用承認
-- 法務・セキュリティ・プライバシー専門レビューの代替
+- 独立した法務・セキュリティ・プライバシー専門レビューの完了
 
 ## Implementation Gate After Acceptance
 
-1. Issue #139で本ADRの`Accepted`状態をmainへ反映する。
-2. Issue #137で初期実装の詳細設計・テスト仕様を確定し、mainへマージする。
-3. Issue #137完了後にIssue #135の`ai: blocked`を解除する。
-4. Issue #135でWebアプリ基盤を実装し、実際のGitHub Actions結果を確認する。
-5. DB/Auth/Maps/Storage等は各領域の設計・承認が完了するまで導入しない。
+- Issue #139 / PR #143: 完了。ADR-0002をmainで`Accepted`へ反映済み。
+- Issue #137 / PR #144: 完了。詳細設計・テスト仕様をmainへ反映済み。
+- Issue #146: PR #143 / #144の遅延レビュー指摘を実装前に整合する。
+- Issue #135 / Draft PR #145: 実装中。実装・CI・人間レビュー完了までReady/Mergeしない。
+- DB/Auth/Maps/Storage等は各領域の設計・承認が完了するまで導入しない。
