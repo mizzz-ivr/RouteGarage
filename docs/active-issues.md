@@ -5,6 +5,7 @@
 ### Issue #146: Web基盤の遅延レビュー指摘を実装前に整合する
 
 - Issue: https://github.com/mizzz-ivr/RouteGarage/issues/146
+- PR: https://github.com/mizzz-ivr/RouteGarage/pull/147
 - Phase: Review Follow-up
 - Status: Open
 - Priority: High
@@ -17,34 +18,35 @@
 - PR #144 P2: 404/unknown routeのSecurity Header test
 - PR #144 P2: Ubuntu/Windows runner戦略
 - PR #144 P2: READMEをIssue #135対象へ追加
+- PR #147 P2: Issue #138/#141のcanonical統合タスクを残す
+- PR #147 P2: UT-002で未実装routeへの操作要素を禁止する
+- PR #147 P2: 320pxで主要コンテンツ欠落を検証する
 
-完了前にPR #145をReady/Mergeしない。
-
-### Issue #135 / Draft PR #145: Webアプリ基盤初期実装
+### Issue #135: Webアプリ基盤初期実装
 
 - Issue: https://github.com/mizzz-ivr/RouteGarage/issues/135
-- PR: https://github.com/mizzz-ivr/RouteGarage/pull/145
-- Branch: `feature/issue-135-web-foundation`
 - Phase: Phase 5 / Implementation
-- Status: Draft / 実装中
+- Status: Open / 実装継続中
 - `ai: blocked`: 解除済み
 - Human review: 必須
 
-GitHubへ反映済み:
+PR #145は2026-08-17にmainへマージ済みだが、差分は`package.json`のみであり、Issue #135の完了条件は満たしていない。
+
+mainへ反映済み:
 
 - `package.json`
 
-実装対象:
+未実装:
 
 - Next.js App Router
 - root layout / landing
 - SafetyNotice
 - error / 404
-- Tailwind / TypeScript / ESLint
+- Tailwind / TypeScript / ESLint設定
 - Unit test / Playwright E2E
 - Security Header
 - `.env.example` / Node version固定
-- README更新
+- README実装状態更新
 - `package-lock.json`
 - GitHub Actions quality gate
 
@@ -55,7 +57,7 @@ GitHubへ反映済み:
 - 実位置/実走行履歴をfixtureへ使わない
 - secretsをRepositoryへ置かない
 - Server Component既定
-- 実装/CI未完了のためDraft維持
+- 実際のworkflow/statusが成功するまでCI成功とは扱わない
 
 ## Recently Completed
 
@@ -63,23 +65,25 @@ GitHubへ反映済み:
 
 - Webアプリ基盤の詳細設計・テスト仕様
 - Merged / Closed
-- 遅延Codex指摘はIssue #146で追跡
+- 遅延Codex指摘はIssue #146 / PR #147で追跡
 
 ### Issue #139 / PR #143
 
 - ADR-0002を`Accepted`へ整合
 - Merged / Closed
-- 遅延Codex指摘はIssue #146で追跡
+- 遅延Codex指摘はIssue #146 / PR #147で追跡
 
 ### Issue #141 / PR #142
 
 - ドライブ振り返り・統計ダッシュボード要件
 - Merged / Closed
+- MVP/画面deltaのcanonical統合は未完了
 
 ### Issue #138 / PR #140
 
 - 愛車の整備・給油・走行距離履歴要件
 - Merged / Closed
+- MVP/画面deltaのcanonical統合は未完了
 
 ## Current Architecture Decision
 
@@ -103,11 +107,11 @@ ADR-0002: `Accepted`
 - Hosting
 - analytics
 
-## Quality Gate for PR #145
+## Quality Gate for Issue #135
 
-PR #145をReady/Mergeするには次を満たす。
+Issue #135を完了するには次を満たす。
 
-1. Issue #146のP1/P2を解消
+1. Issue #146 / PR #147のレビュー指摘を解消
 2. App Router/UI/fallback実装
 3. Unit test 4系統
 4. E2E root/404/Header/mobile
@@ -121,7 +125,9 @@ workflow/statusがない状態をCI成功とは扱わない。
 
 ## Upcoming
 
-1. Issue #146フォローアップPRをマージし、PR #143/#144のthreadをResolve。
-2. Draft PR #145の実装を完成。
-3. 実CI結果を確認・修正。
-4. PR #145マージ後、要件定義済み機能から最初のユーザー向けvertical sliceを設計→実装。
+1. PR #147のCodex指摘を解消してマージし、Issue #146を完了する。
+2. Issue #135の不足実装をフォローアップPRで完成する。
+3. 実CI結果を確認し、失敗があればログから修正する。
+4. Issue #138のMVP/画面deltaをcanonicalへ統合する。
+5. Issue #141のMVP/画面deltaと人間判断事項をcanonicalへ統合する。
+6. Web基盤完了後、要件定義済み機能から最初のユーザー向けvertical sliceを基本設計→詳細設計→実装する。
