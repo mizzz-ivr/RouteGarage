@@ -2,18 +2,17 @@
 
 ## Active
 
-### Issue #135 / PR #148: Webアプリ基盤の不足実装を完成する
+### Issue #135 / PR #148: Webアプリ基盤の最終CI確認
 
 - Issue: https://github.com/mizzz-ivr/RouteGarage/issues/135
 - PR: https://github.com/mizzz-ivr/RouteGarage/pull/148
-- Branch: `feature/issue-135-web-foundation-completion`
 - Phase: Phase 5 / Implementation
-- Status: Open / Ready for Review / Human review待ち
+- PR Status: Merged 2026-08-18
+- Merge commit: `132df5dcbb2dcb0726bcddd9ebdd8e8b77781e50`
+- Issue Status: Open / main push CI確認待ち
 - Priority: High
 
-PR #145は2026-08-17にマージ済みですが、実差分は`package.json`のみでした。Issue #135は未完了のため、PR #148で不足実装を継続しています。
-
-PR #148実装済み:
+PR #148で以下の不足実装はmainへ反映済みです。
 
 - Next.js App Router root layout / landing
 - SafetyNotice
@@ -26,23 +25,23 @@ PR #148実装済み:
 - `package-lock.json`
 - read-only GitHub Actions quality gate
 
-初回GitHub Actions:
+PR headに対するGitHub Actionsは以下すべて成功済みです。
 
-- Ubuntu quality: 成功
-- Windows quality: 成功
-- Ubuntu/Chromium E2E: 成功
+- Ubuntu quality
+- Windows quality
+- Ubuntu/Chromium E2E
 
-Codex reviewは利用上限により実行不可。CI成功は当該headに対する実結果としてのみ扱い、人間レビューの代替にはしない。
+`.github/workflows/web-quality.yml`は`push: main`にも設定済みですが、GitHub連携からmain push run一覧を取得できないため、main push CI成功は未確認です。確認できるまではIssue #135をCloseしません。
 
 ### Issue #150: ドライブ前チェックリスト・持ち物テンプレート要件
 
 - Issue: https://github.com/mizzz-ivr/RouteGarage/issues/150
 - Branch: `docs/issue-150-drive-prep-checklist-requirements`
 - Phase: Phase 1 / Requirements
-- Status: 要件定義中 / Human review required
+- Status: 要件レビュー準備中 / Human review required
 - Priority: High
 
-追加中:
+追加済み:
 
 - 標準テンプレート
 - 個人テンプレート
@@ -55,7 +54,7 @@ Codex reviewは利用上限により実行不可。CI成功は当該headに対�
 - XSS/認可/本人限定境界
 - 走行中操作禁止・安全保証禁止
 
-Phase 5実装はPR #148のmain反映とIssue #150の要件→canonical統合→基本設計→詳細設計完了まで開始しない。
+Web基盤自体はmainへ反映済みです。Issue #150のPhase 5実装は、要件レビュー → canonical統合 → 基本設計 → 詳細設計・テスト仕様の完了後に開始します。
 
 ## Recently Completed
 
@@ -117,15 +116,14 @@ ADR-0002: `Accepted`
 
 ## Issue #135 Completion Gate
 
-1. App Router/UI/fallback実装
-2. Unit test 4系統
-3. E2E root/404/Header/mobile
-4. `package-lock.json` commit
-5. Ubuntu/Windows quality CI成功
-6. Ubuntu/Chromium E2E成功
-7. レビュー指摘解消
-8. 人間レビュー
-9. mainマージ後のpush CI確認
+1. App Router/UI/fallback実装: 完了
+2. Unit test 4系統: 完了
+3. E2E root/404/Header/mobile: 完了
+4. `package-lock.json` commit: 完了
+5. Ubuntu/Windows quality PR CI成功: 完了
+6. Ubuntu/Chromium E2E PR CI成功: 完了
+7. PRマージ: 完了
+8. mainマージ後のpush CI確認: 未確認
 
 ## Issue #150 Phase Gate
 
@@ -134,14 +132,12 @@ ADR-0002: `Accepted`
 3. canonical MVP/画面へ統合
 4. 基本設計
 5. 詳細設計・テスト仕様
-6. PR #148 main反映済みを確認
-7. Phase 5実装
+6. Phase 5実装
 
 ## Upcoming
 
-1. PR #148を人間レビューし、承認後にマージする。
-2. main push CI成功を確認後、Issue #135を完了する。
-3. Issue #150の要件PRをレビューする。
-4. Issue #150をcanonical統合 → 基本設計 → 詳細設計へ進める。
-5. ゲート完了後、チェックリスト機能の最小vertical sliceを実装する。
-6. Issue #132/#138/#141の未統合要件も順次canonicalへ統合する。
+1. main push CI成功を確認後、Issue #135を完了する。
+2. Issue #150の要件PRをレビューする。
+3. Issue #150をcanonical統合 → 基本設計 → 詳細設計へ進める。
+4. ゲート完了後、チェックリスト機能の最小vertical sliceを実装する。
+5. Issue #132/#138/#141の未統合要件も順次canonicalへ統合する。
