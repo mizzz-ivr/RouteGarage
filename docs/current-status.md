@@ -26,9 +26,9 @@
 
 ### Issue #135 / PR #148
 
-PR #145は2026-08-17にマージされましたが、実差分は`package.json`のみでした。Issue #135の完了条件は未達のため、PR #148で不足実装を継続しています。
+PR #145は2026-08-17にマージされましたが、実差分は`package.json`のみでした。その不足分をPR #148で実装し、PR #148は2026-08-18にmainへマージ済みです。
 
-PR #148:
+PR #148でmainへ入った内容:
 
 - App Router root layout / landing
 - SafetyNotice
@@ -41,7 +41,7 @@ PR #148:
 - npm実解決から生成した`package-lock.json`
 - read-only GitHub Actions
 
-初回PR CI:
+PR headに対する初回CI:
 
 - `quality (ubuntu-latest)`: 成功
 - `quality (windows-latest)`: 成功
@@ -49,10 +49,11 @@ PR #148:
 
 2026-08-18時点:
 
-- PR #148: Open / Ready for Review / mergeable
-- Codex review: 利用上限により実行不可
-- Human review: 未完了
-- 初回CI成功は当該headに対する結果であり、人間レビューの代替ではない
+- PR #148: Merged
+- merge commit: `132df5dcbb2dcb0726bcddd9ebdd8e8b77781e50`
+- `.github/workflows/web-quality.yml`は`push: main`でも実行する設定
+- GitHub連携からmain push run一覧を取得できないため、main push CI成功は未確認
+- Issue #135はmain push CI確認を最終ゲートとしてOpen維持
 
 ### Issue #146 / PR #149
 
@@ -90,11 +91,11 @@ PR #148:
 - `docs/screen-design/drive-prep-checklist-screen-extension.md`
 - `docs/content/drive-prep-checklist-content-guidelines.md`
 
-Phase 5実装は、Issue #150の人間レビュー、canonical統合、基本設計、詳細設計、Web基盤PR #148のmain反映が完了するまで開始しない。
+Phase 5実装は、Issue #150の人間レビュー、canonical統合、基本設計、詳細設計が完了するまで開始しない。
 
 ## Runtime / Package
 
-PR #148で採用している基盤version:
+mainへ反映済みの基盤version:
 
 - Node.js 24.18.1 LTS
 - Next.js 16.2.12
@@ -142,6 +143,7 @@ PR #148で採用している基盤version:
 - quality: `ubuntu-latest` + `windows-latest`
 - e2e: `ubuntu-latest` + Chromium
 - 最終workflowは`contents: read`のみ
+- main push CIは成功確認後にIssue #135をCloseする
 
 ## Requirement Integration Backlog
 
@@ -163,9 +165,8 @@ Garage整備・給油・走行距離履歴のMVP/画面deltaはcanonical未統�
 
 ## Next Steps
 
-1. PR #148を人間レビューし、承認後にマージする。
-2. main push CI成功後にIssue #135を完了する。
-3. Issue #150要件PRをレビューし、未確定事項を確定する。
-4. Issue #150のcanonical統合 → 基本設計 → 詳細設計へ進む。
-5. Web基盤と設計ゲート完了後、ドライブ前チェックリストの最初のvertical sliceを実装する。
-6. Issue #132/#138/#141のcanonical統合も順次進める。
+1. main pushの`Web Quality`成功を確認し、Issue #135を完了する。
+2. Issue #150要件PRをレビューし、未確定事項を確定する。
+3. Issue #150のcanonical統合 → 基本設計 → 詳細設計へ進む。
+4. 設計ゲート完了後、ドライブ前チェックリストの最初のvertical sliceを実装する。
+5. Issue #132/#138/#141のcanonical統合も順次進める。
