@@ -4,8 +4,7 @@
 
 - Repository: `mizzz-ivr/RouteGarage`
 - Phase: Phase 5 / Implementation
-- Current implementation: Issue #135 / Draft PR #145
-- Branch: `feature/issue-135-web-foundation`
+- Current implementation: Issue #135 / Draft PR #148
 - Review follow-up: Issue #146
 - AI生成物: 人間レビュー必須
 
@@ -14,8 +13,7 @@
 ### ADR-0002
 
 - Status: `Accepted`
-- PR #143で2026-08-14にmainへ反映済み
-- 承認追跡と遅延レビュー対応はIssue #146を正本とする
+- PR #143でmainへ反映済み
 - DB/Auth/Maps/Storage等のproviderは承認対象外のまま
 
 ### Issue #137 / PR #144
@@ -27,40 +25,43 @@
   - `docs/architecture/web-application-foundation-detail-design.md`
   - `docs/architecture/web-application-foundation-test-spec.md`
 
-### Issue #135 / Draft PR #145
+### Issue #135
 
-- Phase 5 / Implementation
-- Issue: Open / Blocked解除済み
-- PR: Draft / Open
-- Branch: `feature/issue-135-web-foundation`
-- GitHubへ反映済み: `package.json`
-- App Router / UI / test / CI: 実装継続中
-- `package-lock.json`: 未反映
-- GitHub Actions / commit status: 現時点で未作成・未実行
+PR #145は2026-08-17にマージされましたが、実差分は`package.json`のみでした。Issue #135の完了条件は未達のため、Draft PR #148で不足実装を継続しています。
 
-workflow/statusが存在しないためCI通過とは扱わない。PR #145は実装・CI・レビュー完了までDraftを維持する。
+PR #148:
+
+- App Router root layout / landing
+- SafetyNotice
+- error / not-found
+- Tailwind / TypeScript / ESLint / Vitest / Playwright
+- root / 404 Security Header
+- Unit test 4系統
+- E2E root / 404 / Header / 320px
+- `.env.example` / `.nvmrc`
+- npm実解決から生成した`package-lock.json`
+- read-only GitHub Actions
+
+初回PR CI:
+
+- `quality (ubuntu-latest)`: 成功
+- `quality (windows-latest)`: 成功
+- `e2e (ubuntu-latest / Chromium)`: 成功
+
+この成功はPR #148の当該headに対する結果であり、人間レビューの代替ではありません。PR #148はCodex・人間レビュー完了までDraftを維持します。
 
 ## Issue #146: 遅延レビュー整合
 
-PR #143 / #144のCodexレビューがマージ後に返却されたため、以下を実装前に整合する。
+PR #147はマージ済みですが、Codexの追加P2 3件を修正する前のheadがmainへ入りました。そのため追加docs同期を実施します。
 
-### PR #143
+追加同期:
 
-- P1: プロジェクトオーナー承認の追跡参照をADRへ追加
-- P1: ADR Accepted / Issue状態を`current-status` / `active-issues`へ同期
-
-### PR #144
-
-- P1: Unit/Component testファイルを実装対象一覧へ追加
-- P2: Security Headerをrootだけでなく404/unknown routeでも検証
-- P2: GitHub Actions runner戦略を確定
-- P2: README更新をIssue #135の実装対象へ追加
-
-Issue #146完了前にPR #145をReady/Mergeしない。
+- UT-002で未実装routeへのリンク・ボタン・CTAを禁止
+- 320pxでドライブ / ガレージ / 振り返りの主要静的コンテンツ欠落を検証
+- Issue #138/#141のcanonical統合タスクを未完了として保持
+- PR #145マージ後のIssue #135実状態とPR #148を正本へ同期
 
 ## Runtime / Package
-
-Issue #135では次を初期固定する。
 
 - Node.js 24.18.1 LTS
 - Next.js 16.2.12
@@ -73,20 +74,7 @@ Issue #135では次を初期固定する。
 - jest-dom 7.0.0
 - Playwright 1.62.0
 
-`package-lock.json`を生成・commit後、CIは`npm ci`へ固定する。
-
-## Initial Implementation Scope
-
-- App Router root layout / landing
-- SafetyNotice
-- error / not-found fallback
-- Tailwind / TypeScript / ESLint config
-- Vitest / React Testing Library
-- Playwright E2E
-- Security Header
-- `.env.example` / Node runtime固定
-- README更新
-- GitHub Actions quality gate
+`package-lock.json`はnpm実解決結果をcommitし、CIは`npm ci`を使用します。
 
 ## Safety / Security / Privacy
 
@@ -97,13 +85,14 @@ Issue #135では次を初期固定する。
 - 実ユーザー位置・実走行履歴をfixtureへ使わない
 - error UIへ内部例外詳細を表示しない
 - Server Componentを既定とする
+- Security Headerは全routeへ適用し、root/404双方をE2E検証する
 
 ## Test Gate
 
 ### Unit
 
 - SafetyNotice
-- Landing
+- Landing + 未実装routeへの操作要素なし
 - Error fallback
 - 404
 
@@ -112,31 +101,29 @@ Issue #135では次を初期固定する。
 - `/`表示
 - 404表示
 - root / 404のSecurity Header
-- 320px viewport
+- 320px viewportで主要静的コンテンツ欠落なし
 
 ### CI
 
 - quality: `ubuntu-latest` + `windows-latest`
 - e2e: `ubuntu-latest` + Chromium
-- lint / typecheck / unit / build / E2Eのいずれか失敗でマージ不可
+- 最終workflowは`contents: read`のみ
 
-## Current Tooling Constraint
+## Requirement Integration Backlog
 
-GitHub連携から`.tsx`等のソースコードを直接書き込む操作が安全チェックで拒否されている。未反映分は詳細設計に基づく実装bundleとして作成し、必須file存在、未承認provider混入なし、安全注意、CI write権限なしを静的確認済み。
+### Issue #138
 
-この制約により未反映コードを完了扱いしない。GitHubへ実差分が入ってCIが実行されるまでPR #145はDraftを維持する。
+Garage整備・給油・走行距離履歴のMVP/画面deltaはcanonical未統合。実装前に正本へ統合する。
 
-## Recently Completed
+### Issue #141
 
-- Issue #141 / PR #142: ドライブ振り返り・統計ダッシュボード要件
-- Issue #138 / PR #140: 愛車の整備・給油・走行距離履歴要件
-- Issue #139 / PR #143: ADR承認状態整合
-- Issue #137 / PR #144: Web基盤詳細設計・テスト仕様
+ドライブ振り返り・統計ダッシュボードのMVP/画面deltaと人間判断事項はcanonical未統合。実装前に正本へ統合する。
 
 ## Next Steps
 
-1. Issue #146の正本同期をPR化し、遅延Codex指摘をResolveする。
-2. PR #145へApp Router / UI / test / CI / lockfileを反映する。
-3. 実際のGitHub Actions結果を確認し、失敗があればログから修正する。
-4. Codex + 人間レビュー後にPR #145をReadyへ変更する。
-5. Web基盤完了後、既に要件定義済みのDrive Collection等から最初のユーザー向けvertical sliceを基本設計→詳細設計→実装する。
+1. PR #148のCodexレビューを確認し、指摘を修正する。
+2. Issue #146の追加docs同期PRをマージする。
+3. PR #148を人間レビューし、承認後にマージする。
+4. main push CI成功後にIssue #135を完了する。
+5. Issue #138/#141のcanonical統合を進める。
+6. Web基盤完了後、要件定義済み機能から最初のユーザー向けvertical sliceを基本設計→詳細設計→実装する。

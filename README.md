@@ -25,10 +25,10 @@ RouteGarage は、日本の車好き・ドライブユーザー向けに、ル�
 - ADR-0002: `Accepted`
 - Issue #139 / PR #143: 完了
 - Issue #137 / PR #144: 完了
-- Issue #146: 遅延レビュー指摘を整合中
-- Issue #135 / Draft PR #145: Webアプリ基盤を実装中
+- Issue #146: 遅延レビュー正本同期を継続中
+- Issue #135 / Draft PR #148: Webアプリ基盤の不足実装をレビュー中
 
-PR #145は実装・テスト・レビュー完了までDraftを維持します。
+PR #145は2026-08-17にマージ済みですが、実差分は`package.json`のみでした。Issue #135は未完了としてPR #148で実装を継続しています。
 
 ## Web基盤
 
@@ -48,16 +48,21 @@ PR #145は実装・テスト・レビュー完了までDraftを維持します�
 - `docs/architecture/web-application-foundation-test-spec.md`
 - `docs/adr/ADR-0002-web-application-foundation.md`
 
-## Issue #135 実装対象
+## PR #148 実装内容
 
 - root layout / landing
 - 走行中操作禁止のSafetyNotice
 - error / not-found
-- Security Header
-- Tailwind / TypeScript / lint設定
-- Unit test / E2E
-- GitHub Actions quality gate
-- README更新
+- 全route Security Header
+- Tailwind / TypeScript / ESLint
+- Vitest + React Testing Library
+- Playwright E2E
+- Node.js 24.18.1固定
+- `.env.example`
+- npm実解決から生成した`package-lock.json`
+- read-only GitHub Actions quality gate
+
+初回PR CIではUbuntu/WindowsのqualityとUbuntu/ChromiumのE2Eが成功しています。CI成功は人間レビューの代替にはしません。
 
 ## 未確定の技術領域
 
