@@ -3,9 +3,8 @@
 ## 現在状態
 
 - Repository: `mizzz-ivr/RouteGarage`
-- Phase: Phase 5 / Implementation
-- Current implementation: Issue #135 / Draft PR #148
-- Review follow-up: Issue #146
+- Web foundation: Issue #135 / PR #148
+- Current product requirements: Issue #150
 - AI生成物: 人間レビュー必須
 
 ## Web Foundation
@@ -25,9 +24,9 @@
   - `docs/architecture/web-application-foundation-detail-design.md`
   - `docs/architecture/web-application-foundation-test-spec.md`
 
-### Issue #135
+### Issue #135 / PR #148
 
-PR #145は2026-08-17にマージされましたが、実差分は`package.json`のみでした。Issue #135の完了条件は未達のため、Draft PR #148で不足実装を継続しています。
+PR #145は2026-08-17にマージされましたが、実差分は`package.json`のみでした。Issue #135の完了条件は未達のため、PR #148で不足実装を継続しています。
 
 PR #148:
 
@@ -48,20 +47,54 @@ PR #148:
 - `quality (windows-latest)`: 成功
 - `e2e (ubuntu-latest / Chromium)`: 成功
 
-この成功はPR #148の当該headに対する結果であり、人間レビューの代替ではありません。PR #148はCodex・人間レビュー完了までDraftを維持します。
+2026-08-18時点:
 
-## Issue #146: 遅延レビュー整合
+- PR #148: Open / Ready for Review / mergeable
+- Codex review: 利用上限により実行不可
+- Human review: 未完了
+- 初回CI成功は当該headに対する結果であり、人間レビューの代替ではない
 
-PR #147はマージ済みですが、Codexの追加P2 3件を修正する前のheadがmainへ入りました。そのため追加docs同期を実施します。
+### Issue #146 / PR #149
 
-追加同期:
+- PR #149: 2026-08-18にMerged
+- Issue #146: Closed / completed
+- PR #147マージ後にmainへ入り切らなかったUT-002、320px E2E条件、未統合要件、PR #145/#148実状態を正本へ追加同期済み
 
-- UT-002で未実装routeへのリンク・ボタン・CTAを禁止
-- 320pxでドライブ / ガレージ / 振り返りの主要静的コンテンツ欠落を検証
-- Issue #138/#141のcanonical統合タスクを未完了として保持
-- PR #145マージ後のIssue #135実状態とPR #148を正本へ同期
+## Issue #150: ドライブ前チェックリスト・持ち物テンプレート
+
+- Phase: Phase 1 / Requirements
+- Branch: `docs/issue-150-drive-prep-checklist-requirements`
+- Status: 要件定義中 / 人間レビュー必須
+
+目的:
+
+- 出発前/停車中の忘れ物・準備確認を支援する
+- 基本/長距離/夜間/雨天/ツーリング等のテンプレート候補を提供する
+- 個人テンプレートを本人限定で管理する
+- `CHECKED`を安全・整備・走行可否保証へ変換しない
+- GPS/Weather/OBD/通知providerを先取りしない
+
+主要要件:
+
+- 標準テンプレート / 個人テンプレート / 今回のチェックを別責務とする
+- テンプレート更新で既存チェックを暗黙変更しない
+- `UNCHECKED` / `CHECKED`のみをMVP状態候補とする
+- 0項目を100%完了扱いしない
+- 個人テンプレート/チェックは本人限定
+- 走行中操作禁止を維持する
+
+レビュー用資料:
+
+- `docs/requirements/drive-prep-checklist-requirements.md`
+- `docs/requirements/issue-150-mvp-delta.md`
+- `docs/screen-design/drive-prep-checklist-screen-extension.md`
+- `docs/content/drive-prep-checklist-content-guidelines.md`
+
+Phase 5実装は、Issue #150の人間レビュー、canonical統合、基本設計、詳細設計、Web基盤PR #148のmain反映が完了するまで開始しない。
 
 ## Runtime / Package
+
+PR #148で採用している基盤version:
 
 - Node.js 24.18.1 LTS
 - Next.js 16.2.12
@@ -74,29 +107,30 @@ PR #147はマージ済みですが、Codexの追加P2 3件を修正する前のh
 - jest-dom 7.0.0
 - Playwright 1.62.0
 
-`package-lock.json`はnpm実解決結果をcommitし、CIは`npm ci`を使用します。
+`package-lock.json`はnpm実解決結果をcommitし、CIは`npm ci`を使用する。
 
 ## Safety / Security / Privacy
 
 - 走行中操作禁止をroot UIへ表示する
 - geolocation / camera / microphoneを要求しない
-- DB/Auth/Maps/Storage/analytics/AI SDKを導入しない
+- DB/Auth/Maps/Storage/analytics/AI SDKを未承認のまま導入しない
 - secretsをRepositoryやclient公開envへ置かない
 - 実ユーザー位置・実走行履歴をfixtureへ使わない
 - error UIへ内部例外詳細を表示しない
 - Server Componentを既定とする
 - Security Headerは全routeへ適用し、root/404双方をE2E検証する
+- Issue #150では個人入力を任意HTMLとして扱わず、チェック完了を安全保証へ変換しない
 
 ## Test Gate
 
-### Unit
+### Web Foundation Unit
 
 - SafetyNotice
 - Landing + 未実装routeへの操作要素なし
 - Error fallback
 - 404
 
-### E2E
+### Web Foundation E2E
 
 - `/`表示
 - 404表示
@@ -111,6 +145,10 @@ PR #147はマージ済みですが、Codexの追加P2 3件を修正する前のh
 
 ## Requirement Integration Backlog
 
+### Issue #132
+
+Drive Collectionはレビュー用deltaのまま。`UNAVAILABLE`分母ルール、バッジ採用等の未確定事項を人間レビューで確定してからcanonical統合する。
+
 ### Issue #138
 
 Garage整備・給油・走行距離履歴のMVP/画面deltaはcanonical未統合。実装前に正本へ統合する。
@@ -119,11 +157,15 @@ Garage整備・給油・走行距離履歴のMVP/画面deltaはcanonical未統�
 
 ドライブ振り返り・統計ダッシュボードのMVP/画面deltaと人間判断事項はcanonical未統合。実装前に正本へ統合する。
 
+### Issue #150
+
+チェックリスト要件はPhase 1レビュー用deltaとして作成中。レビュー完了後にcanonical統合へ進む。
+
 ## Next Steps
 
-1. PR #148のCodexレビューを確認し、指摘を修正する。
-2. Issue #146の追加docs同期PRをマージする。
-3. PR #148を人間レビューし、承認後にマージする。
-4. main push CI成功後にIssue #135を完了する。
-5. Issue #138/#141のcanonical統合を進める。
-6. Web基盤完了後、要件定義済み機能から最初のユーザー向けvertical sliceを基本設計→詳細設計→実装する。
+1. PR #148を人間レビューし、承認後にマージする。
+2. main push CI成功後にIssue #135を完了する。
+3. Issue #150要件PRをレビューし、未確定事項を確定する。
+4. Issue #150のcanonical統合 → 基本設計 → 詳細設計へ進む。
+5. Web基盤と設計ゲート完了後、ドライブ前チェックリストの最初のvertical sliceを実装する。
+6. Issue #132/#138/#141のcanonical統合も順次進める。
