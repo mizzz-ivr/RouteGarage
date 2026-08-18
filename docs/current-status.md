@@ -4,7 +4,7 @@
 
 - Repository: `mizzz-ivr/RouteGarage`
 - Web foundation: Issue #135 / PR #148
-- Current product requirements: Issue #150
+- Current product requirements: Issue #150 / PR #151
 - AI生成物: 人間レビュー必須
 
 ## Web Foundation
@@ -61,11 +61,12 @@ PR headに対する初回CI:
 - Issue #146: Closed / completed
 - PR #147マージ後にmainへ入り切らなかったUT-002、320px E2E条件、未統合要件、PR #145/#148実状態を正本へ追加同期済み
 
-## Issue #150: ドライブ前チェックリスト・持ち物テンプレート
+## Issue #150 / PR #151: ドライブ前チェックリスト・持ち物テンプレート
 
 - Phase: Phase 1 / Requirements
 - Branch: `docs/issue-150-drive-prep-checklist-requirements`
-- Status: 要件定義中 / 人間レビュー必須
+- PR: https://github.com/mizzz-ivr/RouteGarage/pull/151
+- Status: Open / 人間レビュー必須
 
 目的:
 
@@ -91,7 +92,7 @@ PR headに対する初回CI:
 - `docs/screen-design/drive-prep-checklist-screen-extension.md`
 - `docs/content/drive-prep-checklist-content-guidelines.md`
 
-Phase 5実装は、Issue #150の人間レビュー、canonical統合、基本設計、詳細設計が完了するまで開始しない。
+Phase 5実装は、PR #151の人間レビュー、canonical統合、基本設計、詳細設計が完了するまで開始しない。
 
 ## Runtime / Package
 
@@ -159,14 +160,14 @@ Garage整備・給油・走行距離履歴のMVP/画面deltaはcanonical未統�
 
 ドライブ振り返り・統計ダッシュボードのMVP/画面deltaと人間判断事項はcanonical未統合。実装前に正本へ統合する。
 
-### Issue #150
+### Issue #150 / PR #151
 
-チェックリスト要件はPhase 1レビュー用deltaとして作成中。レビュー完了後にcanonical統合へ進む。
+チェックリスト要件はPhase 1レビュー中。人間レビュー完了後にcanonical統合へ進む。
 
 ## Next Steps
 
 1. main pushの`Web Quality`成功を確認し、Issue #135を完了する。
-2. Issue #150要件PRをレビューし、未確定事項を確定する。
+2. PR #151をレビューし、未確定事項を確定する。
 3. Issue #150のcanonical統合 → 基本設計 → 詳細設計へ進む。
 4. 設計ゲート完了後、ドライブ前チェックリストの最初のvertical sliceを実装する。
 5. Issue #132/#138/#141のcanonical統合も順次進める。
