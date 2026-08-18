@@ -33,12 +33,13 @@ PR headに対するGitHub Actionsは以下すべて成功済みです。
 
 `.github/workflows/web-quality.yml`は`push: main`にも設定済みですが、GitHub連携からmain push run一覧を取得できないため、main push CI成功は未確認です。確認できるまではIssue #135をCloseしません。
 
-### Issue #150: ドライブ前チェックリスト・持ち物テンプレート要件
+### Issue #150 / PR #151: ドライブ前チェックリスト・持ち物テンプレート要件
 
 - Issue: https://github.com/mizzz-ivr/RouteGarage/issues/150
+- PR: https://github.com/mizzz-ivr/RouteGarage/pull/151
 - Branch: `docs/issue-150-drive-prep-checklist-requirements`
 - Phase: Phase 1 / Requirements
-- Status: 要件レビュー準備中 / Human review required
+- Status: Open / Human review required
 - Priority: High
 
 追加済み:
@@ -54,7 +55,7 @@ PR headに対するGitHub Actionsは以下すべて成功済みです。
 - XSS/認可/本人限定境界
 - 走行中操作禁止・安全保証禁止
 
-Web基盤自体はmainへ反映済みです。Issue #150のPhase 5実装は、要件レビュー → canonical統合 → 基本設計 → 詳細設計・テスト仕様の完了後に開始します。
+Web基盤自体はmainへ反映済みです。Issue #150のPhase 5実装は、PR #151の人間レビュー → canonical統合 → 基本設計 → 詳細設計・テスト仕様の完了後に開始します。
 
 ## Recently Completed
 
@@ -127,7 +128,7 @@ ADR-0002: `Accepted`
 
 ## Issue #150 Phase Gate
 
-1. 要件本文・MVP delta・画面候補・コンテンツガイドを人間レビュー
+1. PR #151で要件本文・MVP delta・画面候補・コンテンツガイドを人間レビュー
 2. 未確定事項を確定または明示的に後続へ送る
 3. canonical MVP/画面へ統合
 4. 基本設計
@@ -137,7 +138,7 @@ ADR-0002: `Accepted`
 ## Upcoming
 
 1. main push CI成功を確認後、Issue #135を完了する。
-2. Issue #150の要件PRをレビューする。
+2. PR #151をレビューする。
 3. Issue #150をcanonical統合 → 基本設計 → 詳細設計へ進める。
 4. ゲート完了後、チェックリスト機能の最小vertical sliceを実装する。
 5. Issue #132/#138/#141の未統合要件も順次canonicalへ統合する。
