@@ -3,8 +3,9 @@
 ## 現在状態
 
 - Repository: `mizzz-ivr/RouteGarage`
-- Web foundation: Issue #135 / PR #148
-- Current product requirements: Issue #150 / PR #151
+- Web foundation: Issue #135 / PR #148（main反映済み、main push CI最終確認のみOpen）
+- Current product task: Issue #152
+- Latest completed requirement: Issue #150 / PR #151
 - AI生成物: 人間レビュー必須
 
 ## Web Foundation
@@ -26,9 +27,9 @@
 
 ### Issue #135 / PR #148
 
-PR #145は2026-08-17にマージされましたが、実差分は`package.json`のみでした。その不足分をPR #148で実装し、PR #148は2026-08-18にmainへマージ済みです。
+PR #145は2026-08-17に`package.json`のみでマージされ、不足分をPR #148で実装しました。PR #148は2026-08-18にmainへマージ済みです。
 
-PR #148でmainへ入った内容:
+mainへ反映済み:
 
 - App Router root layout / landing
 - SafetyNotice
@@ -41,58 +42,64 @@ PR #148でmainへ入った内容:
 - npm実解決から生成した`package-lock.json`
 - read-only GitHub Actions
 
-PR headに対する初回CI:
+PR headのCIはUbuntu/Windows quality、Ubuntu/Chromium E2Eの全て成功済みです。
 
-- `quality (ubuntu-latest)`: 成功
-- `quality (windows-latest)`: 成功
-- `e2e (ubuntu-latest / Chromium)`: 成功
+`.github/workflows/web-quality.yml`は`push: main`でも実行する設定ですが、現在のGitHub連携ではmain push run一覧を取得できないため、Issue #135は最終確認待ちとしてOpen維持します。未確認のCIを成功扱いしません。
 
-2026-08-18時点:
-
-- PR #148: Merged
-- merge commit: `132df5dcbb2dcb0726bcddd9ebdd8e8b77781e50`
-- `.github/workflows/web-quality.yml`は`push: main`でも実行する設定
-- GitHub連携からmain push run一覧を取得できないため、main push CI成功は未確認
-- Issue #135はmain push CI確認を最終ゲートとしてOpen維持
-
-### Issue #146 / PR #149
-
-- PR #149: 2026-08-18にMerged
-- Issue #146: Closed / completed
-- PR #147マージ後にmainへ入り切らなかったUT-002、320px E2E条件、未統合要件、PR #145/#148実状態を正本へ追加同期済み
-
-## Issue #150 / PR #151: ドライブ前チェックリスト・持ち物テンプレート
+## Issue #150 / PR #151: ドライブ前チェックリスト・持ち物テンプレート要件
 
 - Phase: Phase 1 / Requirements
-- Branch: `docs/issue-150-drive-prep-checklist-requirements`
-- PR: https://github.com/mizzz-ivr/RouteGarage/pull/151
-- Status: Open / 人間レビュー必須
+- PR #151: Merged 2026-08-19
+- Issue #150: Closed
+- PR head CI: Ubuntu quality / Windows quality / Chromium E2E 全成功
+- Codex review: 利用上限により未実施
+- 人間レビューを経てmainへマージ済み
 
-目的:
-
-- 出発前/停車中の忘れ物・準備確認を支援する
-- 基本/長距離/夜間/雨天/ツーリング等のテンプレート候補を提供する
-- 個人テンプレートを本人限定で管理する
-- `CHECKED`を安全・整備・走行可否保証へ変換しない
-- GPS/Weather/OBD/通知providerを先取りしない
-
-主要要件:
+確定済みの主要境界:
 
 - 標準テンプレート / 個人テンプレート / 今回のチェックを別責務とする
 - テンプレート更新で既存チェックを暗黙変更しない
-- `UNCHECKED` / `CHECKED`のみをMVP状態候補とする
+- `UNCHECKED` / `CHECKED`
 - 0項目を100%完了扱いしない
-- 個人テンプレート/チェックは本人限定
+- `CHECKED`を安全・整備・法的適合・走行可否保証へ変換しない
+- 個人テンプレート/今回チェックは本人限定を初期値とする
 - 走行中操作禁止を維持する
+- GPS/Weather/OBD/通知providerを先取りしない
 
-レビュー用資料:
+PR #151で明示された6件の未確定事項は、マージのみを根拠に選択肢を推測確定しません。
 
-- `docs/requirements/drive-prep-checklist-requirements.md`
-- `docs/requirements/issue-150-mvp-delta.md`
-- `docs/screen-design/drive-prep-checklist-screen-extension.md`
-- `docs/content/drive-prep-checklist-content-guidelines.md`
+## Issue #152: チェックリスト要件のcanonical統合
 
-Phase 5実装は、PR #151の人間レビュー、canonical統合、基本設計、詳細設計が完了するまで開始しない。
+- Phase: Phase 1 / Requirements integration
+- Branch: `docs/issue-152-prep-checklist-canonical-integration`
+- Status: 作業中 / 人間レビュー必須
+
+統合対象:
+
+- `docs/requirements/mvp-requirements.md`
+- `docs/screen-design/screen-list.md`
+- `docs/screen-design/screen-flow.md`
+
+統合済み:
+
+- FR-PREP-01〜17
+- チェックリスト固有NFR/AC
+- SCR-38 ドライブ前チェックリスト
+- SCR-39 チェックテンプレート選択
+- SCR-40 個人チェックテンプレート管理
+- SCR-05 → SCR-39 → SCR-38/40の主要導線
+- `CHECKED`非保証、本人限定、XSS境界、0項目境界、テンプレート/今回チェック分離
+
+未確定のまま後続へ送る事項:
+
+1. 今回チェック履歴をMVPで保持するか
+2. テンプレート/項目の件数・文字数上限
+3. 項目カテゴリのユーザー編集可否
+4. 一括チェック/一括解除
+5. 標準テンプレート新版案内
+6. ホームの最近使ったテンプレート表示
+
+Issue #152マージ後にPhase 3基本設計Issueを作成します。Phase 4詳細設計・テスト仕様の人間レビュー完了前にPhase 5実装へ進みません。
 
 ## Runtime / Package
 
@@ -121,7 +128,8 @@ mainへ反映済みの基盤version:
 - error UIへ内部例外詳細を表示しない
 - Server Componentを既定とする
 - Security Headerは全routeへ適用し、root/404双方をE2E検証する
-- Issue #150では個人入力を任意HTMLとして扱わず、チェック完了を安全保証へ変換しない
+- チェックリストの個人入力を任意HTMLとして扱わない
+- チェック完了を安全保証へ変換しない
 
 ## Test Gate
 
@@ -144,7 +152,6 @@ mainへ反映済みの基盤version:
 - quality: `ubuntu-latest` + `windows-latest`
 - e2e: `ubuntu-latest` + Chromium
 - 最終workflowは`contents: read`のみ
-- main push CIは成功確認後にIssue #135をCloseする
 
 ## Requirement Integration Backlog
 
@@ -160,14 +167,15 @@ Garage整備・給油・走行距離履歴のMVP/画面deltaはcanonical未統�
 
 ドライブ振り返り・統計ダッシュボードのMVP/画面deltaと人間判断事項はcanonical未統合。実装前に正本へ統合する。
 
-### Issue #150 / PR #151
+### Issue #150 / #152
 
-チェックリスト要件はPhase 1レビュー中。人間レビュー完了後にcanonical統合へ進む。
+Issue #150の要件PR #151は完了。Issue #152でMVP/画面canonical統合を進行中。
 
 ## Next Steps
 
-1. main pushの`Web Quality`成功を確認し、Issue #135を完了する。
-2. PR #151をレビューし、未確定事項を確定する。
-3. Issue #150のcanonical統合 → 基本設計 → 詳細設計へ進む。
-4. 設計ゲート完了後、ドライブ前チェックリストの最初のvertical sliceを実装する。
+1. Issue #152のcanonical統合PRを人間レビュー・マージする。
+2. チェックリスト機能のPhase 3基本設計Issueを作成する。
+3. 基本設計レビュー後にPhase 4詳細設計・テスト仕様へ進む。
+4. 設計ゲート完了後、SCR-39 → SCR-38を中心とした最小vertical sliceを実装する。
 5. Issue #132/#138/#141のcanonical統合も順次進める。
+6. main push CIを確認可能になった時点でIssue #135を完了する。
