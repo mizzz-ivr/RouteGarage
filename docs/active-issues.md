@@ -2,18 +2,17 @@
 
 ## Active
 
-### Issue #135 / Draft PR #148: Webアプリ基盤の不足実装を完成する
+### Issue #135 / PR #148: Webアプリ基盤の最終CI確認
 
 - Issue: https://github.com/mizzz-ivr/RouteGarage/issues/135
 - PR: https://github.com/mizzz-ivr/RouteGarage/pull/148
-- Branch: `feature/issue-135-web-foundation-completion`
 - Phase: Phase 5 / Implementation
-- Status: Draft / Codex・人間レビュー待ち
+- PR Status: Merged 2026-08-18
+- Merge commit: `132df5dcbb2dcb0726bcddd9ebdd8e8b77781e50`
+- Issue Status: Open / main push CI確認待ち
 - Priority: High
 
-PR #145は2026-08-17にマージ済みですが、実差分は`package.json`のみでした。Issue #135は未完了のため、PR #148で不足実装を継続しています。
-
-PR #148実装済み:
+PR #148で以下の不足実装はmainへ反映済みです。
 
 - Next.js App Router root layout / landing
 - SafetyNotice
@@ -26,29 +25,45 @@ PR #148実装済み:
 - `package-lock.json`
 - read-only GitHub Actions quality gate
 
-初回GitHub Actions:
+PR headに対するGitHub Actionsは以下すべて成功済みです。
 
-- Ubuntu quality: 成功
-- Windows quality: 成功
-- Ubuntu/Chromium E2E: 成功
+- Ubuntu quality
+- Windows quality
+- Ubuntu/Chromium E2E
 
-CI成功は当該headに対する実結果としてのみ扱い、人間レビューの代替にはしません。
+`.github/workflows/web-quality.yml`は`push: main`にも設定済みですが、GitHub連携からmain push run一覧を取得できないため、main push CI成功は未確認です。確認できるまではIssue #135をCloseしません。
 
-### Issue #146: Web基盤の遅延レビュー指摘を整合する
+### Issue #150 / PR #151: ドライブ前チェックリスト・持ち物テンプレート要件
 
-- Issue: https://github.com/mizzz-ivr/RouteGarage/issues/146
-- PR #147: Merged
-- 追加フォローアップ: PR作成中
-- Status: Open
+- Issue: https://github.com/mizzz-ivr/RouteGarage/issues/150
+- PR: https://github.com/mizzz-ivr/RouteGarage/pull/151
+- Branch: `docs/issue-150-drive-prep-checklist-requirements`
+- Phase: Phase 1 / Requirements
+- Status: Open / Human review required
+- Priority: High
 
-PR #147がCodex追加指摘の修正前にマージされたため、以下をmainへ追加同期する必要があります。
+追加済み:
 
-- UT-002で未実装routeへのリンク・ボタン・CTAを禁止
-- 320pxで主要静的コンテンツが欠落しないことをE2E必須化
-- Issue #138/#141のcanonical統合タスクを未完了として保持
-- PR #145マージ後のIssue #135実状態とPR #148を正本へ反映
+- 標準テンプレート
+- 個人テンプレート
+- 今回のチェック
+- `UNCHECKED` / `CHECKED`
+- テンプレート更新と既存チェックを分離する不変条件
+- 0件を100%完了扱いしない進捗ルール
+- 基本/長距離/夜間/雨天/ツーリングの初期コンテンツ候補
+- SCR-38〜40候補
+- XSS/認可/本人限定境界
+- 走行中操作禁止・安全保証禁止
+
+Web基盤自体はmainへ反映済みです。Issue #150のPhase 5実装は、PR #151の人間レビュー → canonical統合 → 基本設計 → 詳細設計・テスト仕様の完了後に開始します。
 
 ## Recently Completed
+
+### Issue #146 / PR #149
+
+- Web基盤遅延レビューの追加同期
+- PR #149: Merged 2026-08-18
+- Issue #146: Closed / completed
 
 ### Issue #137 / PR #144
 
@@ -71,6 +86,12 @@ PR #147がCodex追加指摘の修正前にマージされたため、以下をma
 - 愛車の整備・給油・走行距離履歴要件
 - Merged / Closed
 - MVP/画面deltaのcanonical統合は未完了
+
+### Issue #132 / PR #133
+
+- テーマ別ドライブコレクション・訪問進捗要件
+- Merged / Closed
+- `UNAVAILABLE`分母ルール、バッジ採用等の確認後にcanonical統合が必要
 
 ## Current Architecture Decision
 
@@ -96,22 +117,28 @@ ADR-0002: `Accepted`
 
 ## Issue #135 Completion Gate
 
-1. App Router/UI/fallback実装
-2. Unit test 4系統
-3. E2E root/404/Header/mobile
-4. `package-lock.json` commit
-5. Ubuntu/Windows quality CI成功
-6. Ubuntu/Chromium E2E成功
-7. Codexレビュー指摘解消
-8. 人間レビュー
-9. mainマージ後のpush CI確認
+1. App Router/UI/fallback実装: 完了
+2. Unit test 4系統: 完了
+3. E2E root/404/Header/mobile: 完了
+4. `package-lock.json` commit: 完了
+5. Ubuntu/Windows quality PR CI成功: 完了
+6. Ubuntu/Chromium E2E PR CI成功: 完了
+7. PRマージ: 完了
+8. mainマージ後のpush CI確認: 未確認
+
+## Issue #150 Phase Gate
+
+1. PR #151で要件本文・MVP delta・画面候補・コンテンツガイドを人間レビュー
+2. 未確定事項を確定または明示的に後続へ送る
+3. canonical MVP/画面へ統合
+4. 基本設計
+5. 詳細設計・テスト仕様
+6. Phase 5実装
 
 ## Upcoming
 
-1. PR #148のCodexレビューを確認し、指摘を修正する。
-2. Issue #146の追加docs同期PRをマージし、Issue #146を完了する。
-3. PR #148を人間レビューし、承認後にマージする。
-4. mainのpush CI成功を確認後、Issue #135を完了する。
-5. Issue #138のMVP/画面deltaをcanonicalへ統合する。
-6. Issue #141のMVP/画面deltaと人間判断事項をcanonicalへ統合する。
-7. Web基盤完了後、要件定義済み機能の最初のvertical sliceを設計→実装する。
+1. main push CI成功を確認後、Issue #135を完了する。
+2. PR #151をレビューする。
+3. Issue #150をcanonical統合 → 基本設計 → 詳細設計へ進める。
+4. ゲート完了後、チェックリスト機能の最小vertical sliceを実装する。
+5. Issue #132/#138/#141の未統合要件も順次canonicalへ統合する。
